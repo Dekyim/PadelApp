@@ -1,5 +1,4 @@
 package dao;
-import models.Administrador;
 import models.MetodoPago;
 import models.Reserva;
 
@@ -9,9 +8,6 @@ import java.sql.Time;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 import java.util.Vector;
 
@@ -295,7 +291,7 @@ public class ReservaDAO {
     }
 
     //Total ingresos
-    public void totalIngresos(java.sql.Date fechaInicio, java.sql.Date fechaFin) {
+    public double totalIngresos(java.sql.Date fechaInicio, java.sql.Date fechaFin) {
         String consulta = "SELECT COALESCE(SUM(c.precio), 0) AS total FROM Reserva r JOIN Cancha c ON r.idCancha = c.id " +
                 "WHERE r.fecha BETWEEN ? AND ?";
 
@@ -312,6 +308,7 @@ public class ReservaDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener el total de ingresos", e);
         }
+        return 0;
     }
 
 

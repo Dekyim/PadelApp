@@ -17,7 +17,11 @@
 
 <main class="hero text-center py-5 bg-light">
     <div class="hero-content container">
-        <h2 class="tituloPrincipal mb-3">¡Bienvenido jugador!</h2>
+        <h2 class="tituloPrincipal mb-3">
+            ¡Bienvenido <%= request.getAttribute("nombreUsuario") != null
+                ? request.getAttribute("nombreUsuario")
+                : "jugador" %>!
+        </h2>
         <p class="lead mb-4">
             Consulta tus reservas, estadísticas personales y canchas disponibles.
         </p>

@@ -1,49 +1,74 @@
 package org.example.apiweb;
 
-import java.io.IOException;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
+import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.YearMonth;
 
-@WebServlet(name = "inicioAdministradorServlet", value = "/inicioAdministrador")
+import dao.*;
+import models.*;
+
+@WebServlet("/inicioAdmin")
 public class inicioAdminServlet extends HttpServlet {
 
+    private ReservaDAO reservaDAO;
+    private CanchaDAO canchaDAO;
+    private UsuarioDAO usuarioDAO;
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        response.setContentType("text/html");
-
-        try {
-
-            int totalUsuariosMes = 0;
-            double totalIngresosMes = 0.0;
-            int reservasActivas = 0;
-            int reservasPagadas = 0;
-            int reservasNoPagadas = 0;
-            int totalCanchas = 0;
-            int canchasTechadas = 0;
-            int canchasDisponibles = 0;
-
-
-            request.setAttribute("totalUsuariosMes", totalUsuariosMes);
-            request.setAttribute("totalIngresosMes", totalIngresosMes);
-            request.setAttribute("reservasActivas", reservasActivas);
-            request.setAttribute("reservasPagadas", reservasPagadas);
-            request.setAttribute("reservasNoPagadas", reservasNoPagadas);
-            request.setAttribute("totalCanchas", totalCanchas);
-            request.setAttribute("canchasTechadas", canchasTechadas);
-            request.setAttribute("canchasDisponibles", canchasDisponibles);
-
-
-            request.getRequestDispatcher("/inicioAdministrador.jsp").forward(request, response);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void init() {
+        reservaDAO = new ReservaDAO();
+        canchaDAO = new CanchaDAO();
+        usuarioDAO = new UsuarioDAO();
     }
 
     @Override
-    public void destroy() {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+
+            // 📊 Totales desde los DAOs
+            int totalCanchas = canchaDAO.totalCanchas();
+            int totalCanchasTechadas = canchaDAO.totalCanchasTechadas();
+            int totalCanchasDisponibles = canchaDAO.totalCanchasDisponibles();
+
+            int totalReservasActivas = reservaDAO.totalReservasActivas();
+            int totalReservasPagadas = reservaDAO.totalReservasPagadas();
+            int totalReservasNoPagadas = reservaDAO.totalReservasNoPagadas();
+
+            int totalUsuarios = usuarioDAO.totalUsuarios();
+
+            // 💰 Total de ingresos del mes actual
+            LocalDate hoy = LocalDate.now();
+            LocalDate inicioMes = hoy.withDayOfMonth(1);
+            LocalDate finMes = hoy.withDayOfMonth(hoy.lengthOfMonth());
+            double totalIngresos = reservaDAO.totalIngresos(
+                    Date.valueOf(inicioMes),
+                    Date.valueOf(finMes)
+            );
+
+            // === Seteo de atributos para el JSP ===
+            request.setAttribute("reservasPagadas", totalReservasPagadas);
+            request.setAttribute("reservasNoPagadas", totalReservasNoPagadas);
+            request.setAttribute("reservasActivas", totalReservasActivas);
+
+            request.setAttribute("totalCanchas", totalCanchas);
+            request.setAttribute("canchasTechadas", totalCanchasTechadas);
+            request.setAttribute("canchasDisponibles", totalCanchasDisponibles);
+
+            request.setAttribute("totalUsuariosMes", totalUsuarios);
+            request.setAttribute("totalIngresosMes", totalIngresos);
+
+            // Redirige al panel de administración
+            RequestDispatcher dispatcher = request.getRequestDispatcher("inicioAdministrador.jsp");
+            dispatcher.forward(request, response);
+
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
     }
 }

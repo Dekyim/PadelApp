@@ -5,6 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
+import models.Usuario;
 
 @WebServlet("/inicioUsers")
 public class inicioUsuarioServlet extends HttpServlet {
@@ -20,22 +21,27 @@ public class inicioUsuarioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("text/html; charset=UTF-8");
 
         try {
-            // Obtener cédula de la sesión si existe
             HttpSession sesion = request.getSession(false);
-            String cedulaUsuario = (sesion != null) ? (String) sesion.getAttribute("cedula") : null;
 
-            // Si no hay cédula, usar un valor por defecto para pruebas
-            if (cedulaUsuario == null) {
-                cedulaUsuario = "666"; // cédula de prueba
+            if (sesion == null || sesion.getAttribute("authUser") == null) {
+                // Si no hay sesión, redirigir al login
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
             }
 
-            int reservasActivas = reservaDAO.totalReservasPorUsuario(cedulaUsuario);
-            request.setAttribute("reservasActivas", reservasActivas);
+            Usuario usuario = (Usuario) sesion.getAttribute("authUser");
 
-            // Forward al JSP
+            String cedulaUsuario = usuario.getCedula();
+            String nombreUsuario = usuario.getNombre();
+
+            int reservasActivas = reservaDAO.totalReservasPorUsuario(cedulaUsuario);
+
+            request.setAttribute("reservasActivas", reservasActivas);
+            request.setAttribute("nombreUsuario", nombreUsuario);
+
             request.getRequestDispatcher("inicioUsuario.jsp").forward(request, response);
 
         } catch (Exception e) {

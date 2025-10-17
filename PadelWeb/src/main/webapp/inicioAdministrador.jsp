@@ -18,7 +18,7 @@
         google.charts.setOnLoadCallback(drawCharts);
 
         function drawCharts() {
-            // Gráfico de reservas pagadas vs no pagadas
+
             var dataReservas = google.visualization.arrayToDataTable([
                 ['Tipo', 'Cantidad'],
                 ['Pagadas', <%= request.getAttribute("reservasPagadas") %>],
@@ -33,7 +33,6 @@
             var chartReservas = new google.visualization.PieChart(document.getElementById('chartReservas'));
             chartReservas.draw(dataReservas, optionsReservas);
 
-            // Gráfico de canchas: techadas vs disponibles vs totales
             var dataCanchas = google.visualization.arrayToDataTable([
                 ['Tipo', 'Cantidad'],
                 ['Totales', <%= request.getAttribute("totalCanchas") %>],
@@ -76,7 +75,7 @@
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-chart-histogram fs-1 mb-3"></i>
         <h3>Reservas</h3>
-        <p>Ver las reservas, estado de reserva, horario seleccionado, etc.</p>
+        <p>Ver las reservas, estado de reserva, horario seleccionado.</p>
         <a href="<%= request.getContextPath() %>/reserva" class="btn btn-outline-primary mt-2">Ir al panel</a>
     </div>
 

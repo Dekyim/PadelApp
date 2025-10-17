@@ -67,7 +67,7 @@ body {
 
 .hero-content p {
     font-size: 18px;
-    color: #fff;
+    color: #333;
     margin-bottom: 30px;
 }
 
@@ -183,7 +183,7 @@ body {
 /* Tarjetas de comentarios */
 .card p {
     font-size: 15px;
-    color: #fff;
+    color: #333;
     margin-bottom: 10px;
 }
 
@@ -192,13 +192,24 @@ body {
     color: #555;
 }
 
-#chartReservas, #chartCanchas {
-    background: transparent; 
-    box-shadow: none;
+
+#chartReservas,
+#chartCanchas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;           
+    width: 80% !important;
+    max-width: 900px;
 }
+
 
 section h4 {
     color: #00b95e;
     font-weight: 600;
 }
 
+.link-card p {
+    color: #00b95e; /* verde principal del tema */
+    font-weight: 700;
+}
