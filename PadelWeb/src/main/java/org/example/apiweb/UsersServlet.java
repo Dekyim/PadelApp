@@ -25,10 +25,9 @@ public class UsersServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
-            // Obtener todos los jugadores
-            Vector<Jugador> jugadores = new JugadorDAO().listarJugadores();
+            JugadorDAO dao = new JugadorDAO();
+            Vector<Jugador> jugadores = dao.listarJugadores();
 
-            // Obtener el número de página actual desde el parámetro ?page=
             int paginaActual = 1;
             String pageParam = request.getParameter("page");
             if (pageParam != null && !pageParam.isEmpty()) {
@@ -37,35 +36,47 @@ public class UsersServlet extends HttpServlet {
                 } catch (NumberFormatException ignored) {}
             }
 
-            // Calcular total de páginas
             int totalJugadores = jugadores.size();
             int totalPaginas = (int) Math.ceil((double) totalJugadores / USUARIOS_POR_PAGINA);
 
-            // Asegurar que la página actual esté dentro del rango
             if (paginaActual < 1) paginaActual = 1;
             if (paginaActual > totalPaginas) paginaActual = totalPaginas;
 
-            // Calcular índices de inicio y fin
             int inicio = (paginaActual - 1) * USUARIOS_POR_PAGINA;
             int fin = Math.min(inicio + USUARIOS_POR_PAGINA, totalJugadores);
 
-            // Sublista de jugadores de la página actual
             List<Jugador> paginaJugadores = new ArrayList<>(jugadores.subList(inicio, fin));
 
-            // Convertir a nombres
-            List<String> nombres = new ArrayList<>();
-            paginaJugadores.forEach(j -> nombres.add(j.getNombre() + " " + j.getApellido()));
-
-            // Pasar datos al JSP
-            request.setAttribute("nombres", nombres);
+            request.setAttribute("jugadores", paginaJugadores);
             request.setAttribute("paginaActual", paginaActual);
             request.setAttribute("totalPaginas", totalPaginas);
 
-            // Redirigir al JSP
             request.getRequestDispatcher("usuarios.jsp").forward(request, response);
 
         } catch (Exception e) {
             throw new ServletException("Error al listar usuarios", e);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+        String accion = request.getParameter("accion");
+        String cedula = request.getParameter("cedula");
+
+        if ("eliminar".equals(accion) && cedula != null && !cedula.isEmpty()) {
+            try {
+                JugadorDAO dao = new JugadorDAO();
+                dao.eliminarJugador(cedula);
+                System.out.println("Jugador con cÃ©dula " + cedula + " eliminado correctamente.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new ServletException("Error al eliminar jugador", e);
+            }
+        }
+
+        // Redirige nuevamente a la lista
+        response.sendRedirect("users");
     }
 }
