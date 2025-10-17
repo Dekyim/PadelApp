@@ -23,31 +23,7 @@
 </ul> --%>
 
 <%--<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> --%>
-<%@ page import="java.util.List" %>
-
-<%
-    List<String> nombres = (List<String>) request.getAttribute("listaJugadores");
-    // Configuración de paginación
-    int usuariosPorPagina = 12;
-    int totalUsuarios = nombres.size();
-    int totalPaginas = (int) Math.ceil((double) totalUsuarios / usuariosPorPagina);
-
-    int paginaActual = 1;
-    if (request.getParameter("page") != null) {
-        try {
-            paginaActual = Integer.parseInt(request.getParameter("page"));
-            if (paginaActual < 1) paginaActual = 1;
-            if (paginaActual > totalPaginas) paginaActual = totalPaginas;
-        } catch (NumberFormatException e) {
-            paginaActual = 1;
-        }
-    }
-
-    int inicio = (paginaActual - 1) * usuariosPorPagina;
-    int fin = Math.min(inicio + usuariosPorPagina, totalUsuarios);
-    List<String> pagina = nombres.subList(inicio, fin);
-%>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -81,8 +57,14 @@
 
     <div class="listaUser">
         <ul>
-            <% if (nombres != null && !nombres.isEmpty()) {
-                for (String nombre : nombres) { %>
+            <%
+                List<String> nombres = (List<String>) request.getAttribute("nombres");
+                Integer paginaActual = (Integer) request.getAttribute("paginaActual");
+                Integer totalPaginas = (Integer) request.getAttribute("totalPaginas");
+
+                if (nombres != null && !nombres.isEmpty()) {
+                    for (String nombre : nombres) {
+            %>
             <li>
                 <span><%= nombre %></span>
                 <div>
@@ -91,38 +73,43 @@
                     <button title="Ver"><i class="fi fi-rr-document"></i></button>
                 </div>
             </li>
-            <%  }
-            } else { %>
+            <%
+                }
+            } else {
+            %>
             <li>No hay usuarios disponibles.</li>
             <% } %>
-
         </ul>
     </div>
 </div>
+
 <!-- Paginación -->
-<nav aria-label="Paginación de usuarios">
-    <ul class="pagination">
-            <% if (paginaActual > 1) { %>
+<nav aria-label="Paginación de usuarios" class="mt-4">
+    <ul class="pagination justify-content-center">
+        <% if (paginaActual > 1) { %>
         <li class="page-item">
             <a class="page-link" href="?page=<%= paginaActual - 1 %>">Anterior</a>
         </li>
-            <% } else { %>
+        <% } else { %>
         <li class="page-item disabled"><span class="page-link">Anterior</span></li>
-            <% } %>
+        <% } %>
 
-            <% for (int i = 1; i <= totalPaginas; i++) { %>
+        <% for (int i = 1; i <= totalPaginas; i++) { %>
         <li class="page-item <%= (i == paginaActual) ? "active" : "" %>">
             <a class="page-link" href="?page=<%= i %>"><%= i %></a>
         </li>
-            <% } %>
+        <% } %>
 
-            <% if (paginaActual < totalPaginas) { %>
+        <% if (paginaActual < totalPaginas) { %>
         <li class="page-item">
             <a class="page-link" href="?page=<%= paginaActual + 1 %>">Siguiente</a>
         </li>
-            <% } else { %>
+        <% } else { %>
         <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
-            <% } %>
+        <% } %>
+    </ul>
+</nav>
+
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
