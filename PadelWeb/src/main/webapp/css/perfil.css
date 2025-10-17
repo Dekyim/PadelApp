@@ -1,0 +1,91 @@
+/* Fondo general */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Tarjeta de perfil */
+.perfil-card {
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 15px;
+    background-color: #ffffff;
+    padding: 30px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagen de perfil */
+.perfil-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #03891e;
+}
+
+/* Título del perfil */
+.card-title {
+    font-weight: bold;
+    color: #333;
+    font-size: 24px;
+}
+
+/* Subtítulo (correo) */
+.card-body .text-muted {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Lista de datos */
+.list-group-item {
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    padding-left: 0;
+    color: #444;
+}
+
+.list-group-item i {
+    margin-right: 8px;
+    color: #075e01;
+}
+
+/* Botón de regreso */
+.btn-primary {
+    background-color: #328f05;
+    border: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #36a300;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .perfil-card {
+        padding: 20px 15px;
+    }
+
+    .perfil-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .card-title {
+        font-size: 20px;
+    }
+
+    .list-group-item {
+        font-size: 15px;
+    }
+
+    .btn-primary {
+        font-size: 15px;
+        padding: 8px 16px;
+    }
+}
