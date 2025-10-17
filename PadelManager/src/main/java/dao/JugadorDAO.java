@@ -235,5 +235,35 @@ public class JugadorDAO {
             throw new RuntimeException("Error al verificar estado del jugador", e);
         }
     }
+    public Jugador obtenerJugadorPorCedula(String cedula) {
+        String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, " +
+                "j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado " +
+                "FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula WHERE u.cedula = ?";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedula);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String nombre = rs.getString("nombre");
+                    String apellido = rs.getString("apellido");
+                    String correo = rs.getString("correo");
+                    String telefono = rs.getString("telefono");
+                    String contraseniaCuenta = rs.getString("contraseniaCuenta");
+                    Date fechaNacimiento = rs.getDate("fechaNacimiento");
+                    String categoria = rs.getString("categoria");
+                    String genero = rs.getString("genero");
+                    int incumplePago = rs.getInt("incumplePago");
+                    boolean estaBaneado = rs.getBoolean("estaBaneado");
+
+                    return new Jugador(cedula, nombre, apellido, correo, telefono, contraseniaCuenta,
+                            fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
+                } else {
+                    return null; // No se encontró el jugador
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener jugador por cédula", e);
+        }
+    }
 }
 
