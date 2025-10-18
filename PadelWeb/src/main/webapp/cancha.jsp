@@ -65,11 +65,7 @@
         <% } %>
     </div>
 
-    <div class="busquedaAgregar">
-        <i class="fi fi-rr-search"></i>
-        <input type="text" id="buscar" placeholder="Buscar canchas">
-        <button class="btn-agregar">Agregar canchas</button>
-    </div>
+    <button class="btn-agregar">Agregar canchas</button>
 
     <div class="listaUser">
         <ul>
@@ -78,7 +74,6 @@
             <li>
                 <span>Cancha Nro <%= numeroCanchas %></span>
                 <div>
-                    <!-- Formulario para eliminar -->
                     <form action="cancha" method="post" style="display:inline;">
                         <input type="hidden" name="accion" value="eliminar">
                         <input type="hidden" name="numero" value="<%= numeroCanchas %>">
@@ -88,7 +83,6 @@
                         </button>
                     </form>
 
-                    <!-- Botones de acción adicionales -->
                     <form action="editarCancha" method="get" style="display:inline;">
                         <input type="hidden" name="numero" value="<%= numeroCanchas %>">
                         <button type="submit" title="Editar">

@@ -27,10 +27,9 @@ public class VerPerfilServletAdmin extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/verPerfilAdministrador.jsp");
             dispatcher.forward(request, response);
         } else {
-            response.sendRedirect("login.jsp"); // Redirige si no hay sesión
+            response.sendRedirect("login.jsp");
         }
     }
-    // Guardar cambios del perfil
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -43,32 +42,27 @@ public class VerPerfilServletAdmin extends HttpServlet {
             return;
         }
 
-        // Obtener datos del formulario
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
         String correo = request.getParameter("correo");
         String telefono = request.getParameter("telefono");
         String fechaIngreso = request.getParameter("fechaIngreso");
 
-        // Actualizar objeto en memoria
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setCorreo(correo);
         usuario.setTelefono(telefono);
         usuario.setFechaIngreso(Date.valueOf(fechaIngreso));
 
-        // Persistir cambios si es administrador
         if (usuario instanceof Administrador) {
             Administrador admin = (Administrador) usuario;
-            admin.setContraseniaCuenta(admin.getContraseniaCuenta()); // mantener contraseña
+            admin.setContraseniaCuenta(admin.getContraseniaCuenta());
             AdministradorDAO dao = new AdministradorDAO();
             dao.modificarAdministrador(admin);
         }
 
-        // Actualizar sesión
         session.setAttribute("authUser", usuario);
-
-        // Mostrar perfil actualizado
+        
         request.setAttribute("usuario", usuario);
         request.setAttribute("mensaje", "Datos actualizados correctamente.");
 

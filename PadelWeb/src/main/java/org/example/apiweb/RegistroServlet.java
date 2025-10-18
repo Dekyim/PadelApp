@@ -49,10 +49,8 @@ public class RegistroServlet extends HttpServlet {
         }
 
         try {
-            // Asegurar codificación UTF-8
             request.setCharacterEncoding("UTF-8");
 
-            // Obtener datos del formulario
             String cedula = request.getParameter("cedula");
             String nombre = request.getParameter("nombre");
             String apellido = request.getParameter("apellido");
@@ -63,39 +61,31 @@ public class RegistroServlet extends HttpServlet {
             String categoria = request.getParameter("categoria");
             String genero = request.getParameter("genero");
 
-            // Verificar si ya existe el usuario
             if (usuarioDAO.existeUsuario(cedula)) {
                 request.setAttribute("errorRegistro", "Ya existe un usuario con esa cédula.");
                 request.getRequestDispatcher("/registro.jsp").forward(request, response);
                 return;
             }
 
-            // Convertir fecha de nacimiento
             Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr);
 
-            // Hashear la contraseña usando BCrypt
             String contraseniaHasheada = BCrypt.hashpw(contrasenia, BCrypt.gensalt());
 
-            // Valores por defecto
             int incumplePago = 0;
             boolean estaBaneado = false;
 
-            // Crear objeto Jugador con contraseña hasheada
             Jugador nuevoJugador = new Jugador(
                     cedula, nombre, apellido, correo, telefono,
                     contraseniaHasheada, fechaNacimiento, categoria, genero,
                     incumplePago, estaBaneado
             );
 
-            // Guardar jugador en la base de datos
             jugadorDAO.altaJugador(nuevoJugador);
 
-            // Redirigir al login con mensaje de éxito
             request.setAttribute("mensajeExito", "Registro exitoso. Ya puedes iniciar sesión.");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
 
         } catch (Exception e) {
-            // Manejar errores y mostrarlos en la página de registro
             request.setAttribute("errorRegistro", "Error al registrar jugador: " + e.getMessage());
             request.getRequestDispatcher("/registro.jsp").forward(request, response);
         }

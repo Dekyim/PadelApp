@@ -11,7 +11,6 @@
     <link rel="stylesheet"
           href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
 
-    <!-- Google Charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart', 'bar']});
@@ -94,7 +93,6 @@
     </div>
 </section>
 
-<!-- Pequeñas tarjetas de métricas -->
 <section class="container my-5">
     <h3 class="text-center mb-4">Resumen del mes</h3>
     <div class="d-flex flex-wrap justify-content-center gap-4">

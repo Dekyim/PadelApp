@@ -265,5 +265,45 @@ public class JugadorDAO {
             throw new RuntimeException("Error al obtener jugador por cédula", e);
         }
     }
+    public Vector<Jugador> buscarJugadores(String termino) {
+        Vector<Jugador> jugadores = new Vector<>();
+        String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, " +
+                "j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado " +
+                "FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula " +
+                "WHERE u.nombre LIKE ? OR u.apellido LIKE ? OR u.cedula LIKE ?";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            String filtro = "%" + termino + "%";
+            ps.setString(1, filtro);
+            ps.setString(2, filtro);
+            ps.setString(3, filtro);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String cedula = rs.getString("cedula");
+                    String nombre = rs.getString("nombre");
+                    String apellido = rs.getString("apellido");
+                    String correo = rs.getString("correo");
+                    String telefono = rs.getString("telefono");
+                    String contraseniaCuenta = rs.getString("contraseniaCuenta");
+                    Date fechaNacimiento = rs.getDate("fechaNacimiento");
+                    String categoria = rs.getString("categoria");
+                    String genero = rs.getString("genero");
+                    int incumplePago = rs.getInt("incumplePago");
+                    boolean estaBaneado = rs.getBoolean("estaBaneado");
+
+                    Jugador jugador = new Jugador(cedula, nombre, apellido, correo, telefono,
+                            contraseniaCuenta, fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
+                    jugadores.add(jugador);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al buscar jugadores", e);
+        }
+
+        return jugadores;
+    }
+
 }
 

@@ -27,7 +27,6 @@ public class inicioUsuarioServlet extends HttpServlet {
             HttpSession sesion = request.getSession(false);
 
             if (sesion == null || sesion.getAttribute("authUser") == null) {
-                // Si no hay sesión, redirigir al login
                 response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }

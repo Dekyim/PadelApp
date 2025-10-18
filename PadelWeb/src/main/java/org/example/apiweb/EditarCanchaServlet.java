@@ -25,7 +25,6 @@ public class EditarCanchaServlet extends HttpServlet {
                 int numero = Integer.parseInt(numeroStr);
                 CanchaDAO dao = new CanchaDAO();
 
-                // Buscar la cancha por número
                 Vector<Cancha> todas = dao.listarCancha();
                 Cancha cancha = todas.stream()
                         .filter(c -> c.getNumero() == numero)
@@ -67,11 +66,9 @@ public class EditarCanchaServlet extends HttpServlet {
                 }
             }
 
-            // Crear objeto Cancha actualizado
             CanchaHorario canchaHorario = new CanchaHorario(0, horarios);
             Cancha canchaActualizada = new Cancha(0, esTechada, precio, estaDisponible, numero, canchaHorario);
 
-            // Actualizar en la BD
             CanchaDAO dao = new CanchaDAO();
             dao.actualizarCancha(canchaActualizada);
 

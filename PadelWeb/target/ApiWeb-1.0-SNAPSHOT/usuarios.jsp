@@ -22,10 +22,21 @@
     </div>
 
     <div class="busquedaAgregar">
-        <i class="fi fi-rr-search"></i>
-        <input type="text" id="buscar" placeholder="Buscar usuario">
-        <button class="btn-agregar">Agregar usuario</button>
+        <form action="users" method="get" class="d-flex align-items-center">
+            <i class="fi fi-rr-search"></i>
+            <input type="text" name="buscar" id="buscar" placeholder="Buscar usuario"
+                   class="form-control me-2" value="<%= request.getParameter("buscar") != null ? request.getParameter("buscar") : "" %>">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
     </div>
+
+
+    <form action="${pageContext.request.contextPath}/registro" method="post">
+        <input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
+        <button type="submit" class="btn-agregar">Agregar usuario</button>
+    </form>
+
+
 
     <div class="listaUser">
         <ul>
@@ -68,7 +79,6 @@
     </div>
 </div>
 
-<!-- Paginación -->
 <nav aria-label="Paginación de usuarios" class="mt-4">
     <ul class="pagination justify-content-center">
         <% if (paginaActual > 1) { %>

@@ -42,7 +42,6 @@ public class inicioAdminServlet extends HttpServlet {
 
             int totalUsuarios = usuarioDAO.totalUsuarios();
 
-            // 💰 Total de ingresos del mes actual
             LocalDate hoy = LocalDate.now();
             LocalDate inicioMes = hoy.withDayOfMonth(1);
             LocalDate finMes = hoy.withDayOfMonth(hoy.lengthOfMonth());
@@ -51,7 +50,6 @@ public class inicioAdminServlet extends HttpServlet {
                     Date.valueOf(finMes)
             );
 
-            // === Seteo de atributos para el JSP ===
             request.setAttribute("reservasPagadas", totalReservasPagadas);
             request.setAttribute("reservasNoPagadas", totalReservasNoPagadas);
             request.setAttribute("reservasActivas", totalReservasActivas);
@@ -63,7 +61,6 @@ public class inicioAdminServlet extends HttpServlet {
             request.setAttribute("totalUsuariosMes", totalUsuarios);
             request.setAttribute("totalIngresosMes", totalIngresos);
 
-            // Redirige al panel de administración
             RequestDispatcher dispatcher = request.getRequestDispatcher("inicioAdministrador.jsp");
             dispatcher.forward(request, response);
 

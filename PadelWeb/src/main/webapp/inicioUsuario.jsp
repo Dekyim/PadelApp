@@ -28,7 +28,6 @@
     </div>
 </main>
 
-<!-- 🔹 Bloque de estadísticas personales -->
 <section class="container my-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -48,7 +47,6 @@
     </div>
 </section>
 
-<!-- 🔹 Sección de accesos -->
 <section class="links container my-5 d-flex justify-content-center gap-4 flex-wrap">
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-user fs-1 mb-3 text-primary"></i>

@@ -33,12 +33,6 @@
         <h1 class="tituloGestion">Gestión de canchas</h1>
     </div>
 
-    <div class="busquedaAgregar">
-        <i class="fi fi-rr-search"></i>
-        <input type="text" id="buscar" placeholder="Buscar canchas">
-        <button class="btn-agregar">Agregar canchas</button>
-    </div>
-
     <div class="listaUser">
         <ul>
             <% if (numeroCancha != null && !numeroCancha.isEmpty()) {
@@ -54,7 +48,6 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

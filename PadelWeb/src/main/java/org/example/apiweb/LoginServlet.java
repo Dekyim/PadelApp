@@ -65,9 +65,9 @@ public class LoginServlet extends HttpServlet {
 
 
         if (usuario.esAdministrador()) {
-            resp.sendRedirect(req.getContextPath() + "/inicioAdmin"); // servlet admin
+            resp.sendRedirect(req.getContextPath() + "/inicioAdmin");
         } else {
-            resp.sendRedirect(req.getContextPath() + "/inicioUsers"); // servlet usuario
+            resp.sendRedirect(req.getContextPath() + "/inicioUsers");
         }
 
     }

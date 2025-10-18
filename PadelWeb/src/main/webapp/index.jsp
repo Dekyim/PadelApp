@@ -27,7 +27,6 @@
     </div>
 </main>
 
-<!-- Sección de estadísticas generales -->
 <section class="links container my-5 d-flex justify-content-center gap-4 flex-wrap">
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-chart-histogram fs-1 mb-3"></i>
@@ -48,7 +47,6 @@
     </div>
 </section>
 
-<!-- Sección de comentarios -->
 <section class="container my-5">
     <h3 class="text-center mb-4">Opiniones de la comunidad</h3>
     <div class="row justify-content-center">

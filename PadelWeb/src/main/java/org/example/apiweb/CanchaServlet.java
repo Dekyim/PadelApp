@@ -72,7 +72,6 @@ public class CanchaServlet extends HttpServlet {
             }
         }
 
-        // Si no hay acción válida, redirige al listado
         response.sendRedirect("cancha");
     }
 }
