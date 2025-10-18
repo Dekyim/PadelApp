@@ -25,19 +25,29 @@ public class VerPerfilServletJugador extends HttpServlet {
         }
 
         Usuario usuario = (Usuario) session.getAttribute("authUser");
+        JugadorDAO jugadorDAO = new JugadorDAO();
 
-        // Solo permitir acceso a usuarios no administradores
+        String cedulaParam = request.getParameter("cedula");
+        Jugador jugador;
+
         if (usuario.esAdministrador()) {
-            response.sendRedirect("inicioAdmin");
-            return;
+            // Admin puede pasar la cédula del jugador que quiere editar
+            if (cedulaParam == null || cedulaParam.isEmpty()) {
+                response.sendRedirect("inicioAdmin");
+                return;
+            }
+            jugador = jugadorDAO.obtenerJugadorPorCedula(cedulaParam);
+        } else {
+            // Jugador normal solo puede editar su propio perfil
+            jugador = jugadorDAO.obtenerJugadorPorCedula(usuario.getCedula());
         }
 
-        // Cargar datos actualizados del jugador desde la BD
-        JugadorDAO jugadorDAO = new JugadorDAO();
-        Jugador jugador = jugadorDAO.obtenerJugadorPorCedula(usuario.getCedula());
-
         if (jugador == null) {
-            response.sendRedirect("inicioUsers");
+            if (usuario.esAdministrador()) {
+                response.sendRedirect("inicioAdmin");
+            } else {
+                response.sendRedirect("inicioUsers");
+            }
             return;
         }
 
@@ -51,10 +61,27 @@ public class VerPerfilServletJugador extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
-
-        if (usuario == null || usuario.esAdministrador()) {
+        if (session == null || session.getAttribute("authUser") == null) {
             response.sendRedirect("login.jsp");
+            return;
+        }
+
+        Usuario usuario = (Usuario) session.getAttribute("authUser");
+        JugadorDAO jugadorDAO = new JugadorDAO();
+
+        // Obtener cédula: admins pueden editar cualquier jugador, usuarios normales solo su perfil
+        String cedula = request.getParameter("cedula");
+        if (!usuario.esAdministrador()) {
+            cedula = usuario.getCedula();
+        }
+
+        Jugador jugador = jugadorDAO.obtenerJugadorPorCedula(cedula);
+        if (jugador == null) {
+            if (usuario.esAdministrador()) {
+                response.sendRedirect("inicioAdmin");
+            } else {
+                response.sendRedirect("inicioUsers");
+            }
             return;
         }
 
@@ -66,15 +93,6 @@ public class VerPerfilServletJugador extends HttpServlet {
         String fechaNacimiento = request.getParameter("fechaNacimiento");
         String categoria = request.getParameter("categoria");
         String genero = request.getParameter("genero");
-
-        // Obtener jugador desde la BD para actualizarlo
-        JugadorDAO jugadorDAO = new JugadorDAO();
-        Jugador jugador = jugadorDAO.obtenerJugadorPorCedula(usuario.getCedula());
-
-        if (jugador == null) {
-            response.sendRedirect("inicioUsers");
-            return;
-        }
 
         // Actualizar datos en memoria
         jugador.setNombre(nombre);
@@ -91,12 +109,14 @@ public class VerPerfilServletJugador extends HttpServlet {
         // Guardar cambios en la BD
         jugadorDAO.actualizarJugador(jugador);
 
-        // Actualizar también los datos en sesión (por coherencia)
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
-        usuario.setCorreo(correo);
-        usuario.setTelefono(telefono);
-        session.setAttribute("authUser", usuario);
+        // Si es jugador normal, también actualizar los datos en sesión
+        if (!usuario.esAdministrador()) {
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setCorreo(correo);
+            usuario.setTelefono(telefono);
+            session.setAttribute("authUser", usuario);
+        }
 
         // Mostrar mensaje de éxito
         request.setAttribute("jugador", jugador);
@@ -106,3 +126,4 @@ public class VerPerfilServletJugador extends HttpServlet {
         dispatcher.forward(request, response);
     }
 }
+

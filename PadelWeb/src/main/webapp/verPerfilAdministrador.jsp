@@ -64,7 +64,7 @@
                 </div>
             </form>
 
-            <a href="inicioAdministrador.jsp" class="btn btn-primary mt-4"><i class="bi bi-arrow-left-circle"></i> Volver al inicio</a>
+            <a href="inicioAdmin" class="btn btn-primary mt-4"><i class="bi bi-arrow-left-circle"></i> Volver al inicio</a>
         </div>
     </div>
 </div>

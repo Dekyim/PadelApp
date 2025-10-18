@@ -47,7 +47,14 @@
                             <i class="fi fi-rr-trash"></i>
                         </button>
                     </form>
-                    <button title="Editar"><i class="fi fi-rr-user-pen"></i></button>
+                    <form action="users" method="post" style="display:inline;">
+                        <input type="hidden" name="accion" value="editar">
+                        <input type="hidden" name="cedula" value="<%= j.getCedula() %>">
+                        <button type="submit" title="Editar">
+                            <i class="fi fi-rr-user-pen"></i>
+                        </button>
+                    </form>
+
                     <button title="Ver"><i class="fi fi-rr-document"></i></button>
                 </div>
             </li>

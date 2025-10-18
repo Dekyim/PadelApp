@@ -54,7 +54,7 @@
         <i class="fi fi-rr-user fs-1 mb-3 text-primary"></i>
         <h3>Usuarios</h3>
         <p>Administra tu cuenta o actualiza tus datos personales.</p>
-        <a href="<%= request.getContextPath() %>/users" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/verPerfilJugador" class="btn btn-outline-primary mt-2">Ir al panel</a>
     </div>
 
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">

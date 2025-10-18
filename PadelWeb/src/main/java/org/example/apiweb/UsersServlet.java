@@ -69,14 +69,31 @@ public class UsersServlet extends HttpServlet {
             try {
                 JugadorDAO dao = new JugadorDAO();
                 dao.eliminarJugador(cedula);
-                System.out.println("Jugador con cÃ©dula " + cedula + " eliminado correctamente.");
+                System.out.println("Jugador con cédula " + cedula + " eliminado correctamente.");
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new ServletException("Error al eliminar jugador", e);
             }
+            response.sendRedirect("users");
+            return;
         }
 
-        // Redirige nuevamente a la lista
+        if ("editar".equals(accion) && cedula != null && !cedula.isEmpty()) {
+            JugadorDAO dao = new JugadorDAO();
+            Jugador jugador = dao.obtenerJugadorPorCedula(cedula);
+
+            if (jugador != null) {
+                request.setAttribute("jugador", jugador);
+                request.getRequestDispatcher("verPerfilJugador.jsp").forward(request, response);
+                return;
+            } else {
+                response.sendRedirect("users");
+                return;
+            }
+        }
+
+
+        // Si no se especifica acción válida, redirige a lista
         response.sendRedirect("users");
     }
 }

@@ -1,7 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="models.Jugador" %>
+<%@ page import="models.Jugador, models.Usuario" %>
 <%
     Jugador jugador = (Jugador) request.getAttribute("jugador");
+    Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
+
+    // Determinar URL de regreso según rol
+    String urlVolver = "inicioUsers"; // valor por defecto
+    if (usuario != null && usuario.esAdministrador()) {
+        urlVolver = "inicioAdmin";
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -26,18 +33,56 @@
             <h3 class="card-title mb-3"><i class="bi bi-person-circle"></i> Jugador</h3>
 
             <form action="verPerfilJugador" method="post" class="text-start">
+                <!-- Cédula: no se modifica -->
                 <div class="mb-3">
                     <label class="form-label"><i class="bi bi-credit-card"></i> Cédula</label>
                     <input type="text" name="cedula" class="form-control" value="<%= jugador.getCedula() %>" readonly>
                 </div>
+
+                <!-- Nombre -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person"></i> Nombre</label>
+                    <input type="text" name="nombre" class="form-control editable" value="<%= jugador.getNombre() %>" readonly>
+                </div>
+
+                <!-- Apellido -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person"></i> Apellido</label>
+                    <input type="text" name="apellido" class="form-control editable" value="<%= jugador.getApellido() %>" readonly>
+                </div>
+
+                <!-- Correo -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-envelope"></i> Correo</label>
+                    <input type="email" name="correo" class="form-control editable" value="<%= jugador.getCorreo() %>" readonly>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-telephone"></i> Teléfono</label>
+                    <input type="text" name="telefono" class="form-control editable" value="<%= jugador.getTelefono() %>" readonly>
+                </div>
+
+                <!-- Fecha de nacimiento -->
                 <div class="mb-3">
                     <label class="form-label"><i class="bi bi-calendar"></i> Fecha de nacimiento</label>
                     <input type="date" name="fechaNacimiento" class="form-control editable" value="<%= jugador.getFechaNacimiento() %>" readonly>
                 </div>
+
+                <!-- Categoría -->
                 <div class="mb-3">
                     <label class="form-label"><i class="bi bi-award"></i> Categoría</label>
-                    <input type="text" name="categoria" class="form-control editable" value="<%= jugador.getCategoria() %>" readonly>
+                    <select name="categoria" class="form-select editable-select" disabled required>
+                        <option value="Primera categoría" <%= "Primera categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Primera categoría</option>
+                        <option value="Segunda categoría" <%= "Segunda categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Segunda categoría</option>
+                        <option value="Tercera categoría" <%= "Tercera categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Tercera categoría</option>
+                        <option value="Cuarta categoría" <%= "Cuarta categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Cuarta categoría</option>
+                        <option value="Quinta categoría" <%= "Quinta categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Quinta categoría</option>
+                        <option value="Desconoce" <%= "Desconoce".equals(jugador.getCategoria()) ? "selected" : "" %>>Desconoce</option>
+                    </select>
                 </div>
+
+                <!-- Género -->
                 <div class="mb-3">
                     <label class="form-label"><i class="bi bi-gender-ambiguous"></i> Género</label>
                     <select name="genero" class="form-select editable-select" disabled>
@@ -45,16 +90,6 @@
                         <option value="Femenino" <%= jugador.getGenero().equals("Femenino") ? "selected" : "" %>>Femenino</option>
                         <option value="Otro" <%= jugador.getGenero().equals("Otro") ? "selected" : "" %>>Otro</option>
                     </select>
-                </div>
-                <div class="form-check mb-2">
-                    <input class="form-check-input editable-select" type="checkbox" name="estaBaneado"
-                        <%= jugador.isEstaBaneado() ? "checked" : "" %> disabled>
-                    <label class="form-check-label"><i class="bi bi-slash-circle"></i> ¿Está baneado?</label>
-                </div>
-                <div class="form-check mb-4">
-                    <input class="form-check-input editable-select" type="checkbox" name="incumplePago"
-                        <%= jugador.isIncumplePago() == 1 ? "checked" : "" %> disabled>
-                    <label class="form-check-label"><i class="bi bi-cash"></i> ¿Incumple pago?</label>
                 </div>
 
                 <div class="d-flex justify-content-between">
@@ -67,8 +102,13 @@
                 </div>
             </form>
 
-            <a href="inicioJugador.jsp" class="btn btn-primary mt-4"><i class="bi bi-arrow-left-circle"></i> Volver al inicio</a>
+            <!-- Botón de volver según rol -->
+            <a href="<%= urlVolver %>" class="btn btn-primary mt-4">
+                <i class="bi bi-arrow-left-circle"></i> Volver al inicio
+            </a>
+
         </div>
     </div>
 </div>
 </body>
+</html>
