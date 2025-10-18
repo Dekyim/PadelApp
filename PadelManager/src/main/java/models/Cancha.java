@@ -9,6 +9,9 @@ public class Cancha {
     private int numero;          // único, ingresado por el usuario
     private CanchaHorario horario;
 
+    public Cancha() {
+    }
+
     // Constructor para insertar nueva cancha (id se genera en la BD)
     public Cancha(boolean esTechada, double precio, boolean estaDisponible, int numero, CanchaHorario horario) {
         this.esTechada = esTechada;

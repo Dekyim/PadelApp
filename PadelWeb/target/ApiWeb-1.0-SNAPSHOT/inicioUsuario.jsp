@@ -61,7 +61,7 @@
         <i class="fi fi-rr-basketball fs-1 mb-3 text-success"></i>
         <h3>Canchas</h3>
         <p>Consulta la disponibilidad de canchas y realiza reservas.</p>
-        <a href="<%= request.getContextPath() %>/cancha" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/canchaUsuario" class="btn btn-outline-primary mt-2">Ir al panel</a>
     </div>
 </section>
 

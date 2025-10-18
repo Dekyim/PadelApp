@@ -15,7 +15,7 @@
 <body>
 
 <div class="panel">
-    <%@include file="/WEB-INF/components/headerPanel.jsp"%>
+    <%@include file="/WEB-INF/components/headerAdmin.jsp"%>
 
     <div class="titulo">
         <h1 class="tituloGestion">Gestión de usuarios</h1>

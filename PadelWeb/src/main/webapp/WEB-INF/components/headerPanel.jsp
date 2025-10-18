@@ -15,8 +15,10 @@
     <div class="header">
         <h1>Panel de control</h1>
         <div class="enlaces">
-            <a href="<%= request.getContextPath() %>/users">Usuarios</a>
-            <a href="<%= request.getContextPath() %>/cancha">Cancha</a>
+            <a href="<%= request.getContextPath() %>/inicioUsers">Inicio</a>
+            <a href="<%= request.getContextPath() %>/canchaUsuario">Canchas</a>
+            <a href="<%= request.getContextPath() %>/verPerfilJugador">Ver Perfil</a>
+            <a href="<%= request.getContextPath() %>/logout">Cerrar sesion</a>
         </div>
     </div>
 </div>

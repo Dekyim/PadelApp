@@ -179,7 +179,7 @@ public class CanchaDAO {
     }
 
 
-    public void desactivarCancha(Cancha canchaDesactivar) {
+    public boolean desactivarCancha(Cancha canchaDesactivar) {
         String consultaId = "SELECT id FROM Cancha WHERE numero = ?";
         String consultaReservas = "SELECT COUNT(*) FROM Reserva WHERE idCancha = ? AND estaActiva = TRUE";
         String eliminarHorarios = "DELETE FROM CanchaHorario WHERE idCancha = ?";
@@ -214,7 +214,7 @@ public class CanchaDAO {
             if (rs.next() && rs.getInt(1) > 0) {
                 System.out.println("No se puede eliminar la cancha. Tiene reservas activas.");
                 conn.rollback();
-                return;
+                return false;
             }
             rs.close();
             psReservas.close();
@@ -251,6 +251,7 @@ public class CanchaDAO {
                 System.err.println("Error cerrando recursos: " + e.getMessage());
             }
         }
+        return false;
     }
 
 
