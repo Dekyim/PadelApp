@@ -1,0 +1,137 @@
+/* ===== Fondo general ===== */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #eceffc;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== Formulario principal ===== */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 40px;
+    color: white;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 10px;
+    box-shadow:
+            0 0.4px 0.4px rgba(128,128,128,0.109),
+            0 1px 1px rgba(128,128,128,0.155),
+            0 2.1px 2.1px rgba(128,128,128,0.195),
+            0 4.4px 4.4px rgba(128,128,128,0.241),
+            0 12px 12px rgba(128,128,128,0.35);
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.login-form h1 {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* ===== Campos de entrada ===== */
+.form-input-material {
+    width: 100%;
+    margin: 12px 0;
+}
+
+.form-input-material label {
+    display: block;
+    color: #dcdcdc;
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+.form-input-material input,
+.form-input-material select {
+    color: white;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    width: 100%;
+    padding: 8px 4px;
+    font-size: 16px;
+    outline: none;
+    appearance: none;
+}
+
+.form-input-material select[multiple] {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    height: 180px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.form-text {
+    font-size: 13px;
+    color: #bdbdbd;
+    text-align: left;
+}
+
+/* ===== Checkboxes ===== */
+.form-check {
+    align-self: flex-start;
+    margin: 8px 0;
+    color: #dcdcdc;
+}
+
+.form-check-input {
+    accent-color: #00B95E;
+}
+
+/* ===== Botones ===== */
+.btn {
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #00B95E;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #00a656;
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+.btn-outline-secondary:hover {
+    background: white;
+    color: black;
+}
+
+/* ===== Contenedor de botones ===== */
+.acciones {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+    .login-form {
+        padding: 30px 20px;
+    }
+
+    .btn {
+        font-size: 15px;
+        padding: 8px 16px;
+    }
+}
