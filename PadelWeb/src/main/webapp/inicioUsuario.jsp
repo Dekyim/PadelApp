@@ -25,7 +25,7 @@
 </main>
 
 <!-- 🔹 Bloque de estadísticas personales -->
-<section class="container my-4">
+<section class="containe    r my-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow-sm border-0 text-center p-4" style="border-radius: 1rem;">

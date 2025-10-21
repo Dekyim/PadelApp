@@ -10,6 +10,8 @@ import java.util.Date;
 
 import dao.*;
 import models.*;
+import utils.EnviarCorreo;
+import jakarta.mail.MessagingException;
 
 @WebServlet("/registro")
 public class RegistroServlet extends HttpServlet {
@@ -35,7 +37,6 @@ public class RegistroServlet extends HttpServlet {
         request.getRequestDispatcher("registro.jsp").forward(request, response);
     }
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,7 +50,6 @@ public class RegistroServlet extends HttpServlet {
         }
 
         try {
-            // Asegurar codificación UTF-8
             request.setCharacterEncoding("UTF-8");
 
             // Obtener datos del formulario
@@ -63,39 +63,42 @@ public class RegistroServlet extends HttpServlet {
             String categoria = request.getParameter("categoria");
             String genero = request.getParameter("genero");
 
-            // Verificar si ya existe el usuario
             if (usuarioDAO.existeUsuario(cedula)) {
                 request.setAttribute("errorRegistro", "Ya existe un usuario con esa cédula.");
                 request.getRequestDispatcher("/registro.jsp").forward(request, response);
                 return;
             }
 
-            // Convertir fecha de nacimiento
             Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr);
 
-            // Hashear la contraseña usando BCrypt
             String contraseniaHasheada = BCrypt.hashpw(contrasenia, BCrypt.gensalt());
 
-            // Valores por defecto
             int incumplePago = 0;
             boolean estaBaneado = false;
 
-            // Crear objeto Jugador con contraseña hasheada
             Jugador nuevoJugador = new Jugador(
                     cedula, nombre, apellido, correo, telefono,
                     contraseniaHasheada, fechaNacimiento, categoria, genero,
                     incumplePago, estaBaneado
             );
 
-            // Guardar jugador en la base de datos
             jugadorDAO.altaJugador(nuevoJugador);
 
-            // Redirigir al login con mensaje de éxito
+            try {
+                EnviarCorreo.enviar(
+                        correo,
+                        "¡Bienvenido a PadelManager!",
+                        "Hola " + nombre + ",\n\nTu registro fue exitoso. Ya puedes iniciar sesión.\n\nSaludos,\nEl equipo de PadelManager"
+                );
+                System.out.println("Correo de bienvenida enviado a " + correo);
+            } catch (MessagingException e) {
+                System.err.println("Error al enviar correo: " + e.getMessage());
+            }
+
             request.setAttribute("mensajeExito", "Registro exitoso. Ya puedes iniciar sesión.");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
 
         } catch (Exception e) {
-            // Manejar errores y mostrarlos en la página de registro
             request.setAttribute("errorRegistro", "Error al registrar jugador: " + e.getMessage());
             request.getRequestDispatcher("/registro.jsp").forward(request, response);
         }
