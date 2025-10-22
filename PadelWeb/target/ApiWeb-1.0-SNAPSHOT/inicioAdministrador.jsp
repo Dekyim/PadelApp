@@ -108,6 +108,10 @@
             <h4>Reservas actuales</h4>
             <p class="metric"><%= request.getAttribute("reservasActivas") %></p>
         </div>
+        <div class="mini-card">
+            <h4>Jugadores baneados</h4>
+            <p class="metric"><%= request.getAttribute("cantidadJugadoresBaneados") %></p>
+        </div>
     </div>
 </section>
 

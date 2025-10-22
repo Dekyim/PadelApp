@@ -89,3 +89,34 @@ a:hover {
     gap: 24px;
     width: 100%;
 }
+
+/* Mensajes de error y éxito */
+.mensaje-error {
+    color: #ff4d4d;
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff4d4d;
+    padding: 10px;
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.mensaje-exito {
+    color: #00c853;
+    background-color: rgba(0, 200, 83, 0.1);
+    border: 1px solid #00c853;
+    padding: 10px;
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.btn-regresar:hover {
+    background-color: #00B95E;
+    color: white;
+}
+

@@ -31,7 +31,7 @@
     </div>
 
 
-    <form action="${pageContext.request.contextPath}/registro" method="post">
+    <form action="${pageContext.request.contextPath}/agregarUsuario" method="post">
         <input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
         <button type="submit" class="btn-agregar">Agregar usuario</button>
     </form>
@@ -49,7 +49,10 @@
                     for (models.Jugador j : jugadores) {
             %>
             <li>
-                <span><%= j.getNombre() + " " + j.getApellido() %> - <%= j.getCedula() %></span>
+                <span style="<%= j.isEstaBaneado() ? "text-decoration: line-through; color: gray;" : "" %>">
+                     <%= j.getNombre() + " " + j.getApellido() %> - <%= j.getCedula() %>
+                </span>
+
                 <div>
                     <form action="users" method="post" style="display:inline;">
                         <input type="hidden" name="accion" value="eliminar">
@@ -64,6 +67,25 @@
                         <button type="submit" title="Editar">
                             <i class="fi fi-rr-user-pen"></i>
                         </button>
+                    </form>
+
+
+                    <!-- Banear o Desbanear -->
+                    <form action="users" method="post" style="display:inline;">
+                        <input type="hidden" name="cedula" value="<%= j.getCedula() %>">
+                        <% if (j.isEstaBaneado()) { %>
+                        <input type="hidden" name="accion" value="desbanear">
+                        <button type="submit" title="Desbanear" class="btn btn-link text-success p-0"
+                                onclick="return confirm('¿Desbanear a <%= j.getNombre() %>?')">
+                            <i class="fi fi-rr-unlock"></i>
+                        </button>
+                        <% } else { %>
+                        <input type="hidden" name="accion" value="banear">
+                        <button type="submit" title="Banear" class="btn btn-link text-danger p-0"
+                                onclick="return confirm('¿Banear a <%= j.getNombre() %>?')">
+                            <i class="fi fi-rr-lock"></i>
+                        </button>
+                        <% } %>
                     </form>
 
                     <button title="Ver"><i class="fi fi-rr-document"></i></button>
@@ -104,4 +126,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

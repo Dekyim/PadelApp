@@ -275,20 +275,15 @@ public class ReservaDAO {
     }
 
     //Total reservas
-    public void totalReservas() {
+    public int totalReservas() {
         String consulta = "SELECT COUNT(*) AS total FROM Reserva";
-
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
              ResultSet rs = ps.executeQuery()) {
-
-            if (rs.next()) {
-                System.out.println("Total de reservas: " + rs.getInt("total"));
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error al obtener el total de reservas", e);
-        }
+            if (rs.next()) return rs.getInt("total");
+        } catch (SQLException e) { throw new RuntimeException(e); }
+        return 0;
     }
+
 
     //Total ingresos
     public double totalIngresos(java.sql.Date fechaInicio, java.sql.Date fechaFin) {

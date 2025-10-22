@@ -61,6 +61,19 @@ public class agregarUsuarioServlet extends HttpServlet {
             String categoria = request.getParameter("categoria");
             String genero = request.getParameter("genero");
 
+            // ✅ Validación: evitar null o campos vacíos
+            if (cedula == null || nombre == null || apellido == null || correo == null ||
+                    contrasenia == null || telefono == null || fechaStr == null ||
+                    categoria == null || genero == null ||
+                    cedula.isEmpty() || nombre.isEmpty() || apellido.isEmpty() ||
+                    correo.isEmpty() || contrasenia.isEmpty() || telefono.isEmpty() ||
+                    fechaStr.isEmpty() || categoria.isEmpty() || genero.isEmpty()) {
+
+                request.setAttribute("errorRegistro", "");
+                request.getRequestDispatcher("/agregarUsuario.jsp").forward(request, response);
+                return;
+            }
+
             if (usuarioDAO.existeUsuario(cedula)) {
                 request.setAttribute("errorRegistro", "Ya existe un usuario con esa cédula.");
                 request.getRequestDispatcher("/agregarUsuario.jsp").forward(request, response);
@@ -83,7 +96,7 @@ public class agregarUsuarioServlet extends HttpServlet {
             jugadorDAO.altaJugador(nuevoJugador);
 
             request.setAttribute("mensajeExito", "Registro exitoso.");
-            request.getRequestDispatcher("/usuarios.jsp").forward(request, response);
+            request.getRequestDispatcher("/users").forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("errorRegistro", "Error al registrar jugador: " + e.getMessage());

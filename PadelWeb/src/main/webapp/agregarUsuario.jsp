@@ -8,7 +8,7 @@
     <title>Registro</title>
 </head>
 <body>
-<form class="login-form" action="${pageContext.request.contextPath}/registro" method="post">
+<form class="login-form" action="${pageContext.request.contextPath}/agregarUsuario" method="post">
     <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
 
     <h1>Registro</h1>
@@ -67,13 +67,19 @@
         </div>
     </div>
 
+    <% if (request.getAttribute("errorRegistro") != null) { %>
+    <div class="mensaje-error"><%= request.getAttribute("errorRegistro") %></div>
+    <% } else if (request.getAttribute("mensajeExito") != null) { %>
+    <div class="mensaje-exito"><%= request.getAttribute("mensajeExito") %></div>
+    <% } %>
+
     <button type="submit" class="btn btn-primary btn-ghost">Registrar</button>
 
-    <p style="color:red">${errorRegistro}</p>
 
-    <BUTTON>
-        <a href="${pageContext.request.contextPath}/users">Regresar</a>
-    </BUTTON>
+    <p>
+        <a href="${pageContext.request.contextPath}/users">REGRESAR</a>
+    </p>
+
 </form>
 </body>
 </html>
