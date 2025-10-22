@@ -17,12 +17,14 @@ public class inicioAdminServlet extends HttpServlet {
     private ReservaDAO reservaDAO;
     private CanchaDAO canchaDAO;
     private UsuarioDAO usuarioDAO;
+    private JugadorDAO jugadorDAO;
 
     @Override
     public void init() {
         reservaDAO = new ReservaDAO();
         canchaDAO = new CanchaDAO();
         usuarioDAO = new UsuarioDAO();
+        jugadorDAO = new JugadorDAO();
     }
 
     @Override
@@ -39,6 +41,7 @@ public class inicioAdminServlet extends HttpServlet {
             int totalReservasActivas = reservaDAO.totalReservasActivas();
             int totalReservasPagadas = reservaDAO.totalReservasPagadas();
             int totalReservasNoPagadas = reservaDAO.totalReservasNoPagadas();
+            int cantidadJugadoresBaneados = jugadorDAO.cantidadJugadoresBaneados();
 
             int totalUsuarios = usuarioDAO.totalUsuarios();
 
@@ -60,6 +63,8 @@ public class inicioAdminServlet extends HttpServlet {
 
             request.setAttribute("totalUsuariosMes", totalUsuarios);
             request.setAttribute("totalIngresosMes", totalIngresos);
+
+            request.setAttribute("cantidadJugadoresBaneados", cantidadJugadoresBaneados);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("inicioAdministrador.jsp");
             dispatcher.forward(request, response);

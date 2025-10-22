@@ -304,6 +304,35 @@ public class JugadorDAO {
 
         return jugadores;
     }
+    public void banearJugador(String cedula) {
+        String consulta = "UPDATE Jugador SET estaBaneado = TRUE WHERE cedula = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstancia()
+                .getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedula);
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Jugador con cédula " + cedula + " ha sido baneado correctamente.");
+            } else {
+                System.out.println("No se encontró un jugador con la cédula " + cedula);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al banear jugador", e);
+        }
+    }
+
+    public int cantidadJugadoresBaneados() {
+        String consulta = "SELECT COUNT(*) AS total FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula WHERE j.estaBaneado = TRUE";
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // para ver la causa real en consola
+            throw new RuntimeException("Error al contar jugadores baneados", e);
+        }
+        return 0; // si no hay resultados
+    }
 
 }
 
