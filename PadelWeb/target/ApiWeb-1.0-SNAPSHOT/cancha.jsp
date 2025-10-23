@@ -36,7 +36,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Canchas</title>
+    <title>Panel de Canchas</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
@@ -48,7 +48,7 @@
     <%@include file="/WEB-INF/components/headerAdmin.jsp"%>
 
     <div class="titulo">
-        <h1 class="tituloGestion">Gestión de canchas</h1>
+        <h1 class="tituloGestion">Panel de canchas</h1>
     </div>
 
     <div class="container mt-3">
@@ -58,14 +58,17 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } else if (mensajeError != null) { %>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      f  <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <%= mensajeError %>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } %>
     </div>
 
-    <button class="btn-agregar">Agregar canchas</button>
+    <button type="submit" class="btn-agregar" title="Agregar cancha">
+        <i class="fi fi-rr-plus"></i>
+    </button>
+
 
     <div class="listaUser">
         <ul>

@@ -13,7 +13,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Reservas</title>
+    <title>Panel de Reservas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="css/panel.css">
@@ -24,7 +24,7 @@
     <%@include file="/WEB-INF/components/headerAdmin.jsp"%>
 
     <div class="titulo">
-        <h1 class="tituloGestion">Gestión de reservas</h1>
+        <h1 class="tituloGestion">Panel de reservas</h1>
     </div>
 
     <div class="container mt-3">

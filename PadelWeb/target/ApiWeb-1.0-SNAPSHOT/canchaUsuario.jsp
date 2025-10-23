@@ -30,7 +30,7 @@
     <%@include file="/WEB-INF/components/headerUsuario.jsp"%>
 
     <div class="titulo">
-        <h1 class="tituloGestion">Gestión de canchas</h1>
+        <h1 class="tituloGestion">Panel de canchas</h1>
     </div>
 
     <div class="listaUser">
