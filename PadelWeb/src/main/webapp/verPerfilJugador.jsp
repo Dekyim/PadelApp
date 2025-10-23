@@ -80,6 +80,7 @@
         </div>
 
         <div class="form-input-material">
+        <div class="form-input-material">
             <label for="genero">Género</label>
             <select id="genero" name="genero" class="editable-select" disabled>
                 <option value="Masculino" <%= "Masculino".equals(jugador.getGenero()) ? "selected" : "" %>>Masculino</option>

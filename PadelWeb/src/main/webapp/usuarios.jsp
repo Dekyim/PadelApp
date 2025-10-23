@@ -18,7 +18,7 @@
     <%@include file="/WEB-INF/components/headerAdmin.jsp"%>
 
     <div class="titulo">
-        <h1 class="tituloGestion">Gestión de usuarios</h1>
+        <h1 class="tituloGestion">Panel de usuarios</h1>
     </div>
 
     <div class="busquedaAgregar">
@@ -33,7 +33,9 @@
 
     <form action="${pageContext.request.contextPath}/agregarUsuario" method="post">
         <input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
-        <button type="submit" class="btn-agregar">Agregar usuario</button>
+        <button type="submit" class="btn-agregar" title="Agregar cancha">
+            <i class="fi fi-rr-plus"></i>
+        </button>
     </form>
 
 

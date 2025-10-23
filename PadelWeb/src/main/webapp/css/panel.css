@@ -84,23 +84,41 @@ body {
     color: #bfc8d6;
 }
 
+/* BOTÓN FLOTANTE ABAJO A LA DERECHA */
 .btn-agregar {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
     background: #00b95e;
     border: none;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-weight: 500;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 30px; /* un poco más grande para el “+” */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0; /* elimina desajuste vertical */
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: 0.3s ease;
+    z-index: 200;
+}
+
+.btn-agregar i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-agregar:hover {
     background: #00a357;
-    transform: translateY(-1px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* LISTA DE USUARIOS EN TARJETAS */
+/* LISTA DE USUARIOS EN TARJETAS (mejorada) */
 .listaUser ul {
     list-style: none;
     padding: 0;
@@ -117,7 +135,7 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* centra texto e íconos */
     transition: 0.3s ease;
 }
 
@@ -126,24 +144,48 @@ body {
     background: rgba(0, 0, 0, 0.85);
 }
 
-.listaUser span {
-    font-size: 16px;
-    font-weight: 500;
+/* contenedor de botones */
+.listaUser li div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
+/* botones */
 .listaUser button {
     background: transparent;
     border: none;
     color: white;
-    margin-left: 10px;
-    font-size: 18px;
+    font-size: 22px;
     cursor: pointer;
-    transition: color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
 }
 
 .listaUser button:hover {
+    transform: scale(1.15);
+}
+
+/* colores según acción */
+.listaUser button[title="Eliminar"]:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.listaUser button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.15);
     color: #00b95e;
-    transform: scale(1.1);
+}
+
+.listaUser button[title="Ver"]:hover {
+    background: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
 }
 
 .titulo {
@@ -162,7 +204,6 @@ body {
     letter-spacing: 0.5px;
     font-family: "Poppins", sans-serif;
 }
-
 
 .pagination {
     margin-top: 40px;
@@ -208,4 +249,85 @@ body {
 .pagination .page-link:focus {
     outline: none;
     box-shadow: 0 0 6px rgba(0, 185, 94, 0.4);
+}
+
+.header h1 > a {
+    all: unset; /* borra los estilos heredados de Bootstrap */
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header h1 > a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
+}
+
+/* SIDEBAR MODERNO */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    z-index: 200;
+}
+
+/* LOGO */
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo a {
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sidebar .logo a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0,185,94,0.5);
+}
+
+/* MENÚ DE ENLACES */
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #89d4ff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+    background: rgba(0,185,94,0.2);
+    color: #00b95e;
+    transform: translateX(5px);
+    text-shadow: 0 0 6px rgba(0,185,94,0.4);
+}
+
+/* CONTENIDO PRINCIPAL AJUSTADO */
+main, .hero, .panel, .container, .links, .content {
+    margin-left: 220px; /* deja espacio al sidebar */
 }
