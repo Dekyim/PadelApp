@@ -1,12 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.Vector" %>
+<%@ page import="java.util.Map" %>
 <%@ page import="models.Reserva" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <%
     Vector<Reserva> listaReservas = (Vector<Reserva>) request.getAttribute("listaReservas");
+    Map<String, String> nombresUsuarios = (Map<String, String>) request.getAttribute("nombresUsuarios");
     String mensajeExito = (String) request.getAttribute("mensajeExito");
     String mensajeError = (String) request.getAttribute("mensajeError");
+
+    String ordenParam = request.getParameter("ordenFecha");
+    if (ordenParam == null || ordenParam.isEmpty()) {
+        ordenParam = "desc";
+    }
 %>
 
 <!DOCTYPE html>
@@ -41,7 +48,6 @@
         <% } %>
     </div>
 
-    <!-- Filtros -->
     <form method="get" action="reserva" class="mb-4">
         <div class="row">
             <div class="col">
@@ -50,7 +56,7 @@
             </div>
             <div class="col">
                 <select name="numeroCancha" class="form-select">
-                    <option value="">Todas las canchas</option>
+                    <option value="">Cancha</option>
                     <c:forEach var="cancha" items="${listaCanchas}">
                         <option value="${cancha.numero}" <c:if test="${param.numeroCancha == cancha.numero}">selected</c:if>>
                             Cancha Nº ${cancha.numero}
@@ -62,31 +68,57 @@
                 <input type="date" name="fecha" class="form-control" value="${param.fecha}">
             </div>
             <div class="col">
+                <select name="ordenFecha" class="form-select">
+                    <option value="">Orden por fecha</option>
+                    <option value="asc" <%= "asc".equals(ordenParam) ? "selected" : "" %>>Fecha ascendente</option>
+                    <option value="desc" <%= "desc".equals(ordenParam) ? "selected" : "" %>>Fecha descendente</option>
+                </select>
+            </div>
+            <div class="col">
+                <select name="metodoPago" class="form-select">
+                    <option value="">Método de pago</option>
+                    <option value="efectivo" <c:if test="${param.metodoPago == 'efectivo'}">selected</c:if>>Efectivo</option>
+                    <option value="transferencia" <c:if test="${param.metodoPago == 'transferencia'}">selected</c:if>>Transferencia</option>
+                    <option value="tarjeta" <c:if test="${param.metodoPago == 'tarjeta'}">selected</c:if>>Tarjeta</option>
+                </select>
+            </div>
+            <div class="col">
+                <select name="estadoPago" class="form-select">
+                    <option value="">Pagada?</option>
+                    <option value="pagadas" <c:if test="${param.estadoPago == 'pagadas'}">selected</c:if>>Solo pagadas</option>
+                    <option value="nopagadas" <c:if test="${param.estadoPago == 'nopagadas'}">selected</c:if>>Solo no pagadas</option>
+                </select>
+            </div>
+            <div class="col">
+                <select name="estadoActiva" class="form-select">
+                    <option value="">Activa?</option>
+                    <option value="activas" <c:if test="${param.estadoActiva == 'activas'}">selected</c:if>>Solo activas</option>
+                    <option value="noactivas" <c:if test="${param.estadoActiva == 'noactivas'}">selected</c:if>>Solo no activas</option>
+                </select>
+            </div>
+
+            <div class="col">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
-
-
                 <a href="reserva" class="btn btn-secondary">Limpiar filtros</a>
             </div>
         </div>
     </form>
 
-    <!-- Botón agregar -->
     <form action="${pageContext.request.contextPath}/crearreserva" method="get">
         <input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
         <button type="submit" class="btn-agregar">Agregar reserva</button>
     </form>
 
-    <!-- Lista de reservas -->
     <div class="listaUser">
         <ul>
             <% if (listaReservas != null && !listaReservas.isEmpty()) {
-                for (Reserva reserva : listaReservas) { %>
+                for (Reserva reserva : listaReservas) {
+                    String nombreCompleto = nombresUsuarios.get(reserva.getCedulaUsuario());
+            %>
             <li>
                 <span>
-                    Usuario: <%= reserva.getCedulaUsuario() %><br>
+                    Usuario: <%= nombreCompleto %> (<%= reserva.getCedulaUsuario() %>)<br>
                     Cancha Nº <%= reserva.getNumeroCancha() %><br>
-
-
                     Fecha: <%= reserva.getFecha() %><br>
                     Horario: <%= reserva.getHorarioInicio() %> - <%= reserva.getHorarioFinal() %><br>
                     Método de pago: <%= reserva.getMetodoPago().getValue() %><br>
@@ -96,8 +128,9 @@
                 <div>
                     <form action="cancelarReserva" method="post" style="display:inline;">
                         <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
+                        <input type="hidden" name="accion" value="cancelar">
                         <button type="submit" title="Cancelar"
-                                onclick="return confirm('¿Cancelar la reserva de <%= reserva.getCedulaUsuario() %>?')">
+                                onclick="return confirm('¿Cancelar la reserva de <%= nombreCompleto %>?')">
                             <i class="fi fi-rr-trash"></i>
                         </button>
                     </form>

@@ -470,6 +470,20 @@ public int totalCanchasDisponibles() {
     return 0;
 }
 
+    public Integer obtenerNumeroPorId(int idCancha) {
+        String consulta = "SELECT numero FROM Cancha WHERE id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setInt(1, idCancha);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("numero");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener número de cancha", e);
+        }
+        return null;
+    }
 
 
 }

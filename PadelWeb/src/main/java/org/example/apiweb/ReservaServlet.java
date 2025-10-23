@@ -1,7 +1,6 @@
 package org.example.apiweb;
 
-import dao.CanchaDAO;
-import dao.ReservaDAO;
+import dao.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,10 +8,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Cancha;
 import models.Reserva;
+import models.Usuario;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 @WebServlet(name = "ReservaServlet", value = "/reserva")
@@ -21,46 +22,125 @@ public class ReservaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CanchaDAO canchaDAO = new CanchaDAO();
-        Vector<Cancha> listaCanchas = null;
-        try {
-            listaCanchas = canchaDAO.listarCancha();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        request.setAttribute("listaCanchas", listaCanchas);
 
-        ReservaDAO dao = new ReservaDAO();
+        CanchaDAO canchaDAO = new CanchaDAO();
+        ReservaDAO reservaDAO = new ReservaDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+
         Vector<Reserva> reservas;
+        Map<String, String> nombresUsuarios = new HashMap<>();
+        Map<Integer, Integer> idToNumeroCancha = new HashMap<>();
 
         String cedula = request.getParameter("cedulaUsuario");
         String canchaStr = request.getParameter("numeroCancha");
         String fechaStr = request.getParameter("fecha");
+        String ordenFecha = request.getParameter("ordenFecha");
+        String metodoPago = request.getParameter("metodoPago");
+        String estadoPago = request.getParameter("estadoPago");
+        String estadoActiva = request.getParameter("estadoActiva");
+
+        if (ordenFecha == null || ordenFecha.isEmpty()) {
+            ordenFecha = "desc";
+        }
 
         try {
-            if (cedula != null && !cedula.isEmpty() && fechaStr != null && !fechaStr.isEmpty()) {
-                Date fecha = Date.valueOf(fechaStr);
-                reservas = dao.listarReservasPorFechaJugador(fecha, cedula);
-            } else if (cedula != null && !cedula.isEmpty()) {
-                reservas = dao.listarReservasPorUsuario(cedula);
-            } else if (canchaStr != null && !canchaStr.isEmpty()) {
-                int numeroCancha = Integer.parseInt(canchaStr);
-                reservas = dao.listarReservasPorCancha(numeroCancha);
-            } else if (fechaStr != null && !fechaStr.isEmpty()) {
-                Date fecha = Date.valueOf(fechaStr);
-                reservas = dao.listarReservasPorFecha(fecha);
+            boolean hayFiltros = (cedula != null && !cedula.isEmpty()) ||
+                    (canchaStr != null && !canchaStr.isEmpty()) ||
+                    (fechaStr != null && !fechaStr.isEmpty()) ||
+                    (metodoPago != null && !metodoPago.isEmpty()) ||
+                    (estadoPago != null && !estadoPago.isEmpty()) ||
+                    (estadoActiva != null && !estadoActiva.isEmpty());
+
+            if (hayFiltros) {
+                if (cedula != null && !cedula.isEmpty() && fechaStr != null && !fechaStr.isEmpty()) {
+                    Date fecha = Date.valueOf(fechaStr);
+                    reservas = "asc".equalsIgnoreCase(ordenFecha)
+                            ? reservaDAO.listarReservasPorFechaJugadorAsc(fecha, cedula)
+                            : reservaDAO.listarReservasPorFechaJugador(fecha, cedula);
+                } else if (cedula != null && !cedula.isEmpty()) {
+                    reservas = "asc".equalsIgnoreCase(ordenFecha)
+                            ? reservaDAO.listarReservasPorUsuarioAsc(cedula)
+                            : reservaDAO.listarReservasPorUsuario(cedula);
+                } else if (canchaStr != null && !canchaStr.isEmpty()) {
+                    int numeroCancha = Integer.parseInt(canchaStr);
+                    reservas = "asc".equalsIgnoreCase(ordenFecha)
+                            ? reservaDAO.listarReservasPorCanchaAsc(numeroCancha)
+                            : reservaDAO.listarReservasPorCancha(numeroCancha);
+                } else if (fechaStr != null && !fechaStr.isEmpty()) {
+                    Date fecha = Date.valueOf(fechaStr);
+                    reservas = "asc".equalsIgnoreCase(ordenFecha)
+                            ? reservaDAO.listarReservasPorFechaAsc(fecha)
+                            : reservaDAO.listarReservasPorFecha(fecha);
+                } else if (metodoPago != null && !metodoPago.isEmpty()) {
+                    reservas = "asc".equalsIgnoreCase(ordenFecha)
+                            ? reservaDAO.listarReservasPorMetodoPagoAsc(metodoPago)
+                            : reservaDAO.listarReservasPorMetodoPago(metodoPago);
+                } else if (estadoActiva != null && !estadoActiva.isEmpty()) {
+                    if ("activas".equalsIgnoreCase(estadoActiva)) {
+                        reservas = "asc".equalsIgnoreCase(ordenFecha)
+                                ? reservaDAO.listarReservasActivasAsc()
+                                : reservaDAO.listarReservasActivas();
+                    } else if ("noactivas".equalsIgnoreCase(estadoActiva)) {
+                        reservas = "asc".equalsIgnoreCase(ordenFecha)
+                                ? reservaDAO.listarReservasNoActivasAsc()
+                                : reservaDAO.listarReservasNoActivas();
+                    } else {
+                        reservas = "asc".equalsIgnoreCase(ordenFecha)
+                                ? reservaDAO.listarTodasLasReservasAsc()
+                                : reservaDAO.listarTodasLasReservas();
+                    }
+                } else {
+                    reservas = "asc".equalsIgnoreCase(ordenFecha)
+                            ? reservaDAO.listarTodasLasReservasAsc()
+                            : reservaDAO.listarTodasLasReservas();
+                }
+
+                if (estadoPago != null && !estadoPago.isEmpty()) {
+                    reservas.removeIf(r ->
+                            ("pagadas".equalsIgnoreCase(estadoPago) && !r.isEstaPagada()) ||
+                                    ("nopagadas".equalsIgnoreCase(estadoPago) && r.isEstaPagada())
+                    );
+                }
+
             } else {
-                reservas = dao.listarTodasLasReservas();
+                reservas = "asc".equalsIgnoreCase(ordenFecha)
+                        ? reservaDAO.listarTodasLasReservasAsc()
+                        : reservaDAO.listarTodasLasReservas();
             }
 
+            for (Reserva reserva : reservas) {
+                String cedulaUsuario = reserva.getCedulaUsuario();
+                if (!nombresUsuarios.containsKey(cedulaUsuario)) {
+                    Vector<Usuario> posibles = usuarioDAO.listarUsuarios(cedulaUsuario);
+                    for (Usuario u : posibles) {
+                        if (u.getCedula().equals(cedulaUsuario)) {
+                            String nombreCompleto = u.getNombre() + " " + u.getApellido();
+                            nombresUsuarios.put(cedulaUsuario, nombreCompleto);
+                            break;
+                        }
+                    }
+                }
+
+                int idCancha = reserva.getIdCancha();
+                if (!idToNumeroCancha.containsKey(idCancha)) {
+                    Integer numero = canchaDAO.obtenerNumeroPorId(idCancha);
+                    if (numero != null) {
+                        idToNumeroCancha.put(idCancha, numero);
+                    }
+                }
+            }
+
+            Vector<Cancha> listaCanchas = canchaDAO.listarCancha();
+            request.setAttribute("listaCanchas", listaCanchas);
             request.setAttribute("listaReservas", reservas);
+            request.setAttribute("nombresUsuarios", nombresUsuarios);
+            request.setAttribute("idToNumeroCancha", idToNumeroCancha);
             request.getRequestDispatcher("/reserva.jsp").forward(request, response);
 
         } catch (Exception e) {
-            throw new ServletException("Error al filtrar reservas", e);
+            throw new ServletException("Error al procesar reservas", e);
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -73,18 +153,16 @@ public class ReservaServlet extends HttpServlet {
             try {
                 int id = Integer.parseInt(idStr);
                 ReservaDAO dao = new ReservaDAO();
-                dao.cancelarReserva(id); // no devuelve nada
+                dao.cancelarReserva(id);
 
                 request.setAttribute("mensajeExito", "Reserva cancelada correctamente.");
-                doGet(request, response);
-                return;
-
             } catch (Exception e) {
                 e.printStackTrace();
                 request.setAttribute("mensajeError", "Ocurrió un error al intentar cancelar la reserva.");
-                doGet(request, response);
-                return;
             }
+
+            doGet(request, response);
+            return;
         }
 
         response.sendRedirect("reserva");
