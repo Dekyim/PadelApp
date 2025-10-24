@@ -90,7 +90,11 @@
                         <% } %>
                     </form>
 
-                    <button title="Ver"><i class="fi fi-rr-document"></i></button>
+                    <button type="button" title="Ver"
+                            onclick="window.location.href='${pageContext.request.contextPath}/verReservaUsuario?cedula=<%= j.getCedula() %>'">
+                        <i class="fi fi-rr-document"></i>
+                    </button>
+
                 </div>
             </li>
             <%

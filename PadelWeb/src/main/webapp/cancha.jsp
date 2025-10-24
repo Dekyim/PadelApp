@@ -1,28 +1,3 @@
-
-
-<%--
-<%
-    List<String> nombres = (List<String>) request.getAttribute("listaJugadores");
-%>
-
-<h1>Lista de Jugadores</h1>
-
-<form action="<%= request.getContextPath() %>/logout" method="get">
-    <button type="submit">Cerrar sesión</button>
-</form>
-
-
-<ul>
-    <% if (nombres != null) {
-        for (String nombre : nombres) { %>
-    <li><%= nombre %></li>
-    <%  }
-    } else { %>
-    <li>No hay jugadores disponibles.</li>
-    <% } %>
-</ul> --%>
-
-<%--<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> --%>
 <%@ page import="java.util.List" %>
 
 <%
@@ -58,10 +33,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } else if (mensajeError != null) { %>
-      f  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <%= mensajeError %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        f  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= mensajeError %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
         <% } %>
     </div>
 
@@ -81,7 +56,7 @@
                         <input type="hidden" name="accion" value="eliminar">
                         <input type="hidden" name="numero" value="<%= numeroCanchas %>">
                         <button type="submit" title="Eliminar"
-                                onclick="return confirm('¿Eliminar la cancha Nro <%= numeroCanchas %>?')">
+                                onclick="return confirm('Â¿Eliminar la cancha Nro <%= numeroCanchas %>?')">
                             <i class="fi fi-rr-trash"></i>
                         </button>
                     </form>
@@ -93,7 +68,10 @@
                         </button>
                     </form>
 
-                    <button title="Ver"><i class="fi fi-rr-document"></i></button>
+                    <button type="button" title="Ver"
+                            onclick="window.location.href='${pageContext.request.contextPath}/verReservaCancha?numeroCancha=<%= numeroCanchas %>'">
+                        <i class="fi fi-rr-document"></i>
+                    </button>
                 </div>
             </li>
             <% } } else { %>

@@ -1,22 +1,27 @@
 package org.example.apiweb;
 
+import dao.CanchaDAO;
+import dao.ReservaDAO;
+import dao.UsuarioDAO;
+import dao.JugadorDAO;
+import models.*;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import dao.*;
-import models.*;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
 
-@WebServlet(name = "/CrearReservaServlet", value = "/crearreserva")
+@WebServlet(name = "CrearReservaServlet", value = "/crearreserva")
 public class CrearReservaServlet extends HttpServlet {
 
-    private final JugadorDAO jugadorDAO = new JugadorDAO();
     private final CanchaDAO canchaDAO = new CanchaDAO();
     private final ReservaDAO reservaDAO = new ReservaDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final JugadorDAO jugadorDAO = new JugadorDAO();
 
     private void cargarDatosFormulario(HttpServletRequest request) throws ServletException {
         try {
@@ -32,27 +37,45 @@ public class CrearReservaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         cargarDatosFormulario(request);
+
+        HttpSession session = request.getSession(false);
+        Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
+
+        // Solo si NO es administrador, se asigna la cédula
+        if (usuario != null && !usuario.esAdministrador()) {
+            request.setAttribute("cedulaUsuarioSeleccionada", usuario.getCedula());
+        }
+
+        String numeroCanchaParam = request.getParameter("numeroCancha");
+        if (numeroCanchaParam != null && !numeroCanchaParam.isEmpty()) {
+            request.setAttribute("numeroCanchaSeleccionada", numeroCanchaParam);
+        }
+
         request.getRequestDispatcher("/crearReserva.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String cedulaUsuario = request.getParameter("cedulaUsuario");
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-            if (!usuarioDAO.existeUsuario(cedulaUsuario)) {
-                cargarDatosFormulario(request);
-                request.setAttribute("error", "El usuario no existe.");
-                request.getRequestDispatcher("/crearReserva.jsp").forward(request, response);
-                return;
+        try {
+            HttpSession session = request.getSession(false);
+            Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
+
+            String cedulaUsuario;
+            if (usuario != null && !usuario.esAdministrador()) {
+                cedulaUsuario = usuario.getCedula();
+            } else {
+                cedulaUsuario = request.getParameter("cedulaUsuario");
             }
 
             int numeroCancha = Integer.parseInt(request.getParameter("numeroCancha"));
             Date fecha = Date.valueOf(request.getParameter("fecha"));
-            Time horarioInicio = Time.valueOf(request.getParameter("horarioInicio") + ":00");
+            String horarioStr = request.getParameter("horarioInicio");
+            Time horarioInicio = Time.valueOf(horarioStr + ":00");
+
             long nuevoInicio = horarioInicio.getTime();
             long nuevoFin = nuevoInicio + (90 * 60 * 1000);
             Time horarioFinal = new Time(nuevoFin);
@@ -79,14 +102,35 @@ public class CrearReservaServlet extends HttpServlet {
             if (hayConflicto) {
                 cargarDatosFormulario(request);
                 request.setAttribute("error", "Ya existe una reserva en ese horario para esa cancha.");
+                request.setAttribute("cedulaUsuarioSeleccionada", cedulaUsuario);
+                request.setAttribute("numeroCanchaSeleccionada", numeroCancha);
+                request.setAttribute("fechaSeleccionada", request.getParameter("fecha"));
+                request.setAttribute("horarioSeleccionado", horarioStr);
                 request.getRequestDispatcher("/crearReserva.jsp").forward(request, response);
                 return;
             }
 
-            Reserva reserva = new Reserva(cedulaUsuario, numeroCancha, fecha, horarioInicio, horarioFinal, null, metodoPago, false, true);
+            // Crear reserva
+            Reserva reserva = new Reserva(
+                    cedulaUsuario,
+                    numeroCancha,
+                    fecha,
+                    horarioInicio,
+                    horarioFinal,
+                    null,
+                    metodoPago,
+                    false,
+                    true
+            );
 
             reservaDAO.crearReserva(reserva);
-            response.sendRedirect(request.getContextPath() + "/reserva");
+
+            // Redirigir según tipo de usuario
+            if (usuario != null && usuario.esAdministrador()) {
+                response.sendRedirect(request.getContextPath() + "/reserva");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/canchaUsuario");
+            }
 
         } catch (Exception e) {
             throw new ServletException("Error al procesar la reserva", e);

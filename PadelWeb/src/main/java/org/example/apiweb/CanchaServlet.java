@@ -66,7 +66,7 @@ public class CanchaServlet extends HttpServlet {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                request.setAttribute("mensajeError", "Ocurrió un error al intentar eliminar la cancha.");
+                request.setAttribute("mensajeError", "OcurriÃ³ un error al intentar eliminar la cancha.");
                 doGet(request, response);
                 return;
             }
