@@ -143,7 +143,7 @@ public class ReservaDAO {
     // Listar reservas por usuario
     public Vector<Reserva> listarReservasPorUsuario(String cedulaUsuario) {
         Vector<Reserva> reservas = new Vector<>();
-        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? AND estaActiva = true ORDER BY fecha DESC";
+        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? ORDER BY fecha DESC";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
             ps.setString(1, cedulaUsuario);
@@ -180,7 +180,6 @@ public class ReservaDAO {
         return reservas;
     }
 
-
     // Listar reservas por fecha
     public Vector<Reserva> listarReservasPorFecha(Date fecha) {
         Vector<Reserva> reservas = new Vector<>();
@@ -200,12 +199,11 @@ public class ReservaDAO {
         return reservas;
     }
 
-
     // Listar reservas por fecha y jugador
     public Vector<Reserva> listarReservasPorFechaJugador(Date fecha, String cedulaUsuario) {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT r.* FROM Reserva r JOIN Usuario u ON r.cedulaUsuario = u.cedula " +
-                "WHERE r.fecha = ? AND r.cedulaUsuario = ? AND r.estaActiva = true " +
+                "WHERE r.fecha = ? AND r.cedulaUsuario = ?" +
                 "ORDER BY r.fecha DESC";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
@@ -224,8 +222,6 @@ public class ReservaDAO {
         return reservas;
     }
 
-
-    // Listar todas las reservas
     public Vector<Reserva> listarTodasLasReservas() {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT * FROM Reserva ORDER BY fecha DESC";
@@ -243,7 +239,6 @@ public class ReservaDAO {
         return reservas;
     }
 
-    // Estado de pago
     public boolean obtenerEstadoPago(int id) {
         String consulta = "SELECT estaPagada FROM Reserva WHERE id = ?";
 
@@ -264,7 +259,6 @@ public class ReservaDAO {
         }
     }
 
-    // Pagar reserva
     public void pagarReserva(int id) {
         if (obtenerEstadoPago(id)) return;
 
@@ -279,7 +273,6 @@ public class ReservaDAO {
         }
     }
 
-    //Total reservas
     public int totalReservas() {
         String consulta = "SELECT COUNT(*) AS total FROM Reserva";
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
@@ -289,7 +282,6 @@ public class ReservaDAO {
         return 0;
     }
 
-    //Total ingresos
     public double totalIngresos(java.sql.Date fechaInicio, java.sql.Date fechaFin) {
         String consulta = "SELECT COALESCE(SUM(c.precio), 0) AS total FROM Reserva r JOIN Cancha c ON r.idCancha = c.id " +
                 "WHERE r.fecha BETWEEN ? AND ?";
@@ -327,7 +319,6 @@ public class ReservaDAO {
         return reserva;
     }
 
-    // Total de reservas activas
     public int totalReservasActivas() {
     String consulta = "SELECT COUNT(*) AS total FROM Reserva WHERE estaActiva = TRUE";
     try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
@@ -337,7 +328,6 @@ public class ReservaDAO {
     return 0;
 }
 
-    // Total de reservas por usuario
     public int totalReservasPorUsuario(String cedulaUsuario) {
         String consulta = "SELECT COUNT(*) AS total FROM Reserva WHERE cedulaUsuario = ? AND estaActiva = TRUE";
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
@@ -349,7 +339,6 @@ public class ReservaDAO {
         return 0;
     }
 
-    // Total de reservas por cancha
     public int totalReservasPorCancha(int numeroCancha) {
         String consulta = "SELECT COUNT(*) AS total FROM Reserva r JOIN Cancha c ON r.idCancha = c.id WHERE c.numero = ? AND r.estaActiva = TRUE";
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
@@ -361,7 +350,6 @@ public class ReservaDAO {
         return 0;
     }
 
-    // Reservas pagadas / no pagadas
     public int totalReservasPagadas() {
         String consulta = "SELECT COUNT(*) AS total FROM Reserva WHERE estaPagada = TRUE";
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
@@ -370,6 +358,7 @@ public class ReservaDAO {
         } catch (SQLException e) { throw new RuntimeException(e); }
         return 0;
     }
+
     public int totalReservasNoPagadas() {
         String consulta = "SELECT COUNT(*) AS total FROM Reserva WHERE estaPagada = FALSE";
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
@@ -399,7 +388,7 @@ public class ReservaDAO {
 
     public Vector<Reserva> listarReservasPorUsuarioAsc(String cedulaUsuario) {
         Vector<Reserva> reservas = new Vector<>();
-        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? AND estaActiva = true ORDER BY fecha ASC";
+        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? ORDER BY fecha ASC";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
             ps.setString(1, cedulaUsuario);
@@ -415,7 +404,6 @@ public class ReservaDAO {
         return reservas;
     }
 
-    //Listar reservas por número de cancha
     public Vector<Reserva> listarReservasPorCanchaAsc(int numeroCancha) {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT r.* FROM Reserva r JOIN Cancha c ON r.idCancha = c.id " +
@@ -436,8 +424,6 @@ public class ReservaDAO {
         return reservas;
     }
 
-
-    // Listar reservas por fecha
     public Vector<Reserva> listarReservasPorFechaAsc(Date fecha) {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT * FROM Reserva WHERE fecha = ? AND estaActiva = true ORDER BY fecha ASC";
@@ -456,12 +442,10 @@ public class ReservaDAO {
         return reservas;
     }
 
-
-    // Listar reservas por fecha y jugador
     public Vector<Reserva> listarReservasPorFechaJugadorAsc(Date fecha, String cedulaUsuario) {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT r.* FROM Reserva r JOIN Usuario u ON r.cedulaUsuario = u.cedula " +
-                "WHERE r.fecha = ? AND r.cedulaUsuario = ? AND r.estaActiva = true " +
+                "WHERE r.fecha = ? AND r.cedulaUsuario = ?" +
                 "ORDER BY r.fecha ASC";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
@@ -667,7 +651,7 @@ public class ReservaDAO {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT r.* FROM Reserva r " +
                 "WHERE r.idCancha = (SELECT id FROM Cancha WHERE numero = ?) " +
-                "AND r.cedulaUsuario = ? AND r.estaActiva = true " +
+                "AND r.cedulaUsuario = ?" +
                 "ORDER BY r.fecha DESC";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
@@ -690,7 +674,7 @@ public class ReservaDAO {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT r.* FROM Reserva r " +
                 "WHERE r.idCancha = (SELECT id FROM Cancha WHERE numero = ?) " +
-                "AND r.cedulaUsuario = ? AND r.estaActiva = true " +
+                "AND r.cedulaUsuario = ?" +
                 "ORDER BY r.fecha ASC";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
@@ -709,15 +693,48 @@ public class ReservaDAO {
         return reservas;
     }
 
-    public Vector<Reserva> listarReservasPorCanchaJugador(int numeroCancha, String cedulaUsuario) {
+    public Vector<Reserva> listarReservasPorJugadorNoActiva(String cedulaUsuario) {
         Vector<Reserva> reservas = new Vector<>();
-        String consulta = "SELECT r.* FROM Reserva r " +
-                "WHERE r.idCancha = (SELECT id FROM Cancha WHERE numero = ?) " +
-                "AND r.cedulaUsuario = ? AND r.estaActiva = true " +
-                "ORDER BY r.fecha DESC";
+        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? AND estaActiva = false ORDER BY fecha ASC";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
-            ps.setInt(1, numeroCancha);
+            ps.setString(1, cedulaUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    reservas.add(mapearReservaDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return reservas;
+    }
+
+    public Vector<Reserva> listarReservasPorJugadorNoActivaAsc(String cedulaUsuario) {
+        Vector<Reserva> reservas = new Vector<>();
+        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? AND estaActiva = false ORDER BY fecha ASC";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedulaUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    reservas.add(mapearReservaDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return reservas;
+    }
+
+    public Vector<Reserva> listarReservasPorMetodoPagoJugador(String metodoPago, String cedulaUsuario) {
+        Vector<Reserva> reservas = new Vector<>();
+        String consulta = "SELECT * FROM Reserva WHERE metodoPago = ? AND cedulaUsuario = ?  ORDER BY fecha DESC";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, metodoPago);
             ps.setString(2, cedulaUsuario);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -726,13 +743,103 @@ public class ReservaDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error al listar reservas por cancha y jugador", e);
+            throw new RuntimeException("Error al listar reservas por metodo de pago y jugador", e);
         }
 
         return reservas;
     }
 
+    public Vector<Reserva> listarReservasPorMetodoPagoJugadorAsc(String metodoPago, String cedulaUsuario) {
+        Vector<Reserva> reservas = new Vector<>();
+        String consulta = "SELECT * FROM Reserva WHERE metodoPago = ? AND cedulaUsuario = ?  ORDER BY fecha ASC";
 
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, metodoPago);
+            ps.setString(2, cedulaUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    reservas.add(mapearReservaDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al listar reservas por metodo de pago y jugador", e);
+        }
+
+        return reservas;
+    }
+
+    public Vector<Reserva> listarReservasPorJugadorPagada(String cedulaUsuario) {
+        Vector<Reserva> reservas = new Vector<>();
+        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? AND estaPagada = true ORDER BY fecha DESC";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedulaUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    reservas.add(mapearReservaDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return reservas;
+    }
+
+    public Vector<Reserva> listarReservasPorJugadorPagadaAsc(String cedulaUsuario) {
+        Vector<Reserva> reservas = new Vector<>();
+        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? AND estaPagada = true ORDER BY fecha ASC";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedulaUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    reservas.add(mapearReservaDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return reservas;
+    }
+
+    public Vector<Reserva> listarReservasPorJugadorNoPagada(String cedulaUsuario) {
+        Vector<Reserva> reservas = new Vector<>();
+        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? AND estaPagada = false ORDER BY fecha DESC";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedulaUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    reservas.add(mapearReservaDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return reservas;
+    }
+
+    public Vector<Reserva> listarReservasPorJugadorNoPagadaAsc(String cedulaUsuario) {
+        Vector<Reserva> reservas = new Vector<>();
+        String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? AND estaPagada = false ORDER BY fecha ASC";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedulaUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    reservas.add(mapearReservaDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return reservas;
+    }
 
 }
 
