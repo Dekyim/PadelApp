@@ -86,24 +86,21 @@ body {
 
 /* BOTÓN FLOTANTE ABAJO A LA DERECHA */
 .btn-agregar {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #00b95e;
+    background-color: #00c36b;
+    color: white;
     border: none;
+    border-radius: 50%;
     width: 60px;
     height: 60px;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 30px; /* un poco más grande para el “+” */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 0; /* elimina desajuste vertical */
+    font-size: 30px;
+    line-height: 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: 0.3s ease;
-    z-index: 200;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
 }
 
 .btn-agregar i {
@@ -113,8 +110,8 @@ body {
 }
 
 .btn-agregar:hover {
-    background: #00a357;
-    transform: translateY(-3px);
+    background-color: #00a95c;
+    transform: scale(1.1);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 

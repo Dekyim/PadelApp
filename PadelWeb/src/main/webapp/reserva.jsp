@@ -106,7 +106,7 @@
 
     <form action="${pageContext.request.contextPath}/crearreserva" method="get">
         <input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
-        <button type="submit" class="btn-agregar">Agregar reserva</button>
+        <button type="submit" class="btn-agregar">+</button>
     </form>
 
     <div class="listaUser">

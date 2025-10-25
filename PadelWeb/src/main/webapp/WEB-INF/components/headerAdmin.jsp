@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <aside class="sidebar">
     <h1 class="logo"><a href="<%= request.getContextPath() %>/inicioAdmin">PadelManager</a></h1>
     <nav class="menu">
