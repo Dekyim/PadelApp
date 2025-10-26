@@ -149,16 +149,32 @@ public class ReservaServlet extends HttpServlet {
         String accion = request.getParameter("accion");
         String idStr = request.getParameter("idReserva");
 
-        if ("cancelar".equals(accion) && idStr != null && !idStr.isEmpty()) {
+        if (idStr != null && !idStr.isEmpty()) {
             try {
                 int id = Integer.parseInt(idStr);
                 ReservaDAO dao = new ReservaDAO();
-                dao.cancelarReserva(id);
 
-                request.setAttribute("mensajeExito", "Reserva cancelada correctamente.");
+                switch (accion) {
+                    case "cancelar":
+                        dao.cancelarReserva(id);
+                        request.setAttribute("mensajeExito", "Reserva cancelada correctamente.");
+                        break;
+                    case "pagar":
+                        dao.pagarReserva(id);
+                        request.setAttribute("mensajeExito", "Reserva pagada correctamente.");
+                        break;
+                    case "despagar":
+                        dao.despagarReserva(id);
+                        request.setAttribute("mensajeExito", "Pago cancelado correctamente.");
+                        break;
+                    default:
+                        request.setAttribute("mensajeError", "Acción no reconocida.");
+                        break;
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
-                request.setAttribute("mensajeError", "Ocurrió un error al intentar cancelar la reserva.");
+                request.setAttribute("mensajeError", "Ocurrió un error al procesar la acción.");
             }
 
             doGet(request, response);

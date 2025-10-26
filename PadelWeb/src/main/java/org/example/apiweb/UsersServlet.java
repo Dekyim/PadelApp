@@ -52,7 +52,8 @@ public class UsersServlet extends HttpServlet {
                 if (pageParam != null && !pageParam.isEmpty()) {
                     try {
                         paginaActual = Integer.parseInt(pageParam);
-                    } catch (NumberFormatException ignored) {}
+                    } catch (NumberFormatException ignored) {
+                    }
                 }
 
                 int totalJugadores = jugadores.size();
@@ -88,6 +89,7 @@ public class UsersServlet extends HttpServlet {
         String accion = request.getParameter("accion");
         String cedula = request.getParameter("cedula");
         JugadorDAO dao = new JugadorDAO();
+
         if ("eliminar".equals(accion) && cedula != null && !cedula.isEmpty()) {
             try {
                 dao.eliminarJugador(cedula);
@@ -101,9 +103,7 @@ public class UsersServlet extends HttpServlet {
         }
 
         if ("editar".equals(accion) && cedula != null && !cedula.isEmpty()) {
-
             Jugador jugador = dao.obtenerJugadorPorCedula(cedula);
-
             if (jugador != null) {
                 request.setAttribute("jugador", jugador);
                 request.getRequestDispatcher("verPerfilJugador.jsp").forward(request, response);
@@ -118,8 +118,15 @@ public class UsersServlet extends HttpServlet {
             try {
                 dao.banearJugador(cedula);
                 System.out.println("Jugador con cédula " + cedula + " ha sido BANEADO.");
+
+                // 🔹 Cancelar todas las reservas activas del jugador directamente
+                ReservaDAO reservaDAO = new ReservaDAO();
+                reservaDAO.cancelarReservasPorCedula(cedula);
+
+                System.out.println("Todas las reservas del jugador fueron canceladas automáticamente.");
+
             } catch (Exception e) {
-                throw new ServletException("Error al banear jugador", e);
+                throw new ServletException("Error al banear jugador y cancelar reservas", e);
             }
             response.sendRedirect("users");
             return;
@@ -127,7 +134,6 @@ public class UsersServlet extends HttpServlet {
 
         if ("desbanear".equals(accion) && cedula != null && !cedula.isEmpty()) {
             try {
-
                 dao.desbanearJugador(cedula);
                 System.out.println("Jugador con cédula " + cedula + " ha sido DESBANEADO.");
             } catch (Exception e) {
@@ -136,7 +142,6 @@ public class UsersServlet extends HttpServlet {
             response.sendRedirect("users");
             return;
         }
-
 
         response.sendRedirect("users");
     }

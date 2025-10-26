@@ -26,7 +26,7 @@
 <div class="container py-5">
     <div class="card perfil-card mx-auto shadow-lg">
         <div class="card-body text-center">
-            <img src="${pageContext.request.contextPath}/img/perfil-default.png" alt="Foto de perfil" class="rounded-circle perfil-img mb-3">
+            <img src="https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg" alt="Foto de perfil" class="rounded-circle perfil-img mb-3">
             <h3 class="card-title mb-1"><i class="bi bi-person-circle"></i> <%= usuario.getNombre() %> <%= usuario.getApellido() %></h3>
             <p class="text-muted mb-3"><i class="bi bi-envelope"></i> <%= usuario.getCorreo() %></p>
 

@@ -50,13 +50,21 @@
             <% if (numeroCancha != null && !numeroCancha.isEmpty()) {
                 for (Integer numeroCanchas : numeroCancha) { %>
             <li>
+                <%-- <img src="https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg" alt="Cancha <%= numeroCanchas %>">
+
+                <!-- Otra cancha: si querés otra imagen distinta, reemplazar aquí -->
+                <!--<img src="URL_DE_LA_OTRA_CANCHA" alt="Cancha <%= numeroCanchas %>">-->
+
+                <!-- Otra cancha más: reemplazar con la imagen correspondiente -->
+                <!--<img src="URL_OTRA_CANCHA" alt="Cancha <%= numeroCanchas %>">-->--%>
+
                 <span>Cancha Nro <%= numeroCanchas %></span>
                 <div>
                     <form action="cancha" method="post" style="display:inline;">
                         <input type="hidden" name="accion" value="eliminar">
                         <input type="hidden" name="numero" value="<%= numeroCanchas %>">
                         <button type="submit" title="Eliminar"
-                                onclick="return confirm('Â¿Eliminar la cancha Nro <%= numeroCanchas %>?')">
+                                onclick="return confirm('¿Eliminar la cancha Nro <%= numeroCanchas %>?')">
                             <i class="fi fi-rr-trash"></i>
                         </button>
                     </form>

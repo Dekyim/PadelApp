@@ -33,7 +33,14 @@
             <% if (listaCanchas != null && !listaCanchas.isEmpty()) {
                 for (Cancha cancha : listaCanchas) { %>
             <li onclick="window.location.href='${pageContext.request.contextPath}/crearreserva?numeroCancha=<%= cancha.getNumero() %>'">
-                <img src="https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg" alt="Cancha <%= cancha.getNumero() %>">
+                <!-- Imagen de la cancha: reemplazar por imagen específica de cada cancha -->
+                <%-- <img src="https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg" alt="Cancha <%= cancha.getNumero() %>">
+
+                <!-- Otra cancha: si querés otra imagen distinta, reemplazar aquí -->
+                <!--<img src="URL_DE_LA_OTRA_CANCHA" alt="Cancha <%= cancha.getNumero() %>">-->
+
+                <!-- Otra cancha más: reemplazar con la imagen correspondiente -->
+                <!--<img src="URL_OTRA_CANCHA" alt="Cancha <%= cancha.getNumero() %>">--> --%>
 
                 <span>Cancha Nro <%= cancha.getNumero() %></span>
             </li>

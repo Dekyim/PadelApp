@@ -330,3 +330,45 @@ main, .hero, .panel, .container, .links, .content {
 }
 
 
+.panel {
+    color: white;
+}
+.tabla-reservas {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+table {
+    width: 100%;
+    color: white;
+}
+th {
+    background: #00b95e;
+    color: white;
+    text-align: center;
+}
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+.info-usuario {
+    background: rgba(0,0,0,0.7);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+.info-usuario h5 {
+    color: #bfc8d6;
+    margin: 0;
+}
+.btn-sm {
+    margin: 3px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+.btn-sm:hover {
+    transform: scale(1.05);
+}

@@ -1,28 +1,3 @@
-
-
-<%--
-<%
-    List<String> nombres = (List<String>) request.getAttribute("listaJugadores");
-%>
-
-<h1>Lista de Jugadores</h1>
-
-<form action="<%= request.getContextPath() %>/logout" method="get">
-    <button type="submit">Cerrar sesión</button>
-</form>
-
-
-<ul>
-    <% if (nombres != null) {
-        for (String nombre : nombres) { %>
-    <li><%= nombre %></li>
-    <%  }
-    } else { %>
-    <li>No hay jugadores disponibles.</li>
-    <% } %>
-</ul> --%>
-
-<%--<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> --%>
 <%@ page import="java.util.List" %>
 
 <%
@@ -58,10 +33,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } else if (mensajeError != null) { %>
-      f  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <%= mensajeError %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        f  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= mensajeError %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
         <% } %>
     </div>
 
@@ -75,6 +50,14 @@
             <% if (numeroCancha != null && !numeroCancha.isEmpty()) {
                 for (Integer numeroCanchas : numeroCancha) { %>
             <li>
+                <%-- <img src="https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg" alt="Cancha <%= numeroCanchas %>">
+
+                <!-- Otra cancha: si querés otra imagen distinta, reemplazar aquí -->
+                <!--<img src="URL_DE_LA_OTRA_CANCHA" alt="Cancha <%= numeroCanchas %>">-->
+
+                <!-- Otra cancha más: reemplazar con la imagen correspondiente -->
+                <!--<img src="URL_OTRA_CANCHA" alt="Cancha <%= numeroCanchas %>">-->--%>
+
                 <span>Cancha Nro <%= numeroCanchas %></span>
                 <div>
                     <form action="cancha" method="post" style="display:inline;">
@@ -93,7 +76,10 @@
                         </button>
                     </form>
 
-                    <button title="Ver"><i class="fi fi-rr-document"></i></button>
+                    <button type="button" title="Ver"
+                            onclick="window.location.href='${pageContext.request.contextPath}/verReservaCancha?numeroCancha=<%= numeroCanchas %>'">
+                        <i class="fi fi-rr-document"></i>
+                    </button>
                 </div>
             </li>
             <% } } else { %>

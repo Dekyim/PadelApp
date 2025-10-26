@@ -484,6 +484,50 @@ public int totalCanchasDisponibles() {
         }
         return null;
     }
+    public Cancha obtenerCanchaPorId(int idCancha) {
+        String consulta = "SELECT * FROM Cancha WHERE id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setInt(1, idCancha);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("id");
+                    boolean esTechada = rs.getBoolean("esTechada");
+                    double precio = rs.getDouble("precio");
+                    boolean estaDisponible = rs.getBoolean("estaDisponible");
+                    int numero = rs.getInt("numero");
+                    // Suponiendo que el horario se obtiene por otro DAO o es null por ahora
+                    return new Cancha(id, esTechada, precio, estaDisponible, numero, null);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener cancha por ID", e);
+        }
+        return null;
+    }
+
+    public Double obtenerPrecioPorId(int idCancha) {
+        String consulta = "SELECT precio FROM Cancha WHERE id = ?";
+        System.out.println("Ejecutando consulta para idCancha: " + idCancha);
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setInt(1, idCancha);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    double precio = rs.getDouble("precio");
+                    System.out.println("Precio encontrado en BD: " + precio);
+                    return precio;
+                } else {
+                    System.out.println("No se encontró cancha con ID: " + idCancha);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error SQL: " + e.getMessage());
+            throw new RuntimeException("Error al obtener precio de la cancha", e);
+        }
+        return null;
+    }
+
+
+
 
 
 }

@@ -51,6 +51,7 @@
                     for (models.Jugador j : jugadores) {
             %>
             <li>
+                <%-- <img src="https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg" alt="Cancha <%= j.getNombre() + " " + j.getApellido() %> - <%= j.getCedula() %> --%>
                 <span style="<%= j.isEstaBaneado() ? "text-decoration: line-through; color: gray;" : "" %>">
                      <%= j.getNombre() + " " + j.getApellido() %> - <%= j.getCedula() %>
                 </span>

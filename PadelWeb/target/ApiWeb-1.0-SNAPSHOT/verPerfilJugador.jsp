@@ -32,7 +32,7 @@
 <body>
 <form class="login-form" action="verPerfilJugador" method="post">
     <h1 class="perfil-titulo"><i class="bi bi-person-circle"></i> Perfil del jugador</h1>
-    <img src="${pageContext.request.contextPath}/img/perfil-default.png" alt="Foto de perfil" class="perfil-img">
+    <img src="https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg" alt="Foto de perfil" class="perfil-img">
 
     <!-- GRID: auto se adapta a 2-3 columnas según ancho -->
     <div class="form-grid">
@@ -80,6 +80,7 @@
         </div>
 
         <div class="form-input-material">
+        <div class="form-input-material">
             <label for="genero">Género</label>
             <select id="genero" name="genero" class="editable-select" disabled>
                 <option value="Masculino" <%= "Masculino".equals(jugador.getGenero()) ? "selected" : "" %>>Masculino</option>
@@ -102,6 +103,7 @@
         <a href="<%= urlVolver %>" class="volver-link">
             <i class="bi bi-arrow-left-circle"></i> Volver al inicio
         </a>
+    </div>
     </div>
 </form>
 </body>
