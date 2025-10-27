@@ -52,12 +52,16 @@
 
     <input type="hidden" name="numero" value="<%= cancha.getNumero() %>">
 
-    <!-- Imagen actual y campo para subir nueva -->
+    <!-- Imagen actual y panel de selección -->
     <div class="imagen-cancha text-center mb-4">
-        <label for="fotoCancha">
-            <img src="<%= urlFoto %>" alt="Foto de la cancha" class="foto-cancha" style="cursor:pointer;">
-        </label>
-        <input type="file" id="fotoCancha" name="fotoCancha" accept="image/*" style="display:none;">
+        <img src="<%= urlFoto %>" alt="Foto de la cancha" class="foto-cancha" id="previewImagen" style="cursor:pointer;">
+
+        <div id="panelImagen" style="margin-top: 10px; display: none;">
+            <input type="file" id="fotoCancha" name="fotoCancha" accept="image/*" style="display:none;">
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="document.getElementById('fotoCancha').click()">Seleccionar imagen</button>
+            <button type="button" class="btn btn-sm btn-outline-danger" onclick="cancelarImagen()">Cancelar</button>
+        </div>
+
         <p class="form-text">Haz clic en la imagen para cambiarla</p>
     </div>
 
@@ -88,7 +92,6 @@
                             .anyMatch(t -> t.toString().startsWith(h));
 
                     if (count % columnas == 0) { %><tr><% }
-
             %>
                 <td>
                     <input type="checkbox" id="horario_<%= h %>" name="horarios" value="<%= h %>" <%= seleccionado ? "checked" : "" %>>
@@ -108,9 +111,6 @@
         </table>
     </div>
 
-
-
-
     <div class="acciones">
         <a href="cancha" class="btn btn-outline-secondary">Volver</a>
         <button type="submit" class="btn btn-success">Guardar cambios</button>
@@ -118,6 +118,33 @@
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const preview = document.getElementById("previewImagen");
+    const panel = document.getElementById("panelImagen");
+    const input = document.getElementById("fotoCancha");
+
+    preview.addEventListener("click", () => {
+        panel.style.display = "block";
+    });
+
+    input.addEventListener("change", () => {
+        const file = input.files[0];
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function cancelarImagen() {
+        input.value = "";
+        panel.style.display = "none";
+        preview.src = "<%= urlFoto %>";
+    }
+</script>
 </body>
 </html>
+
 

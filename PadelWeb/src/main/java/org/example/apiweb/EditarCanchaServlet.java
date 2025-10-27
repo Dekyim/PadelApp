@@ -15,7 +15,6 @@ import org.example.apiweb.CloudinaryConfig;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
@@ -41,7 +40,6 @@ public class EditarCanchaServlet extends HttpServlet {
                         .orElse(null);
 
                 if (cancha != null) {
-                    // Cargar imagen actual
                     String urlFoto = new FotoCanchaDAO().obtenerFotoPorId(cancha.getId());
                     request.setAttribute("cancha", cancha);
                     request.setAttribute("urlFoto", urlFoto);
@@ -68,9 +66,7 @@ public class EditarCanchaServlet extends HttpServlet {
             boolean esTechada = request.getParameter("esTechada") != null;
             boolean estaDisponible = request.getParameter("estaDisponible") != null;
 
-            // Obtener horarios seleccionados
             String[] horariosSeleccionados = request.getParameterValues("horarios");
-
             Vector<Time> horarios = new Vector<>();
             if (horariosSeleccionados != null) {
                 for (String h : horariosSeleccionados) {
@@ -78,13 +74,24 @@ public class EditarCanchaServlet extends HttpServlet {
                 }
             }
 
-            CanchaHorario canchaHorario = new CanchaHorario(0, horarios);
-            Cancha canchaActualizada = new Cancha(0, esTechada, precio, estaDisponible, numero, canchaHorario);
-
             CanchaDAO dao = new CanchaDAO();
-            dao.actualizarCancha(canchaActualizada);
-            dao.actualizarHorariosCancha(canchaActualizada.getId(), horarios);
+            Vector<Cancha> todas = dao.listarCancha();
+            Cancha canchaExistente = todas.stream()
+                    .filter(c -> c.getNumero() == numero)
+                    .findFirst()
+                    .orElse(null);
 
+            if (canchaExistente == null) {
+                throw new ServletException("No se encontró la cancha con número " + numero);
+            }
+
+            int idCancha = canchaExistente.getId();
+
+            CanchaHorario canchaHorario = new CanchaHorario(idCancha, horarios);
+            Cancha canchaActualizada = new Cancha(idCancha, esTechada, precio, estaDisponible, numero, canchaHorario);
+
+            dao.actualizarCancha(canchaActualizada);
+            dao.actualizarHorariosCancha(idCancha, horarios);
 
             // Manejar imagen si se subió
             Part imagenPart = request.getPart("fotoCancha");
@@ -96,12 +103,12 @@ public class EditarCanchaServlet extends HttpServlet {
                     Cloudinary cloudinary = CloudinaryConfig.getInstance();
                     Map uploadResult = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap(
                             "folder", "perfil_canchas",
-                            "public_id", "cancha_" + numero,
+                            "public_id", "cancha_" + idCancha,
                             "overwrite", true
                     ));
 
                     String url = (String) uploadResult.get("secure_url");
-                    new FotoCanchaDAO().guardarFoto(numero, url);
+                    new FotoCanchaDAO().guardarFoto(idCancha, url);
 
                 } catch (Exception e) {
                     e.printStackTrace();
