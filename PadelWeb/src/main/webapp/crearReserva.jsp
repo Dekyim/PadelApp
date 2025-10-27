@@ -1,12 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
-<%
-    String[] bloquesHorarios = {
-            "07:00", "08:30", "10:00", "11:30", "13:00",
-            "14:30", "16:00", "17:30", "19:00", "20:30"
-    };
-%>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -16,7 +10,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 </head>
 <body>
-<form class="login-form" action="${pageContext.request.contextPath}/crearreserva" method="post">
+<form class="login-form" action="${pageContext.request.contextPath}/crearreserva" method="post" id="reservaForm">
+
     <h1>Crear Reserva</h1>
 
     <div class="form-grid">
@@ -59,14 +54,14 @@
         <div class="form-input-material">
             <label for="horarioInicio">Horario de Inicio</label>
             <select name="horarioInicio" id="horarioInicio" required>
-                <% for (String bloque : bloquesHorarios) { %>
-                <option value="<%= bloque %>"
-                        <%= request.getAttribute("horarioSeleccionado") != null && request.getAttribute("horarioSeleccionado").equals(bloque) ? "selected" : "" %>>
-                    <%= bloque %>
-                </option>
-                <% } %>
+                <c:forEach var="h" items="${horariosCanchaSeleccionada}">
+                    <option value="${h}" <c:if test="${horarioSeleccionado == h}">selected</c:if>>
+                            ${h}
+                    </option>
+                </c:forEach>
             </select>
         </div>
+
 
         <!-- Método de pago -->
         <div class="form-input-material">
@@ -81,11 +76,21 @@
 
     </div>
 
-    <button type="submit" class="btn">Reservar</button>
+    <button type="submit" class="btn" onclick="document.getElementById('reservaForm').method='post'">Reservar</button>
+
 
     <c:if test="${not empty error}">
         <p style="color:red">${error}</p>
     </c:if>
 </form>
+<script>
+    document.getElementById("numeroCancha").addEventListener("change", function () {
+        const form = document.getElementById("reservaForm");
+        form.method = "get"; // temporalmente GET para recargar
+        form.submit();
+    });
+
+</script>
+
 </body>
 </html>

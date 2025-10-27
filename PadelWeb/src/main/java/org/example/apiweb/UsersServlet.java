@@ -1,9 +1,8 @@
 package org.example.apiweb;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -74,6 +73,17 @@ public class UsersServlet extends HttpServlet {
             request.setAttribute("paginaActual", paginaActual);
             request.setAttribute("totalPaginas", totalPaginas);
             request.setAttribute("buscar", buscar);
+
+            FotoPerfilUsuarioDAO fotoDAO = new FotoPerfilUsuarioDAO();
+            Map<String, String> fotosPorCedula = new HashMap<>();
+
+            for (Jugador j : paginaJugadores) {
+                String url = fotoDAO.obtenerFotoPorCedula(j.getCedula());
+                fotosPorCedula.put(j.getCedula(), url);
+            }
+
+            request.setAttribute("fotosPorCedula", fotosPorCedula);
+
 
             request.getRequestDispatcher("usuarios.jsp").forward(request, response);
 

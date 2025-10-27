@@ -1,7 +1,10 @@
+<%@ page import="models.Cancha" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 
 <%
-    List<Integer> numeroCancha = (List<Integer>) request.getAttribute("listaCanchas");
+    List<Cancha> listaCanchas = (List<Cancha>) request.getAttribute("listaCanchas");
+    Map<Integer, String> fotosPorId = (Map<Integer, String>) request.getAttribute("fotosPorId");
     String mensajeExito = (String) request.getAttribute("mensajeExito");
     String mensajeError = (String) request.getAttribute("mensajeError");
 %>
@@ -33,51 +36,51 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } else if (mensajeError != null) { %>
-        f  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <%= mensajeError %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= mensajeError %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <% } %>
     </div>
 
-    <button type="submit" class="btn-agregar" title="Agregar cancha">
-        <i class="fi fi-rr-plus"></i>
-    </button>
-
+    <form action="agregarCancha" method="get">
+        <button type="submit" class="btn-agregar" title="Agregar cancha">
+            <i class="fi fi-rr-plus"></i>
+        </button>
+    </form>
 
     <div class="listaUser">
         <ul>
-            <% if (numeroCancha != null && !numeroCancha.isEmpty()) {
-                for (Integer numeroCanchas : numeroCancha) { %>
-            <li>
-                <%-- <img src="https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg" alt="Cancha <%= numeroCanchas %>">
+            <% if (listaCanchas != null && !listaCanchas.isEmpty()) {
+                for (Cancha cancha : listaCanchas) {
+                    String urlFoto = fotosPorId.get(cancha.getId());
+                    if (urlFoto == null || urlFoto.isEmpty()) {
+                        urlFoto = "https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg";
+                    }
+            %>
+            <li class="tarjeta-usuario" onclick="toggleAcciones(this)">
+                <img src="<%= urlFoto %>" alt="Cancha <%= cancha.getNumero() %>" class="foto-usuario">
+                <span class="nombre-usuario">Cancha Nro <%= cancha.getNumero() %></span>
 
-                <!-- Otra cancha: si querés otra imagen distinta, reemplazar aquí -->
-                <!--<img src="URL_DE_LA_OTRA_CANCHA" alt="Cancha <%= numeroCanchas %>">-->
-
-                <!-- Otra cancha más: reemplazar con la imagen correspondiente -->
-                <!--<img src="URL_OTRA_CANCHA" alt="Cancha <%= numeroCanchas %>">-->--%>
-
-                <span>Cancha Nro <%= numeroCanchas %></span>
-                <div>
+                <div class="acciones" style="display: none;">
                     <form action="cancha" method="post" style="display:inline;">
                         <input type="hidden" name="accion" value="eliminar">
-                        <input type="hidden" name="numero" value="<%= numeroCanchas %>">
+                        <input type="hidden" name="numero" value="<%= cancha.getNumero() %>">
                         <button type="submit" title="Eliminar"
-                                onclick="return confirm('¿Eliminar la cancha Nro <%= numeroCanchas %>?')">
+                                onclick="return confirm('¿Eliminar la cancha Nro <%= cancha.getNumero() %>?')">
                             <i class="fi fi-rr-trash"></i>
                         </button>
                     </form>
 
                     <form action="editarCancha" method="get" style="display:inline;">
-                        <input type="hidden" name="numero" value="<%= numeroCanchas %>">
+                        <input type="hidden" name="numero" value="<%= cancha.getNumero() %>">
                         <button type="submit" title="Editar">
                             <i class="fi fi-rr-user-pen"></i>
                         </button>
                     </form>
 
                     <button type="button" title="Ver"
-                            onclick="window.location.href='${pageContext.request.contextPath}/verReservaCancha?numeroCancha=<%= numeroCanchas %>'">
+                            onclick="window.location.href='${pageContext.request.contextPath}/verReservaCancha?numeroCancha=<%= cancha.getNumero() %>'">
                         <i class="fi fi-rr-document"></i>
                     </button>
                 </div>
@@ -89,7 +92,14 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
+<script>
+    function toggleAcciones(elemento) {
+        const acciones = elemento.querySelector(".acciones");
+        acciones.style.display = acciones.style.display === "none" || acciones.style.display === "" ? "flex" : "none";
+    }
+</script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

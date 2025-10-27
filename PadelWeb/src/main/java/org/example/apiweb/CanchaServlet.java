@@ -1,11 +1,10 @@
 package org.example.apiweb;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 import dao.CanchaDAO;
+import dao.FotoCanchaDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,21 +22,34 @@ public class CanchaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
+            // Verificamos si ya hay mensajes seteados desde doPost
+            String mensajeExito = (String) request.getAttribute("mensajeExito");
+            String mensajeError = (String) request.getAttribute("mensajeError");
+
             CanchaDAO dao = new CanchaDAO();
             Vector<Cancha> canchas = dao.listarCancha();
+            request.setAttribute("listaCanchas", canchas);
 
-            List<Integer> numeroCanchas = new ArrayList<>();
+            FotoCanchaDAO fotoDAO = new FotoCanchaDAO();
+            Map<Integer, String> fotosPorId = new HashMap<>();
             for (Cancha c : canchas) {
-                numeroCanchas.add(c.getNumero());
+                String url = fotoDAO.obtenerFotoPorId(c.getId());
+                fotosPorId.put(c.getId(), url);
             }
+            request.setAttribute("fotosPorId", fotosPorId);
 
-            request.setAttribute("listaCanchas", numeroCanchas);
+            // Volvemos a setear los mensajes si existen
+            if (mensajeExito != null) request.setAttribute("mensajeExito", mensajeExito);
+            if (mensajeError != null) request.setAttribute("mensajeError", mensajeError);
+
             request.getRequestDispatcher("cancha.jsp").forward(request, response);
 
         } catch (Exception e) {
             throw new ServletException("Error al listar canchas", e);
         }
     }
+
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

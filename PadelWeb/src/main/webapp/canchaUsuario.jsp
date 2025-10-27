@@ -1,9 +1,11 @@
 <%@ page import="java.util.Vector" %>
+<%@ page import="java.util.Map" %>
 <%@ page import="models.Cancha" %>
 <%@ page import="models.Usuario" %>
 
 <%
     Vector<Cancha> listaCanchas = (Vector<Cancha>) request.getAttribute("listaCanchas");
+    Map<Integer, String> fotosPorId = (Map<Integer, String>) request.getAttribute("fotosPorId");
     String cedulaUsuario = (String) request.getAttribute("cedulaUsuario");
     boolean esAdmin = (request.getAttribute("esAdmin") != null) && (boolean) request.getAttribute("esAdmin");
 %>
@@ -31,19 +33,19 @@
     <div class="listaUser">
         <ul>
             <% if (listaCanchas != null && !listaCanchas.isEmpty()) {
-                for (Cancha cancha : listaCanchas) { %>
-            <li onclick="window.location.href='${pageContext.request.contextPath}/crearreserva?numeroCancha=<%= cancha.getNumero() %>'">
-                <!-- Imagen de la cancha: reemplazar por imagen específica de cada cancha -->
-                <%-- <img src="https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg" alt="Cancha <%= cancha.getNumero() %>">
-
-                <!-- Otra cancha: si querés otra imagen distinta, reemplazar aquí -->
-                <!--<img src="URL_DE_LA_OTRA_CANCHA" alt="Cancha <%= cancha.getNumero() %>">-->
-
-                <!-- Otra cancha más: reemplazar con la imagen correspondiente -->
-                <!--<img src="URL_OTRA_CANCHA" alt="Cancha <%= cancha.getNumero() %>">--> --%>
-
-                <span>Cancha Nro <%= cancha.getNumero() %></span>
+                for (Cancha cancha : listaCanchas) {
+                    String urlFoto = fotosPorId.get(cancha.getId());
+                    if (urlFoto == null || urlFoto.isEmpty()) {
+                        urlFoto = "https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg";
+                    }
+            %>
+            <li class="tarjeta-usuario <%= cancha.isEstaDisponible() ? "" : "no-disponible" %>"
+                    <%= cancha.isEstaDisponible() ? "onclick=\"window.location.href='" + request.getContextPath() + "/crearreserva?numeroCancha=" + cancha.getNumero() + "'\"" : "" %>>
+            <img src="<%= urlFoto %>" alt="Cancha <%= cancha.getNumero() %>" class="foto-usuario">
+                <span class="nombre-usuario"><%= cancha.isEstaDisponible() ? "Cancha Nro " + cancha.getNumero() : "Cancha Nro " + cancha.getNumero() + " (No disponible)" %>
+            </span>
             </li>
+
             <% } } else { %>
             <li>No hay canchas disponibles.</li>
             <% } %>

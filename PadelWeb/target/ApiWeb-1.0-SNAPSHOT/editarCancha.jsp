@@ -2,9 +2,15 @@
 <%@ page import="models.Cancha, java.sql.Time, java.util.Vector" %>
 <%
     Cancha cancha = (Cancha) request.getAttribute("cancha");
+    String urlFoto = (String) request.getAttribute("urlFoto");
+
     if (cancha == null) {
         response.sendRedirect("cancha");
         return;
+    }
+
+    if (urlFoto == null || urlFoto.isEmpty()) {
+        urlFoto = "https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg";
     }
 
     java.util.List<String> horariosDia = new java.util.ArrayList<>();
@@ -25,12 +31,35 @@
     <title>Editar Cancha</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/editarCancha.css">
+    <style>
+        .foto-cancha {
+            width: 280px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 3px solid #00b95e;
+            box-shadow: 0 0 8px rgba(0, 185, 94, 0.4);
+            transition: transform 0.2s ease;
+        }
+        .foto-cancha:hover {
+            transform: scale(1.02);
+        }
+    </style>
 </head>
 <body>
-<form class="login-form" action="editarCancha" method="post">
+<form class="login-form" action="editarCancha" method="post" enctype="multipart/form-data">
     <h1><i class="bi bi-pencil-square"></i> Editar Cancha N° <%= cancha.getNumero() %></h1>
 
     <input type="hidden" name="numero" value="<%= cancha.getNumero() %>">
+
+    <!-- Imagen actual y campo para subir nueva -->
+    <div class="imagen-cancha text-center mb-4">
+        <label for="fotoCancha">
+            <img src="<%= urlFoto %>" alt="Foto de la cancha" class="foto-cancha" style="cursor:pointer;">
+        </label>
+        <input type="file" id="fotoCancha" name="fotoCancha" accept="image/*" style="display:none;">
+        <p class="form-text">Haz clic en la imagen para cambiarla</p>
+    </div>
 
     <div class="form-input-material">
         <label for="precio">Precio ($)</label>
@@ -47,23 +76,48 @@
         <label class="form-check-label" for="estaDisponible">Disponible para reserva</label>
     </div>
 
-    <div class="form-input-material">
-        <label for="horarios">Horarios disponibles</label>
-        <select id="horarios" name="horarios" multiple size="8">
-            <% for (String h : horariosDia) {
-                boolean seleccionado = horariosCancha.stream()
-                        .anyMatch(t -> t.toString().startsWith(h));
+    <div class="form-input-material horarios-box">
+        <label>Horarios disponibles</label>
+        <table>
+            <tbody>
+            <%
+                int columnas = 3;
+                int count = 0;
+                for (String h : horariosDia) {
+                    boolean seleccionado = horariosCancha.stream()
+                            .anyMatch(t -> t.toString().startsWith(h));
+
+                    if (count % columnas == 0) { %><tr><% }
+
             %>
-            <option value="<%= h %>" <%= seleccionado ? "selected" : "" %>><%= h %></option>
-            <% } %>
-        </select>
-        <p class="form-text">Use Ctrl (o Cmd) para seleccionar múltiples horarios</p>
+                <td>
+                    <input type="checkbox" id="horario_<%= h %>" name="horarios" value="<%= h %>" <%= seleccionado ? "checked" : "" %>>
+                    <label for="horario_<%= h %>"><%= h %></label>
+                </td>
+                <%
+                    count++;
+                    if (count % columnas == 0) { %></tr><% }
+            }
+
+                if (count % columnas != 0) {
+                    for (int i = 0; i < columnas - (count % columnas); i++) {
+            %><td></td><% } %></tr><%
+                }
+            %>
+            </tbody>
+        </table>
     </div>
+
+
+
 
     <div class="acciones">
         <a href="cancha" class="btn btn-outline-secondary">Volver</a>
         <button type="submit" class="btn btn-success">Guardar cambios</button>
     </div>
 </form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

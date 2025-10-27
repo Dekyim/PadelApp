@@ -107,14 +107,9 @@ public class JugadorDAO {
 
     public Vector<Jugador> listarJugadores() {
         Vector<Jugador> jugadores = new Vector<>();
-
         String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula";
-
-        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                String cedula = rs.getString("cedula");
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) { String cedula = rs.getString("cedula");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
                 String correo = rs.getString("correo");
@@ -125,16 +120,12 @@ public class JugadorDAO {
                 String genero = rs.getString("genero");
                 Boolean estaBaneado = rs.getBoolean("estaBaneado");
                 int incumplePago = rs.getInt("incumplePago");
-
                 Jugador jugador = new Jugador(cedula, nombre, apellido, correo, telefono, contraseniaCuenta, fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
                 jugadores.add(jugador);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException("Error al listar jugadores", e);
-        }
-
-        return jugadores;
+        } return jugadores;
     }
 
     public void analizarBaneos() {

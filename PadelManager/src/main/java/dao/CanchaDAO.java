@@ -526,6 +526,56 @@ public int totalCanchasDisponibles() {
         return null;
     }
 
+    public void actualizarHorariosCancha(int idCancha, Vector<Time> nuevosHorarios) throws SQLException {
+        Connection conn = DatabaseConnection.getInstancia().getConnection();
+
+            String deleteSQL = "DELETE FROM CanchaHorario WHERE idCancha = ?";
+            try (PreparedStatement ps = conn.prepareStatement(deleteSQL)) {
+                ps.setInt(1, idCancha);
+                ps.executeUpdate();
+            }
+
+
+            String insertSQL = "INSERT INTO CanchaHorario (idCancha, horario) VALUES (?, ?)";
+            try (PreparedStatement ps = conn.prepareStatement(insertSQL)) {
+                for (Time horario : nuevosHorarios) {
+                    ps.setInt(1, idCancha);
+                    ps.setTime(2, horario);
+                    ps.addBatch();
+                }
+                ps.executeBatch();
+            }
+
+    }
+    public Vector<Time> obtenerHorariosPorNumero(int numeroCancha) throws SQLException {
+        Vector<Time> horarios = new Vector<>();
+        String sql = "SELECT horario FROM CanchaHorario WHERE idCancha = (SELECT id FROM Cancha WHERE numero = ?) ORDER BY horario";
+
+        Connection conn = DatabaseConnection.getInstancia().getConnection();
+
+        try {
+            if (conn == null || conn.isClosed()) {
+                throw new RuntimeException("La conexión está cerrada o no disponible.");
+            }
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, numeroCancha);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                horarios.add(rs.getTime("horario"));
+            }
+
+            rs.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener horarios de cancha", e);
+        }
+
+        return horarios;
+    }
+
 
 
 

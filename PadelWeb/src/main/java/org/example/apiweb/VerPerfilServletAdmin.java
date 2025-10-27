@@ -1,5 +1,5 @@
 package org.example.apiweb;
-
+import dao.FotoPerfilUsuarioDAO;
 import dao.AdministradorDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -16,6 +16,9 @@ import java.sql.Date;
 
 @WebServlet("/verPerfilAdmin")
 public class VerPerfilServletAdmin extends HttpServlet {
+
+    private final FotoPerfilUsuarioDAO fotoDAO = new FotoPerfilUsuarioDAO();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -23,7 +26,9 @@ public class VerPerfilServletAdmin extends HttpServlet {
         Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
 
         if (usuario != null) {
+            String urlFoto = fotoDAO.obtenerFotoPorCedula(usuario.getCedula());
             request.setAttribute("usuario", usuario);
+            request.setAttribute("fotoPerfil", urlFoto);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/verPerfilAdministrador.jsp");
             dispatcher.forward(request, response);
         } else {

@@ -372,3 +372,355 @@ td {
 .btn-sm:hover {
     transform: scale(1.05);
 }
+/* FOTO DE PERFIL EN LISTA DE USUARIOS */
+.listaUser li img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #00b95e;
+    box-shadow: 0 0 6px rgba(0, 185, 94, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.listaUser li img:hover {
+    transform: scale(1.05);
+}
+
+/* CONTENEDOR DE INFO DE USUARIO (FOTO + NOMBRE) */
+.listaUser li .info-jugador {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.listaUser li .info-jugador span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #f0f0f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* BOTONES DE ACCIÓN */
+.listaUser li .acciones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* RESPONSIVO PARA PANTALLAS PEQUEÑAS */
+@media (max-width: 500px) {
+    .listaUser li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .listaUser li .info-jugador {
+        justify-content: flex-start;
+    }
+
+    .listaUser li .acciones {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+/* TARJETA DE USUARIO REESTRUCTURADA */
+.tarjeta-usuario {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.tarjeta-usuario:hover {
+    transform: translateY(-3px);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+/* FOTO DE PERFIL GRANDE Y CENTRADA */
+.foto-usuario {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #00B95E;
+    box-shadow: 0 0 8px rgba(0, 185, 94, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.foto-usuario:hover {
+    transform: scale(1.05);
+}
+
+/* INFO DEL USUARIO */
+.info-usuario span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #f0f0f0;
+    word-break: break-word;
+}
+
+/* BOTONES DE ACCIÓN */
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.acciones button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.acciones button:hover {
+    transform: scale(1.15);
+}
+
+/* COLORES SEGÚN ACCIÓN */
+.acciones button[title="Eliminar"]:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.acciones button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.15);
+    color: #00b95e;
+}
+
+.acciones button[title="Ver"]:hover {
+    background: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
+}
+
+/* RESPONSIVO */
+@media (max-width: 500px) {
+    .tarjeta-usuario {
+        padding: 16px;
+    }
+
+    .foto-usuario {
+        width: 70px;
+        height: 70px;
+    }
+
+    .info-usuario span {
+        font-size: 15px;
+    }
+
+    .acciones {
+        gap: 8px;
+    }
+}
+/* TARJETA DE USUARIO REESTRUCTURADA */
+.tarjeta-usuario {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.tarjeta-usuario:hover {
+    transform: translateY(-3px);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+/* FOTO DE PERFIL GRANDE Y CENTRADA */
+.foto-usuario {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #00B95E;
+    box-shadow: 0 0 8px rgba(0, 185, 94, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.foto-usuario:hover {
+    transform: scale(1.05);
+}
+
+/* INFO DEL USUARIO */
+.info-usuario span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #f0f0f0;
+    word-break: break-word;
+}
+
+/* BOTONES DE ACCIÓN */
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.acciones button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.acciones button:hover {
+    transform: scale(1.15);
+}
+
+/* COLORES SEGÚN ACCIÓN */
+.acciones button[title="Eliminar"]:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.acciones button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.15);
+    color: #00b95e;
+}
+
+.acciones button[title="Ver"]:hover {
+    background: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
+}
+
+/* RESPONSIVO */
+@media (max-width: 500px) {
+    .tarjeta-usuario {
+        padding: 16px;
+    }
+
+    .foto-usuario {
+        width: 70px;
+        height: 70px;
+    }
+
+    .info-usuario span {
+        font-size: 15px;
+    }
+
+    .acciones {
+        gap: 8px;
+    }
+}
+.tarjeta-usuario {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.tarjeta-usuario:hover {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.foto-usuario {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #00B95E;
+    box-shadow: 0 0 10px rgba(0, 185, 94, 0.5);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.foto-usuario:hover {
+    transform: scale(1.05);
+}
+
+.nombre-usuario {
+    font-size: 17px;
+    font-weight: 500;
+    color: #f0f0f0;
+    word-break: break-word;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.acciones button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.acciones button:hover {
+    transform: scale(1.15);
+}
+
+.acciones button[title="Eliminar"]:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.acciones button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.15);
+    color: #00b95e;
+}
+
+.acciones button[title="Ver"]:hover {
+    background: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
+}
+
+.no-disponible {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
