@@ -40,20 +40,61 @@ public class ReservaUsuarioServlet extends HttpServlet {
 
         String fechaParam = request.getParameter("fecha");
         String numeroCanchaParam = request.getParameter("numeroCancha");
+        String ordenFecha = request.getParameter("ordenFecha");
+        String estadoPago = request.getParameter("estadoPago");
+        String estadoActiva = request.getParameter("estadoActiva");
+        String metodoPago = request.getParameter("metodoPago");
 
-        Vector<Reserva> listaReservas = reservaDAO.listarReservasPorUsuario(cedulaUsuario);
-        Vector<Cancha> listaCanchas = null;
-        try {
-            listaCanchas = canchaDAO.listarCancha();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if (ordenFecha == null || ordenFecha.isEmpty()) {
+            ordenFecha = "desc";
         }
 
+        Vector<Reserva> listaReservas;
 
-        request.setAttribute("listaReservas", listaReservas);
-        request.setAttribute("listaCanchas", listaCanchas);
-        request.setAttribute("nombreUsuario", usuario.getNombre());
+        try {
+            if (fechaParam != null && !fechaParam.isEmpty()) {
+                java.sql.Date fecha = java.sql.Date.valueOf(fechaParam);
+                listaReservas = "asc".equalsIgnoreCase(ordenFecha)
+                        ? reservaDAO.listarReservasPorFechaJugadorAsc(fecha, cedulaUsuario)
+                        : reservaDAO.listarReservasPorFechaJugador(fecha, cedulaUsuario);
+            } else {
+                listaReservas = "asc".equalsIgnoreCase(ordenFecha)
+                        ? reservaDAO.listarReservasPorUsuarioAsc(cedulaUsuario)
+                        : reservaDAO.listarReservasPorUsuario(cedulaUsuario);
+            }
 
-        request.getRequestDispatcher("usuarioReserva.jsp").forward(request, response);
+            if (numeroCanchaParam != null && !numeroCanchaParam.isEmpty()) {
+                int numeroCancha = Integer.parseInt(numeroCanchaParam);
+                listaReservas.removeIf(r -> r.getNumeroCancha() != numeroCancha);
+            }
+
+            if ("pagadas".equalsIgnoreCase(estadoPago)) {
+                listaReservas.removeIf(r -> !r.isEstaPagada());
+            } else if ("nopagadas".equalsIgnoreCase(estadoPago)) {
+                listaReservas.removeIf(r -> r.isEstaPagada());
+            }
+
+            if ("activas".equalsIgnoreCase(estadoActiva)) {
+                listaReservas.removeIf(r -> !r.isEstaActiva());
+            } else if ("noactivas".equalsIgnoreCase(estadoActiva)) {
+                listaReservas.removeIf(r -> r.isEstaActiva());
+            }
+
+            if (metodoPago != null && !metodoPago.isEmpty()) {
+                listaReservas.removeIf(r -> !r.getMetodoPago().getValue().equalsIgnoreCase(metodoPago));
+            }
+
+            Vector<Cancha> listaCanchas = canchaDAO.listarCancha();
+
+            request.setAttribute("listaReservas", listaReservas);
+            request.setAttribute("listaCanchas", listaCanchas);
+            request.setAttribute("nombreUsuario", usuario.getNombre());
+
+            request.getRequestDispatcher("usuarioReserva.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            throw new ServletException("Error al filtrar reservas", e);
+        }
     }
+
 }

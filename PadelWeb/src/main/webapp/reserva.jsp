@@ -103,7 +103,11 @@
 
     <form action="${pageContext.request.contextPath}/crearreserva" method="get">
         <input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
+<<<<<<< HEAD
         <button type="submit" class="btn-agregar"><i class="fi fi-rr-plus"></i></button>
+=======
+        <button type="submit" class="btn-agregar">+</button>
+>>>>>>> cab707dc010e9444d0a8afdfdad4f57cf7d8e377
     </form>
 
     <div class="listaUser">
@@ -137,6 +141,28 @@
                             <i class="fi fi-rr-user-pen"></i>
                         </button>
                     </form>
+                    <% if (reserva.isEstaActiva()) { %>
+                    <% if (reserva.isEstaPagada()) { %>
+                    <form action="reserva" method="post" style="display:inline;">
+                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
+                        <input type="hidden" name="accion" value="despagar">
+                        <button type="submit" title="Cancelar pago"
+                                onclick="return confirm('¿Cancelar el pago de la reserva de <%= nombreCompleto %>?')">
+                            <i class="fi fi-rr-cross-circle"></i>
+                        </button>
+                    </form>
+                    <% } else { %>
+                    <form action="reserva" method="post" style="display:inline;">
+                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
+                        <input type="hidden" name="accion" value="pagar">
+                        <button type="submit" title="Pagar reserva"
+                                onclick="return confirm('¿Confirmar pago de la reserva de <%= nombreCompleto %>?')">
+                            <i class="fi fi-rr-money-check"></i>
+                        </button>
+                    </form>
+                    <% } %>
+                    <% } %>
+
                 </div>
             </li>
             <% } } else { %>

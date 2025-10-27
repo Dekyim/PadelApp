@@ -10,11 +10,6 @@
     String mensajeExito = (String) request.getAttribute("mensajeExito");
     String mensajeError = (String) request.getAttribute("mensajeError");
 
-    Integer paginaActual = (Integer) request.getAttribute("paginaActual");
-    Integer totalPaginas = (Integer) request.getAttribute("totalPaginas");
-    if (paginaActual == null) paginaActual = 1;
-    if (totalPaginas == null) totalPaginas = 1;
-
     String ordenParam = request.getParameter("ordenFecha");
     if (ordenParam == null || ordenParam.isEmpty()) {
         ordenParam = "desc";
@@ -95,8 +90,40 @@
                 </select>
             </div>
             <div class="col">
+                <select name="ordenFecha" class="form-select">
+                    <option value="">Orden por fecha</option>
+                    <option value="asc" <%= "asc".equals(ordenParam) ? "selected" : "" %>>Fecha ascendente</option>
+                    <option value="desc" <%= "desc".equals(ordenParam) ? "selected" : "" %>>Fecha descendente</option>
+                </select>
+            </div>
+            <div class="col">
+                <select name="metodoPago" class="form-select">
+                    <option value="">Método de pago</option>
+                    <option value="efectivo" <c:if test="${param.metodoPago == 'efectivo'}">selected</c:if>>Efectivo</option>
+                    <option value="transferencia" <c:if test="${param.metodoPago == 'transferencia'}">selected</c:if>>Transferencia</option>
+                    <option value="tarjeta" <c:if test="${param.metodoPago == 'tarjeta'}">selected</c:if>>Tarjeta</option>
+                </select>
+            </div>
+            <div class="col">
+                <select name="estadoPago" class="form-select">
+                    <option value="">Pagada?</option>
+                    <option value="pagadas" <c:if test="${param.estadoPago == 'pagadas'}">selected</c:if>>Solo pagadas</option>
+                    <option value="nopagadas" <c:if test="${param.estadoPago == 'nopagadas'}">selected</c:if>>Solo no pagadas</option>
+                </select>
+            </div>
+            <div class="col">
+                <select name="estadoActiva" class="form-select">
+                    <option value="">Activa?</option>
+                    <option value="activas" <c:if test="${param.estadoActiva == 'activas'}">selected</c:if>>Solo activas</option>
+                    <option value="noactivas" <c:if test="${param.estadoActiva == 'noactivas'}">selected</c:if>>Solo no activas</option>
+                </select>
+            </div>
+
+            <div class="col">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
-                <a href="reserva" class="btn btn-secondary">Limpiar</a>
+
+
+                <a href="reserva" class="btn btn-secondary">Limpiar filtros</a>
             </div>
         </div>
     </form>
@@ -137,6 +164,28 @@
                             <i class="fi fi-rr-user-pen"></i>
                         </button>
                     </form>
+                    <% if (reserva.isEstaActiva()) { %>
+                    <% if (reserva.isEstaPagada()) { %>
+                    <form action="reserva" method="post" style="display:inline;">
+                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
+                        <input type="hidden" name="accion" value="despagar">
+                        <button type="submit" title="Cancelar pago"
+                                onclick="return confirm('¿Cancelar el pago de la reserva de <%= nombreCompleto %>?')">
+                            <i class="fi fi-rr-cross-circle"></i>
+                        </button>
+                    </form>
+                    <% } else { %>
+                    <form action="reserva" method="post" style="display:inline;">
+                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
+                        <input type="hidden" name="accion" value="pagar">
+                        <button type="submit" title="Pagar reserva"
+                                onclick="return confirm('¿Confirmar pago de la reserva de <%= nombreCompleto %>?')">
+                            <i class="fi fi-rr-money-check"></i>
+                        </button>
+                    </form>
+                    <% } %>
+                    <% } %>
+
                 </div>
             </li>
             <% } } else { %>

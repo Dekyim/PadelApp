@@ -1,107 +1,143 @@
 /* ===== Fondo general ===== */
 body {
+    margin: 0;
+    padding: 0;
+    background: #eceffc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #eceffc;
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* ===== Formulario principal ===== */
 .login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px 40px;
-    color: white;
     background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 40px 30px;
     border-radius: 10px;
-    box-shadow:
-            0 0.4px 0.4px rgba(128,128,128,0.109),
-            0 1px 1px rgba(128,128,128,0.155),
-            0 2.1px 2.1px rgba(128,128,128,0.195),
-            0 4.4px 4.4px rgba(128,128,128,0.241),
-            0 12px 12px rgba(128,128,128,0.35);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     max-width: 600px;
     width: 100%;
     box-sizing: border-box;
 }
 
 .login-form h1 {
-    margin-bottom: 24px;
     text-align: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+}
+
+/* ===== Imagen de cancha ===== */
+.imagen-cancha {
+    margin-bottom: 20px;
+}
+
+.foto-cancha {
+    width: 100%;
+    max-width: 280px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid #00b95e;
+    box-shadow: 0 0 8px rgba(0, 185, 94, 0.4);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.foto-cancha:hover {
+    transform: scale(1.02);
 }
 
 /* ===== Campos de entrada ===== */
 .form-input-material {
-    width: 100%;
-    margin: 12px 0;
+    margin-bottom: 20px;
 }
 
 .form-input-material label {
     display: block;
-    color: #dcdcdc;
     margin-bottom: 6px;
     font-size: 15px;
+    color: #dcdcdc;
 }
 
-.form-input-material input,
-.form-input-material select {
-    color: white;
+.form-input-material input[type="number"],
+.form-input-material input[type="text"] {
+    width: 100%;
+    padding: 8px;
     background: transparent;
     border: none;
     border-bottom: 1px solid white;
-    width: 100%;
-    padding: 8px 4px;
+    color: white;
     font-size: 16px;
     outline: none;
-    appearance: none;
 }
 
-.form-input-material select[multiple] {
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 4px;
-    height: 180px;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.form-text {
-    font-size: 13px;
-    color: #bdbdbd;
-    text-align: left;
-}
-
-/* ===== Checkboxes ===== */
+/* ===== Checkboxes simples ===== */
 .form-check {
-    align-self: flex-start;
-    margin: 8px 0;
-    color: #dcdcdc;
+    margin-bottom: 12px;
 }
 
 .form-check-input {
-    accent-color: #00B95E;
+    accent-color: #00b95e;
+    margin-right: 8px;
+}
+
+.form-check-label {
+    font-size: 15px;
+    color: #dcdcdc;
+}
+
+/* ===== Horarios como checkboxes ===== */
+.horarios-box {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.horarios-box table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.horarios-box td {
+    padding: 6px 10px;
+    vertical-align: middle;
+}
+
+.horarios-box input[type="checkbox"] {
+    accent-color: #00b95e;
+    margin-right: 6px;
+}
+
+.horarios-box label {
+    font-size: 14px;
+    color: #dcdcdc;
 }
 
 /* ===== Botones ===== */
+.acciones {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+}
+
 .btn {
-    border: none;
-    border-radius: 4px;
     padding: 10px 20px;
-    cursor: pointer;
-    transition: background 0.2s ease, opacity 0.2s ease;
+    border: none;
+    border-radius: 6px;
     font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .btn-success {
-    background-color: #00B95E;
+    background-color: #00b95e;
     color: white;
 }
 
 .btn-success:hover {
-    background-color: #00a656;
+    background-color: #009e50;
 }
 
 .btn-outline-secondary {
@@ -115,23 +151,19 @@ body {
     color: black;
 }
 
-/* ===== Contenedor de botones ===== */
-.acciones {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    width: 100%;
-    margin-top: 20px;
-}
-
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
     .login-form {
         padding: 30px 20px;
     }
 
+    .acciones {
+        flex-direction: column;
+        gap: 10px;
+    }
+
     .btn {
-        font-size: 15px;
-        padding: 8px 16px;
+        width: 100%;
     }
 }
+

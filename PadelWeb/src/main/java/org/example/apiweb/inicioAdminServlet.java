@@ -48,7 +48,7 @@ public class inicioAdminServlet extends HttpServlet {
             LocalDate hoy = LocalDate.now();
             LocalDate inicioMes = hoy.withDayOfMonth(1);
             LocalDate finMes = hoy.withDayOfMonth(hoy.lengthOfMonth());
-            double totalIngresos = reservaDAO.totalIngresos(
+            double totalIngresos = reservaDAO.totalIngresosMes(
                     Date.valueOf(inicioMes),
                     Date.valueOf(finMes)
             );
