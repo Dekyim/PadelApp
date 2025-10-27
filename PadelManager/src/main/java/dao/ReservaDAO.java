@@ -709,7 +709,7 @@ public class ReservaDAO {
         return reservas;
     }
 
-    public Vector<Reserva> listarReservasPorCanchaJugador(int numeroCancha, String cedulaUsuario) {
+    public Vector<Reserva> listaraReservasPorCanchaJugador(int numeroCancha, String cedulaUsuario) {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT r.* FROM Reserva r " +
                 "WHERE r.idCancha = (SELECT id FROM Cancha WHERE numero = ?) " +

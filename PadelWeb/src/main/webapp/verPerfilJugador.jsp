@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="models.Jugador, models.Usuario" %>
 <%
     Jugador jugador = (Jugador) request.getAttribute("jugador");
@@ -30,6 +30,9 @@
     </script>
 </head>
 <body>
+
+<%@include file="/WEB-INF/components/headerUsuario.jsp"%>
+
 <form class="login-form" action="verPerfilJugador" method="post">
     <h1 class="perfil-titulo"><i class="bi bi-person-circle"></i> Perfil del jugador</h1>
     <img src="${pageContext.request.contextPath}/img/perfil-default.png" alt="Foto de perfil" class="perfil-img">

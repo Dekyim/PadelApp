@@ -291,7 +291,33 @@ section h4 {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* CONTENIDO PRINCIPAL AJUSTADO */
-main, .hero, .panel, .container, .links, .content {
+/* ✅ CENTRAR CONTENIDO ENTRE EL SIDEBAR Y EL BORDE DERECHO */
+main, .hero, .panel, .container, .content, section .footer {
     margin-left: 220px; /* deja espacio al sidebar */
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centra el contenido */
+    text-align: center;
+}
+
+/* HERO */
+.hero-content {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* ✅ LINKS EN FILA (display:flex row) */
+.links {
+    margin-left: 220px; /* mismo desplazamiento que el resto del contenido */
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: row; /* los mantiene en fila */
+    justify-content: center; /* centrados horizontalmente */
+    align-items: stretch;
+    flex-wrap: wrap; /* permite que bajen si no entran */
+    gap: 30px;
+    padding: 60px 30px;
 }

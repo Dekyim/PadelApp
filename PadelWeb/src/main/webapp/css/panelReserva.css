@@ -1,0 +1,411 @@
+/* 🔠 RESETEO GENERAL */
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #e6ebff, #f2f5ff);
+    font-family: "Poppins", sans-serif;
+    color: white;
+    min-height: 100vh;
+}
+
+/* HEADER FIJO */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 18px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar h1 {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+}
+
+/* Enlace dentro del h1 (logo clickeable) */
+.sidebar h1 > a {
+    all: unset;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sidebar h1 > a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
+}
+
+/* Enlaces del header */
+.enlaces a {
+    color: #89d4ff;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.enlaces a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
+}
+
+/* PANEL PRINCIPAL CENTRADO */
+.panel {
+    max-width: 1200px;
+    margin: 120px auto 50px;
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 🌟 FORMULARIO DE FILTRO MODERNO */
+form[action="reserva"] {
+    width: 100%;
+    max-width: 1100px;
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.85), rgba(15, 15, 15, 0.9));
+    padding: 25px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    margin-bottom: 40px;
+}
+
+form[action="reserva"] .row {
+    row-gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Inputs y selects */
+form[action="reserva"] input,
+form[action="reserva"] select {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 10px;
+    transition: 0.3s ease;
+    box-shadow: inset 0 0 8px rgba(137, 212, 255, 0.15);
+}
+
+form[action="reserva"] input::placeholder {
+    color: #bfc8d6;
+}
+
+form[action="reserva"] select option {
+    background: #222;
+    color: #fff;
+}
+
+/* Efecto focus */
+form[action="reserva"] input:focus,
+form[action="reserva"] select:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(137, 212, 255, 0.4);
+}
+
+/* Botones del filtro */
+form[action="reserva"] .col:last-child {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Botón Filtrar */
+form[action="reserva"] .btn-primary {
+    background-color: #89d4ff;
+    color: #0b0b0b;
+    border: none;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 18px;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(137, 212, 255, 0.2);
+}
+
+form[action="reserva"] .btn-primary:hover {
+    background-color: #00b95e;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 185, 94, 0.4);
+}
+
+/* Botón Limpiar filtros */
+form[action="reserva"] .btn-secondary {
+    background-color: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+form[action="reserva"] .btn-secondary:hover {
+    background-color: rgba(137, 212, 255, 0.3);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* BOTÓN FLOTANTE ABAJO A LA DERECHA */
+.btn-agregar {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #00b95e;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease;
+    z-index: 200;
+}
+
+.btn-agregar:hover {
+    background: #00a357;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* LISTA DE RESERVAS */
+.listaUser {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.listaUser ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 25px;
+    justify-content: center;
+}
+
+/* Tarjetas */
+.listaUser li {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px;
+}
+
+.listaUser li:hover {
+    transform: translateY(-4px);
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* Contenido interno */
+.listaUser span {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #eaeaea;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.listaUser span b {
+    color: #00b95e;
+}
+
+.listaUser span::before {
+    font-size: 16px;
+    color: #00b95e;
+}
+
+/* Footer (botones dentro de las tarjetas) */
+.listaUser li div {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Botones */
+.listaUser button {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.listaUser button:hover {
+    transform: scale(1.1);
+}
+
+/* Colores según acción */
+.listaUser button[title="Cancelar"]:hover {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff4d4d;
+}
+
+.listaUser button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.2);
+    color: #00b95e;
+}
+
+/* TÍTULO */
+.titulo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.tituloGestion {
+    font-size: 30px;
+    font-weight: 600;
+    color: #222;
+    margin: 0 0 20px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #00b95e;
+    display: inline-block;
+    letter-spacing: 0.5px;
+    font-family: "Poppins", sans-serif;
+}
+
+/* SIDEBAR MODERNO */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    z-index: 200;
+}
+
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #89d4ff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+    background: rgba(0,185,94,0.2);
+    color: #00b95e;
+    transform: translateX(5px);
+    text-shadow: 0 0 6px rgba(0,185,94,0.4);
+}
+
+/* ✅ CENTRAR CONTENIDO ENTRE SIDEBAR Y BORDE DERECHO */
+.panel,
+main,
+.container,
+section {
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* 🔽 PAGINACIÓN */
+.pagination {
+    margin-top: 40px;
+    gap: 8px;
+    justify-content: center;
+}
+
+.pagination .page-item {
+    display: inline-block;
+}
+
+.pagination .page-link {
+    background: rgba(0, 0, 0, 0.75);
+    color: #bfc8d6;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.pagination .page-link:hover {
+    background: rgba(0, 0, 0, 0.85);
+    color: #00b95e;
+    transform: translateY(-2px);
+    text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
+}
+
+.pagination .page-item.active .page-link {
+    background: #00b95e;
+    color: white;
+    font-weight: 600;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 185, 94, 0.6);
+}
+
+.pagination .page-item.disabled .page-link {
+    background: rgba(0, 0, 0, 0.5);
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.pagination .page-link:focus {
+    outline: none;
+    box-shadow: 0 0 6px rgba(0, 185, 94, 0.4);
+}
