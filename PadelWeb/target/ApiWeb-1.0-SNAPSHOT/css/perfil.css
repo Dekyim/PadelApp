@@ -1,18 +1,30 @@
 /* ===== Fondo general ===== */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* Antes tenía display:flex y centrado, lo quitamos para no chocar con el sidebar fijo */
+    display: block;
     min-height: 100vh;
     background: #eceffc;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* ===== CENTRAR ENTRE SIDEBAR Y BORDE DERECHO ===== */
+.container.py-5 {
+    /* deja el hueco del sidebar */
+    margin-left: 220px;
+    /* limita el ancho al espacio disponible a la derecha del sidebar */
+    max-width: calc(100vw - 220px);
+    /* centrado horizontal del contenido dentro de ese espacio */
+    display: flex;
+    justify-content: center;
+    /* mantiene el padding vertical de Bootstrap (.py-5) */
+}
+
 /* ===== Tarjeta de perfil ===== */
 .perfil-card {
+    width: 100%;
     max-width: 500px;
-    margin: 0 auto;
+    margin: 0; /* el centrado lo hace el contenedor flex */
     border-radius: 15px;
     background: rgba(0, 0, 0, 0.85);
     color: white;
@@ -201,7 +213,12 @@ select.form-select[disabled] {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* CONTENIDO PRINCIPAL AJUSTADO */
-main, .hero, .panel, .container, .links, .content {
-    margin-left: 220px; /* deja espacio al sidebar */
+/* (Opcional) si tenés otras secciones comunes a la app, también podés centrar: */
+/*
+main, .hero, .links, .content {
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    display: flex;
+    justify-content: center;
 }
+*/

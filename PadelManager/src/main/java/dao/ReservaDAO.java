@@ -833,6 +833,7 @@ public class ReservaDAO {
     }
 
     public Vector<Reserva> listarReservasPorMetodoPagoJugadorAsc(String metodoPago, String cedulaUsuario) {
+    public Vector<Reserva> listaraReservasPorCanchaJugador(int numeroCancha, String cedulaUsuario) {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT * FROM Reserva WHERE metodoPago = ? AND cedulaUsuario = ?  ORDER BY fecha ASC";
 

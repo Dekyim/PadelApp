@@ -12,9 +12,7 @@ import models.Usuario;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 @WebServlet(name = "ReservaServlet", value = "/reserva")
 public class ReservaServlet extends HttpServlet {
@@ -95,6 +93,7 @@ public class ReservaServlet extends HttpServlet {
                             : reservaDAO.listarTodasLasReservas();
                 }
 
+                // Filtro de pago
                 if (estadoPago != null && !estadoPago.isEmpty()) {
                     reservas.removeIf(r ->
                             ("pagadas".equalsIgnoreCase(estadoPago) && !r.isEstaPagada()) ||
@@ -108,7 +107,28 @@ public class ReservaServlet extends HttpServlet {
                         : reservaDAO.listarTodasLasReservas();
             }
 
-            for (Reserva reserva : reservas) {
+            // 🧩 Paginación
+            int reservasPorPagina = 12;
+            int paginaActual = 1;
+
+            String paginaParam = request.getParameter("page");
+            if (paginaParam != null && !paginaParam.isEmpty()) {
+                try {
+                    paginaActual = Integer.parseInt(paginaParam);
+                    if (paginaActual < 1) paginaActual = 1;
+                } catch (NumberFormatException ignored) {}
+            }
+
+            int totalReservas = reservas.size();
+            int totalPaginas = (int) Math.ceil((double) totalReservas / reservasPorPagina);
+
+            int inicio = (paginaActual - 1) * reservasPorPagina;
+            int fin = Math.min(inicio + reservasPorPagina, totalReservas);
+
+            List<Reserva> reservasPagina = reservas.subList(inicio, fin);
+
+            // Cargar nombres de usuarios y número de cancha
+            for (Reserva reserva : reservasPagina) {
                 String cedulaUsuario = reserva.getCedulaUsuario();
                 if (!nombresUsuarios.containsKey(cedulaUsuario)) {
                     Vector<Usuario> posibles = usuarioDAO.listarUsuarios(cedulaUsuario);
@@ -132,9 +152,12 @@ public class ReservaServlet extends HttpServlet {
 
             Vector<Cancha> listaCanchas = canchaDAO.listarCancha();
             request.setAttribute("listaCanchas", listaCanchas);
-            request.setAttribute("listaReservas", reservas);
+            request.setAttribute("listaReservas", reservasPagina);
             request.setAttribute("nombresUsuarios", nombresUsuarios);
             request.setAttribute("idToNumeroCancha", idToNumeroCancha);
+            request.setAttribute("paginaActual", paginaActual);
+            request.setAttribute("totalPaginas", totalPaginas);
+
             request.getRequestDispatcher("/reserva.jsp").forward(request, response);
 
         } catch (Exception e) {

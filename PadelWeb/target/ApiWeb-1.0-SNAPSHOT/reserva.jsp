@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.Vector" %>
+<%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="models.Reserva" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <%
-    Vector<Reserva> listaReservas = (Vector<Reserva>) request.getAttribute("listaReservas");
+    List<Reserva> listaReservas = (List<Reserva>) request.getAttribute("listaReservas");
     Map<String, String> nombresUsuarios = (Map<String, String>) request.getAttribute("nombresUsuarios");
     String mensajeExito = (String) request.getAttribute("mensajeExito");
     String mensajeError = (String) request.getAttribute("mensajeError");
@@ -21,9 +21,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Panel de Reservas</title>
+    <link rel="stylesheet" href="css/panelReserva.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
-    <link rel="stylesheet" href="css/panel.css">
 </head>
 <body>
 
@@ -50,22 +50,44 @@
 
     <form method="get" action="reserva" class="mb-4">
         <div class="row">
-            <div class="col">
-                <input type="text" name="cedulaUsuario" class="form-control" placeholder="Cédula del jugador"
-                       value="${param.cedulaUsuario}">
-            </div>
+            <div class="col"><input type="text" name="cedulaUsuario" class="form-control" placeholder="Nombre" value="${param.cedulaUsuario}"></div>
             <div class="col">
                 <select name="numeroCancha" class="form-select">
                     <option value="">Cancha</option>
                     <c:forEach var="cancha" items="${listaCanchas}">
-                        <option value="${cancha.numero}" <c:if test="${param.numeroCancha == cancha.numero}">selected</c:if>>
-                            Cancha Nº ${cancha.numero}
-                        </option>
+                        <option value="${cancha.numero}" <c:if test="${param.numeroCancha == cancha.numero}">selected</c:if>>Cancha Nº ${cancha.numero}</option>
                     </c:forEach>
                 </select>
             </div>
+            <div class="col"><input type="date" name="fecha" class="form-control" value="${param.fecha}"></div>
             <div class="col">
-                <input type="date" name="fecha" class="form-control" value="${param.fecha}">
+                <select name="ordenFecha" class="form-select">
+                    <option value="">Orden por fecha</option>
+                    <option value="asc" <%= "asc".equals(ordenParam) ? "selected" : "" %>>Ascendente</option>
+                    <option value="desc" <%= "desc".equals(ordenParam) ? "selected" : "" %>>Descendente</option>
+                </select>
+            </div>
+            <div class="col">
+                <select name="metodoPago" class="form-select">
+                    <option value="">Método de pago</option>
+                    <option value="efectivo" <c:if test="${param.metodoPago == 'efectivo'}">selected</c:if>>Efectivo</option>
+                    <option value="transferencia" <c:if test="${param.metodoPago == 'transferencia'}">selected</c:if>>Transferencia</option>
+                    <option value="tarjeta" <c:if test="${param.metodoPago == 'tarjeta'}">selected</c:if>>Tarjeta</option>
+                </select>
+            </div>
+            <div class="col">
+                <select name="estadoPago" class="form-select">
+                    <option value="">¿Pagada?</option>
+                    <option value="pagadas" <c:if test="${param.estadoPago == 'pagadas'}">selected</c:if>>Sí</option>
+                    <option value="nopagadas" <c:if test="${param.estadoPago == 'nopagadas'}">selected</c:if>>No</option>
+                </select>
+            </div>
+            <div class="col">
+                <select name="estadoActiva" class="form-select">
+                    <option value="">¿Activa?</option>
+                    <option value="activas" <c:if test="${param.estadoActiva == 'activas'}">selected</c:if>>Sí</option>
+                    <option value="noactivas" <c:if test="${param.estadoActiva == 'noactivas'}">selected</c:if>>No</option>
+                </select>
             </div>
             <div class="col">
                 <select name="ordenFecha" class="form-select">
@@ -99,6 +121,8 @@
 
             <div class="col">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
+
+
                 <a href="reserva" class="btn btn-secondary">Limpiar filtros</a>
             </div>
         </div>
@@ -106,7 +130,7 @@
 
     <form action="${pageContext.request.contextPath}/crearreserva" method="get">
         <input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
-        <button type="submit" class="btn-agregar">+</button>
+        <button type="submit" class="btn-agregar"><i class="fi fi-rr-plus"></i></button>
     </form>
 
     <div class="listaUser">
@@ -117,20 +141,19 @@
             %>
             <li>
                 <span>
-                    Usuario: <%= nombreCompleto %> (<%= reserva.getCedulaUsuario() %>)<br>
-                    Cancha Nº <%= reserva.getNumeroCancha() %><br>
-                    Fecha: <%= reserva.getFecha() %><br>
-                    Horario: <%= reserva.getHorarioInicio() %> - <%= reserva.getHorarioFinal() %><br>
-                    Método de pago: <%= reserva.getMetodoPago().getValue() %><br>
-                    Pagada: <%= reserva.isEstaPagada() ? "Sí" : "No" %><br>
-                    Activa: <%= reserva.isEstaActiva() ? "Sí" : "No" %>
+                    <b>Usuario:</b> <%= nombreCompleto %> (<%= reserva.getCedulaUsuario() %>)<br>
+                    <b>Cancha:</b> Nº <%= reserva.getNumeroCancha() %><br>
+                    <b>Fecha:</b> <%= reserva.getFecha() %><br>
+                    <b>Horario:</b> <%= reserva.getHorarioInicio() %> - <%= reserva.getHorarioFinal() %><br>
+                    <b>Método:</b> <%= reserva.getMetodoPago().getValue() %><br>
+                    <b>Pagada:</b> <%= reserva.isEstaPagada() ? "Sí" : "No" %><br>
+                    <b>Activa:</b> <%= reserva.isEstaActiva() ? "Sí" : "No" %>
                 </span>
                 <div>
                     <form action="cancelarReserva" method="post" style="display:inline;">
                         <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
                         <input type="hidden" name="accion" value="cancelar">
-                        <button type="submit" title="Cancelar"
-                                onclick="return confirm('¿Cancelar la reserva de <%= nombreCompleto %>?')">
+                        <button type="submit" title="Cancelar" onclick="return confirm('¿Cancelar la reserva de <%= nombreCompleto %>?')">
                             <i class="fi fi-rr-trash"></i>
                         </button>
                     </form>
@@ -170,6 +193,29 @@
             <% } %>
         </ul>
     </div>
+
+    <!-- 🔽 PAGINACIÓN -->
+    <nav aria-label="Paginación de reservas" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <% if (paginaActual > 1) { %>
+            <li class="page-item"><a class="page-link" href="?page=<%= paginaActual - 1 %>">Anterior</a></li>
+            <% } else { %>
+            <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+            <% } %>
+
+            <% for (int i = 1; i <= totalPaginas; i++) { %>
+            <li class="page-item <%= (i == paginaActual) ? "active" : "" %>">
+                <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+            </li>
+            <% } %>
+
+            <% if (paginaActual < totalPaginas) { %>
+            <li class="page-item"><a class="page-link" href="?page=<%= paginaActual + 1 %>">Siguiente</a></li>
+            <% } else { %>
+            <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+            <% } %>
+        </ul>
+    </nav>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
