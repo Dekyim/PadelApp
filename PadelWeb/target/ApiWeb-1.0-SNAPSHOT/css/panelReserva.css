@@ -66,96 +66,141 @@ body {
     align-items: center;
 }
 
-/* 🌟 FORMULARIO DE FILTRO MODERNO */
+/* 🌌 FORMULARIO DE FILTRO MODERNO Y ELEGANTE */
 form[action="reserva"] {
     width: 100%;
     max-width: 1100px;
-    background: linear-gradient(145deg, rgba(0, 0, 0, 0.85), rgba(15, 15, 15, 0.9));
-    padding: 25px 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+    padding: 35px 40px;
+    border-radius: 18px;
+    box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.5),
+            inset 0 0 15px rgba(0, 185, 94, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(6px);
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    transition: all 0.3s ease;
 }
 
+form[action="reserva"]:hover {
+    box-shadow:
+            0 10px 35px rgba(0, 0, 0, 0.55),
+            inset 0 0 25px rgba(0, 185, 94, 0.2);
+}
+
+/* 🧭 Distribución interna */
 form[action="reserva"] .row {
-    row-gap: 15px;
+    row-gap: 20px;
     align-items: center;
     justify-content: center;
 }
 
-/* Inputs y selects */
+/* ✏️ Inputs y selects */
 form[action="reserva"] input,
 form[action="reserva"] select {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    border-radius: 8px;
-    font-size: 14px;
-    padding: 10px;
-    transition: 0.3s ease;
-    box-shadow: inset 0 0 8px rgba(137, 212, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e8f5ee;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 12px 14px;
+    width: 100%;
+    box-shadow: inset 0 0 8px rgba(0, 185, 94, 0.1);
+    transition: all 0.25s ease;
 }
 
 form[action="reserva"] input::placeholder {
-    color: #bfc8d6;
+    color: #b9c3ce;
 }
 
 form[action="reserva"] select option {
-    background: #222;
+    background: #101010;
     color: #fff;
 }
 
-/* Efecto focus */
+/* ✨ Efecto focus */
 form[action="reserva"] input:focus,
 form[action="reserva"] select:focus {
     outline: none;
-    box-shadow: 0 0 8px rgba(137, 212, 255, 0.4);
+    border-color: #00b95e;
+    box-shadow: 0 0 8px rgba(0, 185, 94, 0.5);
+    background: rgba(0, 185, 94, 0.08);
+    transform: scale(1.02);
 }
 
-/* Botones del filtro */
+/* 🎛️ Botones contenedor */
 form[action="reserva"] .col:last-child {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
 }
 
-/* Botón Filtrar */
+/* 💚 Botón principal (Filtrar) */
 form[action="reserva"] .btn-primary {
-    background-color: #89d4ff;
-    color: #0b0b0b;
+    background: linear-gradient(135deg, #00b95e, #00a651);
+    color: #fff;
     border: none;
     font-weight: 600;
-    border-radius: 8px;
-    padding: 10px 18px;
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-size: 15px;
+    letter-spacing: 0.3px;
     transition: 0.3s ease;
-    box-shadow: 0 4px 10px rgba(137, 212, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 185, 94, 0.3);
 }
 
 form[action="reserva"] .btn-primary:hover {
-    background-color: #00b95e;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 185, 94, 0.4);
+    background: linear-gradient(135deg, #00c866, #00b95e);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 185, 94, 0.45);
 }
 
-/* Botón Limpiar filtros */
+/* 🌫️ Botón secundario (Limpiar) */
 form[action="reserva"] .btn-secondary {
-    background-color: rgba(137, 212, 255, 0.15);
+    background: rgba(137, 212, 255, 0.08);
     color: #89d4ff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 18px;
+    border: 1px solid rgba(137, 212, 255, 0.25);
+    border-radius: 10px;
+    padding: 10px 22px;
     font-weight: 500;
+    font-size: 15px;
     transition: 0.3s ease;
 }
 
 form[action="reserva"] .btn-secondary:hover {
-    background-color: rgba(137, 212, 255, 0.3);
+    background: rgba(137, 212, 255, 0.25);
     color: #fff;
     transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(137, 212, 255, 0.2);
 }
+
+/* 🧩 Etiquetas */
+form[action="reserva"] label {
+    color: #d6d6d6;
+    font-weight: 500;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+/* 🪟 Responsive */
+@media (max-width: 768px) {
+    form[action="reserva"] {
+        padding: 25px 20px;
+    }
+
+    form[action="reserva"] .col:last-child {
+        justify-content: center;
+    }
+
+    form[action="reserva"] .btn-primary,
+    form[action="reserva"] .btn-secondary {
+        width: 100%;
+    }
+}
+
 
 /* BOTÓN FLOTANTE ABAJO A LA DERECHA */
 .btn-agregar {

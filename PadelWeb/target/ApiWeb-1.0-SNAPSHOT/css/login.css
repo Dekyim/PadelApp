@@ -120,3 +120,139 @@ a:hover {
     color: white;
 }
 
+/* ------------------------------
+   SIDEBAR MODERNO
+------------------------------ */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    z-index: 200;
+}
+
+/* LOGO */
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo a {
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sidebar .logo a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0,185,94,0.5);
+}
+
+/* MENÚ DE ENLACES */
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #89d4ff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+    background: rgba(0,185,94,0.2);
+    color: #00b95e;
+    transform: translateX(5px);
+    text-shadow: 0 0 6px rgba(0,185,94,0.4);
+}
+
+/* ------------------------------
+   CONTENIDO CENTRAL
+------------------------------ */
+
+/* ✅ Centra correctamente el contenido desde el borde del sidebar */
+main,
+.hero,
+.panel,
+.container,
+.content,
+section,
+.footer {
+    margin-left: 220px; /* espacio para el sidebar */
+    max-width: calc(100vw - 220px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centra horizontalmente */
+    justify-content: center; /* centra verticalmente */
+    text-align: center;
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+/* HERO */
+.hero-content {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* ✅ LINKS EN FILA (centrados correctamente) */
+.links {
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 60px 30px;
+    box-sizing: border-box;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 15px;
+    }
+
+    main,
+    .hero,
+    .panel,
+    .container,
+    .content,
+    section,
+    .footer,
+    .links {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 20px;
+    }
+}

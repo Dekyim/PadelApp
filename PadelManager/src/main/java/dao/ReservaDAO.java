@@ -833,9 +833,8 @@ public class ReservaDAO {
     }
 
     public Vector<Reserva> listarReservasPorMetodoPagoJugadorAsc(String metodoPago, String cedulaUsuario) {
-    public Vector<Reserva> listaraReservasPorCanchaJugador(int numeroCancha, String cedulaUsuario) {
         Vector<Reserva> reservas = new Vector<>();
-        String consulta = "SELECT * FROM Reserva WHERE metodoPago = ? AND cedulaUsuario = ?  ORDER BY fecha ASC";
+        String consulta = "SELECT * FROM Reserva WHERE metodoPago = ? AND cedulaUsuario = ? ORDER BY fecha ASC";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
             ps.setString(1, metodoPago);
@@ -853,6 +852,29 @@ public class ReservaDAO {
         return reservas;
     }
 
+    // 🔧 método separado correctamente (el que antes estaba mal ubicado)
+    public Vector<Reserva> listaraReservasPorCanchaJugador(int numeroCancha, String cedulaUsuario) {
+        Vector<Reserva> reservas = new Vector<>();
+        String consulta = "SELECT r.* FROM Reserva r " +
+                "WHERE r.idCancha = (SELECT id FROM Cancha WHERE numero = ?) " +
+                "AND r.cedulaUsuario = ? " +
+                "ORDER BY r.fecha DESC";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setInt(1, numeroCancha);
+            ps.setString(2, cedulaUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    reservas.add(mapearReservaDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al listar reservas por cancha y jugador", e);
+        }
+
+        return reservas;
+    }
     public Vector<Reserva> listarReservasPorJugadorPagada(String cedulaUsuario) {
         Vector<Reserva> reservas = new Vector<>();
         String consulta = "SELECT * FROM Reserva WHERE cedulaUsuario = ? AND estaPagada = true ORDER BY fecha DESC";
