@@ -1,10 +1,12 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<header class="header">
-    <h1>PadelManager</h1>
-    <nav class="enlaces">
-        <a href="<%= request.getContextPath() %>/inicioUsers">Inicio</a>
-        <a href="<%= request.getContextPath() %>/canchaUsuario">Canchas</a>
-        <a href="<%= request.getContextPath() %>/verPerfilJugador">Ver Perfil</a>
-        <a href="<%= request.getContextPath() %>/logout">Cerrar sesion</a>
+<aside class="sidebar">
+    <h1 class="logo"><a href="<%= request.getContextPath() %>/inicioAdmin">PadelManager</a></h1>
+    <nav class="menu">
+        <a href="<%= request.getContextPath() %>/inicioUsers"><i class="fi fi-rr-home"></i> Inicio</a>
+        <a href="<%= request.getContextPath() %>/canchaUsuario"><i class="fi fi-rr-users"></i> Usuarios</a>
+        <a href="<%= request.getContextPath() %>/reservaUsuario"><i class="fi fi-rr-calendar"></i> Reservas </a>
+        <a href="<%= request.getContextPath() %>/verPerfilJugador"><i class="fi fi-rr-user"></i> Ver Perfil </a>
+        <a href="<%= request.getContextPath() %>/logout"><i class="fi fi-rr-exit"></i> Cerrar sesión</a>
     </nav>
-</header>
+</aside>

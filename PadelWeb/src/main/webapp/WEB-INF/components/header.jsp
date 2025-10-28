@@ -1,7 +1,8 @@
-<header class="header">
-    <h1>PadelManager</h1>
-    <nav class="enlaces">
-        <a href="login">Login</a>
-        <a href="registro">Registro</a>
+<aside class="sidebar">
+    <h1 class="logo"><a href="../../index.jsp">PadelManager</a></h1>
+    <nav class="menu">
+        <a href="login"><i class="fi fi-rr-user"></i> Login</a>
+        <a href="registro"><i class="fi fi-rr-add-document"></i> Registro</a>
+        <a href="#"><i class="fi fi-rr-settings"></i> Ajustes</a>
     </nav>
-</header>
+</aside>

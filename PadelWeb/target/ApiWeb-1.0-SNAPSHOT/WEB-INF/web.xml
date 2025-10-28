@@ -4,21 +4,29 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-         <filter>
-            <filter-name>EncodingFilter</filter-name>
-            <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
-            <init-param>
-                <param-name>encoding</param-name>
-                <param-value>UTF-8</param-value>
-            </init-param>
-            <init-param>
-                <param-name>ignore</param-name>
-                <param-value>false</param-value>
-            </init-param>
-        </filter>
 
-        <filter-mapping>
-            <filter-name>EncodingFilter</filter-name>
-            <url-pattern>/*</url-pattern>
-        </filter-mapping>
+    <!-- Filtro para UTF-8 -->
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ignore</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Página de inicio: ejecuta el servlet "InicioServlet" -->
+    <welcome-file-list>
+        <welcome-file>inicio</welcome-file> <!-- mapping de tu servlet -->
+    </welcome-file-list>
+
 </web-app>

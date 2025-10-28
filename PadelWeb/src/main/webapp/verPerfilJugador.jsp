@@ -1,22 +1,32 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="models.Jugador, models.Usuario" %>
+
 <%
     Jugador jugador = (Jugador) request.getAttribute("jugador");
     Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
-
-
     String urlVolver = "inicioUsers";
     if (usuario != null && usuario.esAdministrador()) {
         urlVolver = "inicioAdmin";
     }
+
+    String fotoPerfil = (String) request.getAttribute("fotoPerfil");
+    if (fotoPerfil == null || fotoPerfil.isEmpty()) {
+        fotoPerfil = "https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg";
+    }
+
+    String mensajeFoto = (String) request.getAttribute("mensajeFoto");
+    String mensaje = (String) request.getAttribute("mensaje");
 %>
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>Perfil del Jugador</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/perfilJugador.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/perfilJugador.css">
+
     <script>
         function habilitarEdicion() {
             document.querySelectorAll(".editable").forEach(el => el.removeAttribute("readonly"));
@@ -25,88 +35,126 @@
         }
     </script>
 </head>
-<body class="bg-light">
-<div class="container py-5">
-    <div class="card perfil-card mx-auto shadow-lg">
-        <div class="card-body text-center">
-            <img src="${pageContext.request.contextPath}/img/perfil-default.png" alt="Foto de perfil" class="rounded-circle perfil-img mb-3">
-            <h3 class="card-title mb-3"><i class="bi bi-person-circle"></i> Jugador</h3>
+<body>
 
-            <form action="verPerfilJugador" method="post" class="text-start">
-
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-credit-card"></i> Cédula</label>
-                    <input type="text" name="cedula" class="form-control" value="<%= jugador.getCedula() %>" readonly>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-person"></i> Nombre</label>
-                    <input type="text" name="nombre" class="form-control editable" value="<%= jugador.getNombre() %>" readonly>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-person"></i> Apellido</label>
-                    <input type="text" name="apellido" class="form-control editable" value="<%= jugador.getApellido() %>" readonly>
-                </div>
+<%@include file="/WEB-INF/components/headerUsuario.jsp"%>
 
 
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-envelope"></i> Correo</label>
-                    <input type="email" name="correo" class="form-control editable" value="<%= jugador.getCorreo() %>" readonly>
-                </div>
+<div class="container mt-4">
+
+    <% if (mensajeFoto != null) { %>
+    <div class="alert alert-info text-center"><%= mensajeFoto %></div>
+    <% } %>
+
+    <% if (mensaje != null) { %>
+    <div class="alert alert-success text-center"><%= mensaje %></div>
+    <% } %>
+
+    <!-- Formulario para subir nueva foto -->
+    <form action="subirFotoPerfil" method="post" enctype="multipart/form-data" class="foto-perfil-form">
+        <input type="hidden" name="cedula" value="<%= jugador.getCedula() %>">
+        <h1 class="perfil-titulo"><i class="bi bi-person-circle"></i> Foto de perfil</h1>
+
+        <div class="form-input-material text-center">
+            <img src="<%= fotoPerfil %>" alt="Foto de perfil" class="perfil-img mb-2" id="imagenPerfil" style="cursor: pointer;">
+            <div id="mensajeActualizar" class="text-muted small">Haz clic en la imagen para actualizar</div>
+
+            <div id="bloqueSubida" style="display: none;" class="mt-3">
+                <input type="file" name="fotoPerfil" id="fotoPerfil" class="form-control mt-2" accept="image/*" required>
+                <button type="submit" class="btn btn-primary mt-2">
+                    <i class="bi bi-cloud-upload"></i> Subir nueva foto
+                </button>
+            </div>
+        </div>
+    </form>
 
 
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-telephone"></i> Teléfono</label>
-                    <input type="text" name="telefono" class="form-control editable" value="<%= jugador.getTelefono() %>" readonly>
-                </div>
+    <!-- Formulario para editar datos del jugador -->
+    <form class="login-form" action="verPerfilJugador" method="post">
+        <h2 class="perfil-titulo"><i class="bi bi-pencil-square"></i> Datos del jugador</h2>
 
+        <div class="form-grid">
+            <div class="form-input-material">
+                <label for="cedula">Cédula</label>
+                <input type="text" id="cedula" name="cedula" value="<%= jugador.getCedula() %>" readonly>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-calendar"></i> Fecha de nacimiento</label>
-                    <input type="date" name="fechaNacimiento" class="form-control editable" value="<%= jugador.getFechaNacimiento() %>" readonly>
-                </div>
+            <div class="form-input-material">
+                <label for="nombre">Nombre</label>
+                <input class="editable" type="text" id="nombre" name="nombre" value="<%= jugador.getNombre() %>" readonly>
+            </div>
 
+            <div class="form-input-material">
+                <label for="apellido">Apellido</label>
+                <input class="editable" type="text" id="apellido" name="apellido" value="<%= jugador.getApellido() %>" readonly>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-award"></i> Categoría</label>
-                    <select name="categoria" class="form-select editable-select" disabled required>
-                        <option value="Primera categoría" <%= "Primera categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Primera categoría</option>
-                        <option value="Segunda categoría" <%= "Segunda categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Segunda categoría</option>
-                        <option value="Tercera categoría" <%= "Tercera categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Tercera categoría</option>
-                        <option value="Cuarta categoría" <%= "Cuarta categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Cuarta categoría</option>
-                        <option value="Quinta categoría" <%= "Quinta categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Quinta categoría</option>
-                        <option value="Desconoce" <%= "Desconoce".equals(jugador.getCategoria()) ? "selected" : "" %>>Desconoce</option>
-                    </select>
-                </div>
+            <div class="form-input-material">
+                <label for="correo">Correo</label>
+                <input class="editable" type="email" id="correo" name="correo" value="<%= jugador.getCorreo() %>" readonly>
+            </div>
 
+            <div class="form-input-material">
+                <label for="telefono">Teléfono</label>
+                <input class="editable" type="text" id="telefono" name="telefono" value="<%= jugador.getTelefono() %>" readonly>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-gender-ambiguous"></i> Género</label>
-                    <select name="genero" class="form-select editable-select" disabled>
-                        <option value="Masculino" <%= jugador.getGenero().equals("Masculino") ? "selected" : "" %>>Masculino</option>
-                        <option value="Femenino" <%= jugador.getGenero().equals("Femenino") ? "selected" : "" %>>Femenino</option>
-                        <option value="Otro" <%= jugador.getGenero().equals("Otro") ? "selected" : "" %>>Otro</option>
-                    </select>
-                </div>
+            <div class="form-input-material">
+                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                <input class="editable" type="date" id="fechaNacimiento" name="fechaNacimiento" value="<%= jugador.getFechaNacimiento() %>" readonly>
+            </div>
 
-                <div class="d-flex justify-content-between">
-                    <button type="button" class="btn btn-outline-secondary" onclick="habilitarEdicion()">
-                        <i class="bi bi-pencil-square"></i> Editar datos
-                    </button>
-                    <button type="submit" class="btn btn-success" id="guardarBtn" disabled>
-                        <i class="bi bi-save"></i> Guardar cambios
-                    </button>
-                </div>
-            </form>
+            <div class="form-input-material">
+                <label for="categoria">Categoría</label>
+                <select id="categoria" name="categoria" class="editable-select" disabled required>
+                    <option value="Primera categoría" <%= "Primera categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Primera categoría</option>
+                    <option value="Segunda categoría" <%= "Segunda categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Segunda categoría</option>
+                    <option value="Tercera categoría" <%= "Tercera categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Tercera categoría</option>
+                    <option value="Cuarta categoría" <%= "Cuarta categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Cuarta categoría</option>
+                    <option value="Quinta categoría" <%= "Quinta categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Quinta categoría</option>
+                    <option value="Desconoce" <%= "Desconoce".equals(jugador.getCategoria()) ? "selected" : "" %>>Desconoce</option>
+                </select>
+            </div>
 
+            <div class="form-input-material">
+                <label for="genero">Género</label>
+                <select id="genero" name="genero" class="editable-select" disabled>
+                    <option value="Masculino" <%= "Masculino".equals(jugador.getGenero()) ? "selected" : "" %>>Masculino</option>
+                    <option value="Femenino" <%= "Femenino".equals(jugador.getGenero()) ? "selected" : "" %>>Femenino</option>
+                    <option value="Otro" <%= "Otro".equals(jugador.getGenero()) ? "selected" : "" %>>Otro</option>
+                </select>
+            </div>
+        </div>
 
-            <a href="<%= urlVolver %>" class="btn btn-primary mt-4">
+        <div class="acciones mt-3">
+            <button type="button" class="btn btn-secondary" onclick="habilitarEdicion()">
+                <i class="bi bi-pencil"></i> Editar datos
+            </button>
+            <button type="submit" class="btn btn-success" id="guardarBtn" disabled>
+                <i class="bi bi-save"></i> Guardar cambios
+            </button>
+        </div>
+
+        <div class="volver-wrapper mt-4">
+            <a href="<%= urlVolver %>" class="volver-link">
                 <i class="bi bi-arrow-left-circle"></i> Volver al inicio
             </a>
-
         </div>
-    </div>
+    </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const imagen = document.getElementById("imagenPerfil");
+        const bloque = document.getElementById("bloqueSubida");
+
+        imagen.addEventListener("click", function () {
+            bloque.style.display = bloque.style.display === "none" || bloque.style.display === "" ? "block" : "none";
+        });
+    });
+</script>
+
+
+
 </body>
 </html>

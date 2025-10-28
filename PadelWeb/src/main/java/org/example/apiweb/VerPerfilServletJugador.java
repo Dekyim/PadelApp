@@ -1,6 +1,7 @@
 package org.example.apiweb;
 
 import dao.JugadorDAO;
+import dao.FotoPerfilUsuarioDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,6 +15,9 @@ import java.sql.Date;
 @WebServlet("/verPerfilJugador")
 public class VerPerfilServletJugador extends HttpServlet {
 
+    private final JugadorDAO jugadorDAO = new JugadorDAO();
+    private final FotoPerfilUsuarioDAO fotoDAO = new FotoPerfilUsuarioDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -25,33 +29,21 @@ public class VerPerfilServletJugador extends HttpServlet {
         }
 
         Usuario usuario = (Usuario) session.getAttribute("authUser");
-        JugadorDAO jugadorDAO = new JugadorDAO();
-
         String cedulaParam = request.getParameter("cedula");
-        Jugador jugador;
+        String cedulaFinal = usuario.esAdministrador() && cedulaParam != null && !cedulaParam.isEmpty()
+                ? cedulaParam
+                : usuario.getCedula();
 
-        if (usuario.esAdministrador()) {
-            // Admin puede pasar la cédula del jugador que quiere editar
-            if (cedulaParam == null || cedulaParam.isEmpty()) {
-                response.sendRedirect("inicioAdmin");
-                return;
-            }
-            jugador = jugadorDAO.obtenerJugadorPorCedula(cedulaParam);
-        } else {
-            // Jugador normal solo puede editar su propio perfil
-            jugador = jugadorDAO.obtenerJugadorPorCedula(usuario.getCedula());
-        }
-
+        Jugador jugador = jugadorDAO.obtenerJugadorPorCedula(cedulaFinal);
         if (jugador == null) {
-            if (usuario.esAdministrador()) {
-                response.sendRedirect("inicioAdmin");
-            } else {
-                response.sendRedirect("inicioUsers");
-            }
+            response.sendRedirect(usuario.esAdministrador() ? "inicioAdmin" : "inicioUsers");
             return;
         }
 
+        String urlFoto = fotoDAO.obtenerFotoPorCedula(cedulaFinal);
+
         request.setAttribute("jugador", jugador);
+        request.setAttribute("fotoPerfil", urlFoto);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/verPerfilJugador.jsp");
         dispatcher.forward(request, response);
     }
@@ -67,9 +59,6 @@ public class VerPerfilServletJugador extends HttpServlet {
         }
 
         Usuario usuario = (Usuario) session.getAttribute("authUser");
-        JugadorDAO jugadorDAO = new JugadorDAO();
-
-        // Obtener cédula: admins pueden editar cualquier jugador, usuarios normales solo su perfil
         String cedula = request.getParameter("cedula");
         if (!usuario.esAdministrador()) {
             cedula = usuario.getCedula();
@@ -77,11 +66,7 @@ public class VerPerfilServletJugador extends HttpServlet {
 
         Jugador jugador = jugadorDAO.obtenerJugadorPorCedula(cedula);
         if (jugador == null) {
-            if (usuario.esAdministrador()) {
-                response.sendRedirect("inicioAdmin");
-            } else {
-                response.sendRedirect("inicioUsers");
-            }
+            response.sendRedirect(usuario.esAdministrador() ? "inicioAdmin" : "inicioUsers");
             return;
         }
 
@@ -118,12 +103,15 @@ public class VerPerfilServletJugador extends HttpServlet {
             session.setAttribute("authUser", usuario);
         }
 
+        // Obtener foto actual
+        String urlFoto = fotoDAO.obtenerFotoPorCedula(cedula);
+
         // Mostrar mensaje de éxito
         request.setAttribute("jugador", jugador);
+        request.setAttribute("fotoPerfil", urlFoto);
         request.setAttribute("mensaje", "Datos actualizados correctamente.");
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/verPerfilJugador.jsp");
         dispatcher.forward(request, response);
     }
 }
-

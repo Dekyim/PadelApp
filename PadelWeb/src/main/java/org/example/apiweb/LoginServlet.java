@@ -1,5 +1,6 @@
 package org.example.apiweb;
 
+import dao.JugadorDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -48,10 +49,22 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (usuario == null || !BCrypt.checkpw(password, usuario.getContraseniaCuenta())) {
-            req.setAttribute("error", "Cédula o contraseña incorrecta.");
+            req.setAttribute("errorLogin", "Cédula o contraseña incorrecta.");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
             return;
         }
+
+        if (!usuario.esAdministrador()) {
+            JugadorDAO jugadorDAO = new JugadorDAO();
+            boolean estaBaneado = jugadorDAO.jugadorBaneado(cedula);
+
+            if (estaBaneado) {
+                req.setAttribute("errorLogin", "Su cuenta ha sido baneada. No puede ingresar.");
+                req.getRequestDispatcher("login.jsp").forward(req, resp);
+                return;
+            }
+        }
+
 
         HttpSession old = req.getSession(false);
         if (old != null) old.invalidate();
@@ -63,12 +76,10 @@ public class LoginServlet extends HttpServlet {
         String csrfToken = UUID.randomUUID().toString();
         session.setAttribute("csrfToken", csrfToken);
 
-
         if (usuario.esAdministrador()) {
             resp.sendRedirect(req.getContextPath() + "/inicioAdmin");
         } else {
             resp.sendRedirect(req.getContextPath() + "/inicioUsers");
         }
-
     }
 }

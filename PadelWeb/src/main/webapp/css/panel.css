@@ -28,6 +28,7 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* Enlaces del header */
 .enlaces a {
     color: #89d4ff;
     text-decoration: none;
@@ -41,63 +42,132 @@ body {
     text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
 }
 
+/* H1 clickeable dentro del header */
+.header h1 > a {
+    all: unset;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header h1 > a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
+}
+
 /* CONTENIDO GENERAL */
 .panel {
     max-width: 1100px;
-    margin: 120px auto 50px; /* margen superior para no tapar con el header */
+    margin: 120px auto 50px;
     padding: 0 30px;
 }
 
-/* BARRA DE BÚSQUEDA Y BOTÓN */
+/* 🌟 BARRA DE BÚSQUEDA MODERNA */
 .busquedaAgregar {
-    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 900px;
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.85), rgba(15, 15, 15, 0.9));
+    padding: 12px 18px;
+    border-radius: 14px;
+    margin: 0 auto 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+}
+
+/* Contenedor interno del formulario */
+.busquedaAgregar form {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 20px;
-    border-radius: 14px;
-    margin-bottom: 35px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    flex: 1;
+    gap: 10px;
 }
 
-.busquedaAgregar label {
-    color: #bfc8d6;
-    font-weight: 500;
+/* Ícono de lupa */
+.busquedaAgregar i {
+    font-size: 20px;
+    color: #89d4ff;
+    opacity: 0.9;
+    margin-left: 5px;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.busquedaAgregar img {
-    width: 20px;
-    opacity: 0.8;
+.busquedaAgregar i:hover {
+    transform: rotate(10deg);
+    color: #00b95e;
 }
 
+/* Campo de búsqueda */
 .busquedaAgregar input {
     flex: 1;
-    padding: 10px 12px;
     border: none;
-    background: transparent;
-    color: white;
     outline: none;
-    font-size: 15px;
-}
-
-.busquedaAgregar input::placeholder {
-    color: #bfc8d6;
-}
-
-.btn-agregar {
-    background: #00b95e;
-    border: none;
-    color: white;
-    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
     border-radius: 8px;
-    font-weight: 500;
+    font-size: 15px;
+    padding: 10px 14px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 8px rgba(137, 212, 255, 0.15);
+}
+
+.busquedaAgregar input:focus {
+    box-shadow: 0 0 8px rgba(137, 212, 255, 0.4);
+}
+
+/* Botón de búsqueda */
+.busquedaAgregar button {
+    background-color: #89d4ff; /* color celeste principal */
+    color: #0b0b0b;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 18px;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(137, 212, 255, 0.2);
+}
+
+.busquedaAgregar button:hover {
+    background-color: #00b95e; /* verde hover */
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 185, 94, 0.4);
+}
+
+/* BOTÓN FLOTANTE ABAJO A LA DERECHA */
+.btn-agregar {
+    background-color: #00c36b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    cursor: pointer;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+}
+
+.btn-agregar i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-agregar:hover {
-    background: #00a357;
-    transform: translateY(-1px);
+    background-color: #00a95c;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* LISTA DE USUARIOS EN TARJETAS */
@@ -126,26 +196,51 @@ body {
     background: rgba(0, 0, 0, 0.85);
 }
 
-.listaUser span {
-    font-size: 16px;
-    font-weight: 500;
+/* Contenedor de botones dentro de cada tarjeta */
+.listaUser li div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
+/* Botones */
 .listaUser button {
     background: transparent;
     border: none;
     color: white;
-    margin-left: 10px;
-    font-size: 18px;
+    font-size: 22px;
     cursor: pointer;
-    transition: color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
 }
 
 .listaUser button:hover {
-    color: #00b95e;
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
+/* Colores según acción */
+.listaUser button[title="Eliminar"]:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.listaUser button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.15);
+    color: #00b95e;
+}
+
+.listaUser button[title="Ver"]:hover {
+    background: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
+}
+
+/* TÍTULO */
 .titulo {
     text-align: center;
     margin-bottom: 30px;
@@ -163,11 +258,12 @@ body {
     font-family: "Poppins", sans-serif;
 }
 
-
+/* PAGINACIÓN */
 .pagination {
     margin-top: 40px;
     gap: 8px;
 }
+
 .pagination .page-item {
     display: inline-block;
 }
@@ -208,4 +304,510 @@ body {
 .pagination .page-link:focus {
     outline: none;
     box-shadow: 0 0 6px rgba(0, 185, 94, 0.4);
+}
+
+/* SIDEBAR MODERNO */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    z-index: 200;
+}
+
+/* LOGO */
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo a {
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sidebar .logo a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0,185,94,0.5);
+}
+
+/* MENÚ DE ENLACES */
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #89d4ff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+    background: rgba(0,185,94,0.2);
+    color: #00b95e;
+    transform: translateX(5px);
+    text-shadow: 0 0 6px rgba(0,185,94,0.4);
+}
+
+/* ✅ CENTRAR CONTENIDO ENTRE EL SIDEBAR Y EL BORDE DERECHO */
+.panel,
+main,
+.container,
+section {
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Centra barra de búsqueda y título */
+.busquedaAgregar,
+.titulo {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 35px;
+}
+
+/* Centra lista de usuarios */
+.listaUser {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: center;
+}
+
+.listaUser ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* Centra la paginación */
+.pagination {
+    justify-content: center;
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+}
+
+
+.panel {
+    color: white;
+}
+.tabla-reservas {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+table {
+    width: 100%;
+    color: white;
+}
+th {
+    background: #00b95e;
+    color: white;
+    text-align: center;
+}
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+.info-usuario {
+    background: rgba(0,0,0,0.7);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+.info-usuario h5 {
+    color: #bfc8d6;
+    margin: 0;
+}
+.btn-sm {
+    margin: 3px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+.btn-sm:hover {
+    transform: scale(1.05);
+}
+/* FOTO DE PERFIL EN LISTA DE USUARIOS */
+.listaUser li img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #00b95e;
+    box-shadow: 0 0 6px rgba(0, 185, 94, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.listaUser li img:hover {
+    transform: scale(1.05);
+}
+
+/* CONTENEDOR DE INFO DE USUARIO (FOTO + NOMBRE) */
+.listaUser li .info-jugador {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.listaUser li .info-jugador span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #f0f0f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* BOTONES DE ACCIÓN */
+.listaUser li .acciones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* RESPONSIVO PARA PANTALLAS PEQUEÑAS */
+@media (max-width: 500px) {
+    .listaUser li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .listaUser li .info-jugador {
+        justify-content: flex-start;
+    }
+
+    .listaUser li .acciones {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+/* TARJETA DE USUARIO REESTRUCTURADA */
+.tarjeta-usuario {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.tarjeta-usuario:hover {
+    transform: translateY(-3px);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+/* FOTO DE PERFIL GRANDE Y CENTRADA */
+.foto-usuario {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #00B95E;
+    box-shadow: 0 0 8px rgba(0, 185, 94, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.foto-usuario:hover {
+    transform: scale(1.05);
+}
+
+/* INFO DEL USUARIO */
+.info-usuario span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #f0f0f0;
+    word-break: break-word;
+}
+
+/* BOTONES DE ACCIÓN */
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.acciones button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.acciones button:hover {
+    transform: scale(1.15);
+}
+
+/* COLORES SEGÚN ACCIÓN */
+.acciones button[title="Eliminar"]:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.acciones button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.15);
+    color: #00b95e;
+}
+
+.acciones button[title="Ver"]:hover {
+    background: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
+}
+
+/* RESPONSIVO */
+@media (max-width: 500px) {
+    .tarjeta-usuario {
+        padding: 16px;
+    }
+
+    .foto-usuario {
+        width: 70px;
+        height: 70px;
+    }
+
+    .info-usuario span {
+        font-size: 15px;
+    }
+
+    .acciones {
+        gap: 8px;
+    }
+}
+/* TARJETA DE USUARIO REESTRUCTURADA */
+.tarjeta-usuario {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.tarjeta-usuario:hover {
+    transform: translateY(-3px);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+/* FOTO DE PERFIL GRANDE Y CENTRADA */
+.foto-usuario {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #00B95E;
+    box-shadow: 0 0 8px rgba(0, 185, 94, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.foto-usuario:hover {
+    transform: scale(1.05);
+}
+
+/* INFO DEL USUARIO */
+.info-usuario span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #f0f0f0;
+    word-break: break-word;
+}
+
+/* BOTONES DE ACCIÓN */
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.acciones button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.acciones button:hover {
+    transform: scale(1.15);
+}
+
+/* COLORES SEGÚN ACCIÓN */
+.acciones button[title="Eliminar"]:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.acciones button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.15);
+    color: #00b95e;
+}
+
+.acciones button[title="Ver"]:hover {
+    background: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
+}
+
+/* RESPONSIVO */
+@media (max-width: 500px) {
+    .tarjeta-usuario {
+        padding: 16px;
+    }
+
+    .foto-usuario {
+        width: 70px;
+        height: 70px;
+    }
+
+    .info-usuario span {
+        font-size: 15px;
+    }
+
+    .acciones {
+        gap: 8px;
+    }
+}
+.tarjeta-usuario {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.tarjeta-usuario:hover {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.foto-usuario {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #00B95E;
+    box-shadow: 0 0 10px rgba(0, 185, 94, 0.5);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.foto-usuario:hover {
+    transform: scale(1.05);
+}
+
+.nombre-usuario {
+    font-size: 17px;
+    font-weight: 500;
+    color: #f0f0f0;
+    word-break: break-word;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.acciones button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.acciones button:hover {
+    transform: scale(1.15);
+}
+
+.acciones button[title="Eliminar"]:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.acciones button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.15);
+    color: #00b95e;
+}
+
+.acciones button[title="Ver"]:hover {
+    background: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
+}
+
+.no-disponible {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    text-decoration: line-through;
 }

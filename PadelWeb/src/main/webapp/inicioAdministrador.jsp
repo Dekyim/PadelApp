@@ -65,7 +65,7 @@
     <div class="hero-content container">
         <h2 class="tituloPrincipal mb-3">Panel de Control</h2>
         <p class="lead mb-4">
-            Estadísticas generales y gestión del sistema PadelManager.
+            Estadísticas generales y panel del sistema PadelManager.
         </p>
     </div>
 </main>
@@ -107,6 +107,10 @@
         <div class="mini-card">
             <h4>Reservas actuales</h4>
             <p class="metric"><%= request.getAttribute("reservasActivas") %></p>
+        </div>
+        <div class="mini-card">
+            <h4>Jugadores baneados</h4>
+            <p class="metric"><%= request.getAttribute("cantidadJugadoresBaneados") %></p>
         </div>
     </div>
 </section>

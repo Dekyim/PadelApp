@@ -30,7 +30,7 @@
 
 <section class="container my-4">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div>
             <div class="card shadow-sm border-0 text-center p-4" style="border-radius: 1rem;">
                 <div class="d-flex justify-content-center align-items-center mb-3">
                     <i class="fi fi-rr-calendar-check fs-2 text-primary me-2"></i>
@@ -49,7 +49,7 @@
 
 <section class="links container my-5 d-flex justify-content-center gap-4 flex-wrap">
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
-        <i class="fi fi-rr-user fs-1 mb-3 text-primary"></i>
+        <i class="fi fi-rr-user fs-1 mb-3"></i>
         <h3>Usuarios</h3>
         <p>Administra tu cuenta o actualiza tus datos personales.</p>
         <a href="<%= request.getContextPath() %>/verPerfilJugador" class="btn btn-outline-primary mt-2">Ir al panel</a>

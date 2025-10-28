@@ -107,14 +107,9 @@ public class JugadorDAO {
 
     public Vector<Jugador> listarJugadores() {
         Vector<Jugador> jugadores = new Vector<>();
-
         String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula";
-
-        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                String cedula = rs.getString("cedula");
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) { String cedula = rs.getString("cedula");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
                 String correo = rs.getString("correo");
@@ -125,16 +120,12 @@ public class JugadorDAO {
                 String genero = rs.getString("genero");
                 Boolean estaBaneado = rs.getBoolean("estaBaneado");
                 int incumplePago = rs.getInt("incumplePago");
-
                 Jugador jugador = new Jugador(cedula, nombre, apellido, correo, telefono, contraseniaCuenta, fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
                 jugadores.add(jugador);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException("Error al listar jugadores", e);
-        }
-
-        return jugadores;
+        } return jugadores;
     }
 
     public void analizarBaneos() {
@@ -303,6 +294,35 @@ public class JugadorDAO {
         }
 
         return jugadores;
+    }
+    public void banearJugador(String cedula) {
+        String consulta = "UPDATE Jugador SET estaBaneado = TRUE WHERE cedula = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstancia()
+                .getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedula);
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Jugador con cédula " + cedula + " ha sido baneado correctamente.");
+            } else {
+                System.out.println("No se encontró un jugador con la cédula " + cedula);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al banear jugador", e);
+        }
+    }
+
+    public int cantidadJugadoresBaneados() {
+        String consulta = "SELECT COUNT(*) AS total FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula WHERE j.estaBaneado = TRUE";
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // para ver la causa real en consola
+            throw new RuntimeException("Error al contar jugadores baneados", e);
+        }
+        return 0; // si no hay resultados
     }
 
 }

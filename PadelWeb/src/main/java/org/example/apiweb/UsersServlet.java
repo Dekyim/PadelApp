@@ -1,18 +1,16 @@
 package org.example.apiweb;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
-import dao.JugadorDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import models.Jugador;
+import dao.*;
+import models.*;
 
 @WebServlet(name = "userServlet", value = "/users")
 public class UsersServlet extends HttpServlet {
@@ -53,7 +51,8 @@ public class UsersServlet extends HttpServlet {
                 if (pageParam != null && !pageParam.isEmpty()) {
                     try {
                         paginaActual = Integer.parseInt(pageParam);
-                    } catch (NumberFormatException ignored) {}
+                    } catch (NumberFormatException ignored) {
+                    }
                 }
 
                 int totalJugadores = jugadores.size();
@@ -75,6 +74,17 @@ public class UsersServlet extends HttpServlet {
             request.setAttribute("totalPaginas", totalPaginas);
             request.setAttribute("buscar", buscar);
 
+            FotoPerfilUsuarioDAO fotoDAO = new FotoPerfilUsuarioDAO();
+            Map<String, String> fotosPorCedula = new HashMap<>();
+
+            for (Jugador j : paginaJugadores) {
+                String url = fotoDAO.obtenerFotoPorCedula(j.getCedula());
+                fotosPorCedula.put(j.getCedula(), url);
+            }
+
+            request.setAttribute("fotosPorCedula", fotosPorCedula);
+
+
             request.getRequestDispatcher("usuarios.jsp").forward(request, response);
 
         } catch (Exception e) {
@@ -88,10 +98,10 @@ public class UsersServlet extends HttpServlet {
 
         String accion = request.getParameter("accion");
         String cedula = request.getParameter("cedula");
+        JugadorDAO dao = new JugadorDAO();
 
         if ("eliminar".equals(accion) && cedula != null && !cedula.isEmpty()) {
             try {
-                JugadorDAO dao = new JugadorDAO();
                 dao.eliminarJugador(cedula);
                 System.out.println("Jugador con cédula " + cedula + " eliminado correctamente.");
             } catch (Exception e) {
@@ -103,9 +113,7 @@ public class UsersServlet extends HttpServlet {
         }
 
         if ("editar".equals(accion) && cedula != null && !cedula.isEmpty()) {
-            JugadorDAO dao = new JugadorDAO();
             Jugador jugador = dao.obtenerJugadorPorCedula(cedula);
-
             if (jugador != null) {
                 request.setAttribute("jugador", jugador);
                 request.getRequestDispatcher("verPerfilJugador.jsp").forward(request, response);
@@ -116,7 +124,35 @@ public class UsersServlet extends HttpServlet {
             }
         }
 
+        if ("banear".equals(accion) && cedula != null && !cedula.isEmpty()) {
+            try {
+                dao.banearJugador(cedula);
+                System.out.println("Jugador con cédula " + cedula + " ha sido BANEADO.");
+
+                // 🔹 Cancelar todas las reservas activas del jugador directamente
+                ReservaDAO reservaDAO = new ReservaDAO();
+                reservaDAO.cancelarReservasPorCedula(cedula);
+
+                System.out.println("Todas las reservas del jugador fueron canceladas automáticamente.");
+
+            } catch (Exception e) {
+                throw new ServletException("Error al banear jugador y cancelar reservas", e);
+            }
+            response.sendRedirect("users");
+            return;
+        }
+
+        if ("desbanear".equals(accion) && cedula != null && !cedula.isEmpty()) {
+            try {
+                dao.desbanearJugador(cedula);
+                System.out.println("Jugador con cédula " + cedula + " ha sido DESBANEADO.");
+            } catch (Exception e) {
+                throw new ServletException("Error al desbanear jugador", e);
+            }
+            response.sendRedirect("users");
+            return;
+        }
+
         response.sendRedirect("users");
     }
 }
-

@@ -1,5 +1,6 @@
 <%@ page import="models.Jugador" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,7 +19,7 @@
     <%@include file="/WEB-INF/components/headerAdmin.jsp"%>
 
     <div class="titulo">
-        <h1 class="tituloGestion">Gestión de usuarios</h1>
+        <h1 class="tituloGestion">Panel de usuarios</h1>
     </div>
 
     <div class="busquedaAgregar">
@@ -31,9 +32,11 @@
     </div>
 
 
-    <form action="${pageContext.request.contextPath}/registro" method="post">
+    <form action="${pageContext.request.contextPath}/agregarUsuario" method="post">
         <input type="hidden" name="csrfToken" value="<%= request.getAttribute("csrfToken") %>">
-        <button type="submit" class="btn-agregar">Agregar usuario</button>
+        <button type="submit" class="btn-agregar" title="Agregar cancha">
+            <i class="fi fi-rr-plus"></i>
+        </button>
     </form>
 
 
@@ -44,13 +47,25 @@
                 List<Jugador> jugadores = (List<models.Jugador>) request.getAttribute("jugadores");
                 Integer paginaActual = (Integer) request.getAttribute("paginaActual");
                 Integer totalPaginas = (Integer) request.getAttribute("totalPaginas");
-
+                Map<String, String> fotosPorCedula = (Map<String, String>) request.getAttribute("fotosPorCedula");
                 if (jugadores != null && !jugadores.isEmpty()) {
                     for (models.Jugador j : jugadores) {
             %>
-            <li>
-                <span><%= j.getNombre() + " " + j.getApellido() %> - <%= j.getCedula() %></span>
-                <div>
+            <li class="tarjeta-usuario">
+                <%
+                    String urlFoto = fotosPorCedula.get(j.getCedula());
+                    if (urlFoto == null || urlFoto.isEmpty()) {
+                        urlFoto = "https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg";
+                    }
+                %>
+
+                <img src="<%= urlFoto %>" alt="Foto de <%= j.getNombre() %>" class="foto-usuario" onclick="toggleAcciones(this)">
+
+                <span class="nombre-usuario" style="<%= j.isEstaBaneado() ? "text-decoration: line-through; color: gray;" : "" %>">
+        <%= j.getNombre() + " " + j.getApellido() %> - <%= j.getCedula() %>
+    </span>
+
+                <div class="acciones" style="display: none;">
                     <form action="users" method="post" style="display:inline;">
                         <input type="hidden" name="accion" value="eliminar">
                         <input type="hidden" name="cedula" value="<%= j.getCedula() %>">
@@ -58,6 +73,7 @@
                             <i class="fi fi-rr-trash"></i>
                         </button>
                     </form>
+
                     <form action="users" method="post" style="display:inline;">
                         <input type="hidden" name="accion" value="editar">
                         <input type="hidden" name="cedula" value="<%= j.getCedula() %>">
@@ -66,9 +82,32 @@
                         </button>
                     </form>
 
-                    <button title="Ver"><i class="fi fi-rr-document"></i></button>
+                    <form action="users" method="post" style="display:inline;">
+                        <input type="hidden" name="cedula" value="<%= j.getCedula() %>">
+                        <% if (j.isEstaBaneado()) { %>
+                        <input type="hidden" name="accion" value="desbanear">
+                        <button type="submit" title="Desbanear" class="btn btn-link text-success p-0"
+                                onclick="return confirm('¿Desbanear a <%= j.getNombre() %>?')">
+                            <i class="fi fi-rr-unlock"></i>
+                        </button>
+                        <% } else { %>
+                        <input type="hidden" name="accion" value="banear">
+                        <button type="submit" title="Banear" class="btn btn-link text-danger p-0"
+                                onclick="return confirm('¿Banear a <%= j.getNombre() %>?')">
+                            <i class="fi fi-rr-lock"></i>
+                        </button>
+                        <% } %>
+                    </form>
+
+                    <button type="button" title="Ver"
+                            onclick="window.location.href='${pageContext.request.contextPath}/verReservaUsuario?cedula=<%= j.getCedula() %>'">
+                        <i class="fi fi-rr-document"></i>
+                    </button>
                 </div>
             </li>
+
+
+
             <%
                 }
             } else {
@@ -100,8 +139,15 @@
         <% } %>
     </ul>
 </nav>
+<script>
+    function toggleAcciones(img) {
+        const acciones = img.parentElement.querySelector(".acciones");
+        acciones.style.display = acciones.style.display === "none" || acciones.style.display === "" ? "flex" : "none";
+    }
+</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
