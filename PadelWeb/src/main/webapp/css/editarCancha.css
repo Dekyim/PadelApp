@@ -78,17 +78,46 @@ body {
     margin-bottom: 12px;
 }
 
-.form-check-input {
-    accent-color: #00b95e;
-    margin-right: 8px;
-}
-
 .form-check-label {
     font-size: 15px;
     color: #dcdcdc;
 }
 
-/* ===== Horarios como checkboxes ===== */
+/* ===== Checkbox estilizado (moderno y animado) ===== */
+input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00b95e;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.25s ease-in-out;
+    vertical-align: middle;
+}
+
+input[type="checkbox"]:hover {
+    box-shadow: 0 0 5px rgba(0, 185, 94, 0.6);
+    transform: scale(1.1);
+}
+
+input[type="checkbox"]:checked {
+    background-color: #00b95e;
+    border-color: #00b95e;
+}
+
+input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 0;
+    left: 3px;
+    font-size: 15px;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* ===== Horarios ===== */
 .horarios-box {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -100,18 +129,20 @@ body {
 }
 
 .horarios-box td {
-    padding: 6px 10px;
+    padding: 8px 10px;
     vertical-align: middle;
-}
-
-.horarios-box input[type="checkbox"] {
-    accent-color: #00b95e;
-    margin-right: 6px;
+    text-align: left;
 }
 
 .horarios-box label {
     font-size: 14px;
     color: #dcdcdc;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.horarios-box label:hover {
+    color: #00b95e;
 }
 
 /* ===== Botones ===== */
@@ -167,3 +198,100 @@ body {
     }
 }
 
+/* ===== Sidebar moderno ===== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    z-index: 200;
+}
+
+/* LOGO */
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo a {
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sidebar .logo a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0,185,94,0.5);
+}
+
+/* MENÚ */
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #89d4ff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+    background: rgba(0,185,94,0.2);
+    color: #00b95e;
+    transform: translateX(5px);
+    text-shadow: 0 0 6px rgba(0,185,94,0.4);
+}
+
+/* ===== Centrado de contenido ===== */
+main, .hero, .panel, .container, .content, section, .footer {
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+}
+
+/* HERO */
+.hero-content {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* LINKS */
+.links {
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 60px 30px;
+    box-sizing: border-box;
+}

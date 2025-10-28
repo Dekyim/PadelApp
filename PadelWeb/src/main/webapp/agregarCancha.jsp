@@ -5,7 +5,6 @@
   Time: 6:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List, java.util.ArrayList" %>
 
 <%
@@ -25,9 +24,13 @@
 <head>
     <title>Agregar Cancha</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/editarCancha.css">
 </head>
 <body>
+
+<%@include file="/WEB-INF/components/headerAdmin.jsp"%>
+
 <form class="login-form" action="agregarCancha" method="post" enctype="multipart/form-data">
     <h1><i class="bi bi-plus-circle"></i> Agregar Nueva Cancha</h1>
 
@@ -38,7 +41,7 @@
     <% } %>
 
     <div class="form-input-material">
-        <label for="numero">Número de Cancha</label>
+        <label for="numero">Nro° de Cancha</label>
         <input type="number" id="numero" name="numero" required>
     </div>
 

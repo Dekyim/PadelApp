@@ -142,14 +142,20 @@ body {
         height: 100px;
     }
 
-    .perfil-titulo {
-        font-size: 20px;
+    .login-form {
+        padding: 30px 20px;
     }
 
-    .btn {
-        font-size: 15px;
-        padding: 8px 16px;
+    .acciones {
+        flex-direction: column;
     }
+}
+
+.form-input-material.text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 
