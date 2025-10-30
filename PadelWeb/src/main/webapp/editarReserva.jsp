@@ -23,8 +23,13 @@
     <meta charset="UTF-8">
     <title>Editar Reserva</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/editarReserva.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
 </head>
 <body>
+
+<%@include file="/WEB-INF/components/headerAdmin.jsp"%>
+
 <div class="container mt-5">
     <h2>Editar Reserva</h2>
 
