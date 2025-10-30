@@ -107,7 +107,7 @@ public class ReservaServlet extends HttpServlet {
                         : reservaDAO.listarTodasLasReservas();
             }
 
-            // 🧩 Paginación
+            // 馃З Paginaci贸n
             int reservasPorPagina = 12;
             int paginaActual = 1;
 
@@ -127,7 +127,7 @@ public class ReservaServlet extends HttpServlet {
 
             List<Reserva> reservasPagina = reservas.subList(inicio, fin);
 
-            // Cargar nombres de usuarios y número de cancha
+            // Cargar nombres de usuarios y n煤mero de cancha
             for (Reserva reserva : reservasPagina) {
                 String cedulaUsuario = reserva.getCedulaUsuario();
                 if (!nombresUsuarios.containsKey(cedulaUsuario)) {
@@ -182,22 +182,14 @@ public class ReservaServlet extends HttpServlet {
                         dao.cancelarReserva(id);
                         request.setAttribute("mensajeExito", "Reserva cancelada correctamente.");
                         break;
-                    case "pagar":
-                        dao.pagarReserva(id);
-                        request.setAttribute("mensajeExito", "Reserva pagada correctamente.");
-                        break;
-                    case "despagar":
-                        dao.despagarReserva(id);
-                        request.setAttribute("mensajeExito", "Pago cancelado correctamente.");
-                        break;
                     default:
-                        request.setAttribute("mensajeError", "Acción no reconocida.");
+                        request.setAttribute("mensajeError", "Acci贸n no reconocida.");
                         break;
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
-                request.setAttribute("mensajeError", "Ocurrió un error al procesar la acción.");
+                request.setAttribute("mensajeError", "Ocurri贸 un error al procesar la acci贸n.");
             }
 
             doGet(request, response);
