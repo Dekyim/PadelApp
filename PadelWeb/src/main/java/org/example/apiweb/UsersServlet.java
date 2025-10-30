@@ -115,7 +115,15 @@ public class UsersServlet extends HttpServlet {
         if ("editar".equals(accion) && cedula != null && !cedula.isEmpty()) {
             Jugador jugador = dao.obtenerJugadorPorCedula(cedula);
             if (jugador != null) {
+                FotoPerfilUsuarioDAO fotoDAO = new FotoPerfilUsuarioDAO();
+                String fotoPerfil = fotoDAO.obtenerFotoPorCedula(cedula);
+
+                if (fotoPerfil == null || fotoPerfil.isEmpty()) {
+                    fotoPerfil = "https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg";
+                }
+
                 request.setAttribute("jugador", jugador);
+                request.setAttribute("fotoPerfil", fotoPerfil);
                 request.getRequestDispatcher("verPerfilJugador.jsp").forward(request, response);
                 return;
             } else {
@@ -123,6 +131,8 @@ public class UsersServlet extends HttpServlet {
                 return;
             }
         }
+
+
 
         if ("banear".equals(accion) && cedula != null && !cedula.isEmpty()) {
             try {
