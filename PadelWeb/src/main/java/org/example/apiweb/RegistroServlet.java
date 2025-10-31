@@ -1,5 +1,6 @@
 package org.example.apiweb;
 
+import jakarta.mail.MessagingException;
 import org.mindrot.jbcrypt.BCrypt;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import java.util.Date;
 
 import dao.*;
 import models.*;
+import utils.EnviarCorreo;
 
 @WebServlet("/registro")
 public class RegistroServlet extends HttpServlet {
@@ -81,7 +83,16 @@ public class RegistroServlet extends HttpServlet {
             );
 
             jugadorDAO.altaJugador(nuevoJugador);
-
+            try {
+                EnviarCorreo.enviar(
+                        correo,
+                        "¡Bienvenido a PadelManager!",
+                        "Hola " + nombre + ",\n\nTu registro fue exitoso. Ya puedes iniciar sesión.\n\nSaludos,\nEl equipo de PadelManager"
+                );
+                System.out.println("Correo de bienvenida enviado a " + correo);
+            } catch (MessagingException e) {
+                System.err.println("Error al enviar correo: " + e.getMessage());
+            }
             request.setAttribute("mensajeExito", "Registro exitoso. Ya puedes iniciar sesión.");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
 
