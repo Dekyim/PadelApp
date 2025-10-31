@@ -137,27 +137,6 @@
                             <i class="fi fi-rr-user-pen"></i>
                         </button>
                     </form>
-                    <% if (reserva.isEstaActiva()) { %>
-                    <% if (reserva.isEstaPagada()) { %>
-                    <form action="reserva" method="post" style="display:inline;">
-                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
-                        <input type="hidden" name="accion" value="despagar">
-                        <button type="submit" title="Cancelar pago"
-                                onclick="return confirm('¿Cancelar el pago de la reserva de <%= nombreCompleto %>?')">
-                            <i class="fi fi-rr-cross-circle"></i>
-                        </button>
-                    </form>
-                    <% } else { %>
-                    <form action="reserva" method="post" style="display:inline;">
-                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
-                        <input type="hidden" name="accion" value="pagar">
-                        <button type="submit" title="Pagar reserva"
-                                onclick="return confirm('¿Confirmar pago de la reserva de <%= nombreCompleto %>?')">
-                            <i class="fi fi-rr-money-check"></i>
-                        </button>
-                    </form>
-                    <% } %>
-                    <% } %>
 
                 </div>
             </li>
@@ -192,5 +171,20 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const reservas = document.querySelectorAll(".listaUser li");
+
+        reservas.forEach(reserva => {
+            reserva.addEventListener("click", function () {
+                // Cierra otros abiertos
+                reservas.forEach(r => r.classList.remove("active"));
+                // Abre el actual
+                this.classList.add("active");
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

@@ -67,7 +67,7 @@ public class VerPerfilServletAdmin extends HttpServlet {
         }
 
         session.setAttribute("authUser", usuario);
-        
+
         request.setAttribute("usuario", usuario);
         request.setAttribute("mensaje", "Datos actualizados correctamente.");
 

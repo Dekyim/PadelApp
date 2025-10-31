@@ -620,6 +620,18 @@ td {
     .acciones {
         gap: 8px;
     }
+    .tarjeta-cancha {
+        padding: 16px;
+    }
+
+    .foto-cancha {
+        width: 70px;
+        height: 70px;
+    }
+
+    .info-cancha span {
+        font-size: 15px;
+    }
 }
 /* TARJETA DE USUARIO REESTRUCTURADA */
 .tarjeta-usuario {
@@ -811,3 +823,159 @@ td {
     cursor: not-allowed;
     text-decoration: line-through;
 }
+.listaCancha ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.listaCancha li {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s ease;
+}
+
+.listaCancha li:hover {
+    transform: translateY(-3px);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+/* Contenedor de botones dentro de cada tarjeta */
+.listaCancha li div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Botones */
+.listaCancha button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.listaCancha button:hover {
+    transform: scale(1.15);
+}
+
+/* Colores según acción */
+.listaCancha button[title="Eliminar"]:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.listaCancha button[title="Editar"]:hover {
+    background: rgba(0, 185, 94, 0.15);
+    color: #00b95e;
+}
+
+.listaCancha button[title="Ver"]:hover {
+    background: rgba(137, 212, 255, 0.15);
+    color: #89d4ff;
+}
+.listaCancha {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* FOTO DE PERFIL EN LISTA DE USUARIOS */
+.listaCancha li img {
+    width: 50px;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid #00b95e;
+    box-shadow: 0 0 6px rgba(0, 185, 94, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.listaCancha li img:hover {
+    transform: scale(1.05);
+}
+
+/* CONTENEDOR DE INFO DE USUARIO (FOTO + NOMBRE) */
+.listaCancha li .info-jugador {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.listaCancha li .info-jugador span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #f0f0f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* BOTONES DE ACCIÓN */
+.listaCancha li .acciones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* RESPONSIVO PARA PANTALLAS PEQUEÑAS */
+@media (max-width: 500px) {
+    .listaCancha li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .listaCancha li .info-jugador {
+        justify-content: flex-start;
+    }
+
+    .listaCancha li .acciones {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+.tarjeta-cancha {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    display: flex; /* o block */
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+.tarjeta-cancha {
+    padding: 32px;
+    font-size: 17px;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    gap: 18px;
+}
+.tarjeta-cancha:hover {
+    transform: translateY(-3px);
+    background: rgba(0, 0, 0, 0.85);
+}
+

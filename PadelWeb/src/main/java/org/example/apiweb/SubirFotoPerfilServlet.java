@@ -12,6 +12,7 @@ import jakarta.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import models.Usuario;
 
 @WebServlet(name = "SubirFotoPerfilServlet", value = "/subirFotoPerfil")
 @MultipartConfig
@@ -22,11 +23,13 @@ public class SubirFotoPerfilServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String cedula = request.getParameter("cedula");
-        Part imagenPart = request.getPart("fotoPerfil");
         HttpSession session = request.getSession(false);
         Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
+        String cedula = request.getParameter("cedula");
+        Part imagenPart = request.getPart("fotoPerfil");
+        boolean esAdmin = usuario != null && usuario.esAdministrador();
+        boolean esSuPropioPerfil = esAdmin && usuario.getCedula().equals(cedula);
+
 
 
         if (cedula == null || imagenPart == null || imagenPart.getSize() == 0) {
@@ -55,15 +58,21 @@ public class SubirFotoPerfilServlet extends HttpServlet {
             String url = (String) uploadResult.get("secure_url");
             fotoDAO.guardarFoto(cedula, url);
 
-            if (usuario != null && usuario.esAdministrador()) {
-                String urlFoto = fotoDAO.obtenerFotoPorCedula(cedula);
+            String urlFoto = fotoDAO.obtenerFotoPorCedula(cedula);
+            request.setAttribute("fotoPerfil", urlFoto);
+            request.setAttribute("mensajeFoto", "Foto actualizada correctamente.");
+
+            if (esSuPropioPerfil) {
+                // El administrador está editando su propia foto
                 request.setAttribute("usuario", usuario);
-                request.setAttribute("fotoPerfil", urlFoto);
-                request.setAttribute("mensajeFoto", "Foto actualizada correctamente.");
                 request.getRequestDispatcher("/verPerfilAdministrador.jsp").forward(request, response);
             } else {
+                // El administrador está editando la foto de otro jugador, o es un jugador normal
+                request.setAttribute("cedula", cedula);
                 response.sendRedirect("verPerfilJugador?cedula=" + cedula);
             }
+
+
 
 
 
