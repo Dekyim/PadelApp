@@ -1,0 +1,286 @@
+/* 🔠 RESETEO GENERAL */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #e6ebff, #f2f5ff);
+    color: #fff;
+    min-height: 100vh;
+}
+
+/* HEADER FIJO */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 18px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+/* Enlaces del header */
+.enlaces a {
+    color: #89d4ff;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.enlaces a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
+}
+
+.header h1 > a {
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+}
+
+.header h1 > a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
+}
+
+/* 🌙 SIDEBAR MODERNO */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    z-index: 200;
+}
+
+/* LOGO DEL SIDEBAR */
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo a {
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sidebar .logo a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0,185,94,0.5);
+}
+
+/* MENÚ DE ENLACES */
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #89d4ff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+    background: rgba(0,185,94,0.2);
+    color: #00b95e;
+    transform: translateX(5px);
+    text-shadow: 0 0 6px rgba(0,185,94,0.4);
+}
+
+/* ✅ CENTRAR CONTENIDO ENTRE EL SIDEBAR Y EL BORDE DERECHO */
+main,
+.hero,
+.panel,
+.container,
+.content,
+section,
+.footer {
+    margin-left: 220px; /* deja espacio al sidebar */
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* 📦 CONTENEDOR PRINCIPAL */
+.container {
+    max-width: 600px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 40px 45px;
+    border-radius: 18px;
+    margin: 120px auto 60px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    color: #fff;
+}
+
+/* 🏷️ TÍTULO */
+.container h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    border-bottom: 3px solid #00b95e;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+/* 🧾 FORMULARIO */
+form label {
+    font-weight: 500;
+    color: #bfc8d6;
+    margin-bottom: 6px;
+}
+
+form .form-control,
+form .form-select {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 8px rgba(137, 212, 255, 0.15);
+}
+
+form .form-control:focus,
+form .form-select:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(137, 212, 255, 0.4);
+    border-color: #89d4ff;
+}
+
+form .form-select option {
+    background-color: #222;
+    color: #fff;
+}
+
+/* 💬 CHECKBOXES */
+.form-check {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-check-label {
+    font-size: 15px;
+    color: #bfc8d6;
+}
+
+/* ✅ BOTONES */
+.btn-primary {
+    background-color: #00b95e;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 185, 94, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: #00a357;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 185, 94, 0.4);
+}
+
+.btn-secondary {
+    background-color: rgba(137, 212, 255, 0.15);
+    border: none;
+    color: #89d4ff;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(137, 212, 255, 0.15);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(137, 212, 255, 0.3);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* 🧩 ALERTAS */
+.alert {
+    border-radius: 12px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: rgba(0, 185, 94, 0.2);
+    color: #00b95e;
+    border: 1px solid rgba(0, 185, 94, 0.4);
+}
+
+.alert-danger {
+    background-color: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 600px) {
+    .container {
+        padding: 30px 25px;
+        margin: 100px 15px;
+    }
+
+    .container h2 {
+        font-size: 24px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        margin: 10px 0 0;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    main,
+    .container {
+        margin-left: 0;
+        max-width: 100%;
+    }
+}
