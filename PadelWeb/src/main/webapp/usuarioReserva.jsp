@@ -121,7 +121,10 @@
             </div>
         </div>
         <% } } else { %>
-        <p class="sinReservas">No tenés reservas registradas todavía 😢</p>
+        <div class="mensaje-vacio">
+            <i class="fi fi-rr-calendar-x"></i>
+            <p>No tenés reservas registradas todavía 😟</p>
+        </div>
         <% } %>
     </section>
 </div>
