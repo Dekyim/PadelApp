@@ -8,10 +8,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
 </head>
 <body>
+<%
+    String mensajeError = (String) session.getAttribute("mensajeError");
+    if (mensajeError != null) {
+%>
+
+<div id="mensajeErrorOverlay">
+    <div class="mensajeErrorBox">
+        <button class="cerrarError" onclick="document.getElementById('mensajeErrorOverlay').remove()">×</button>
+        <%= mensajeError %>
+    </div>
+</div>
+<%
+        session.removeAttribute("mensajeError");
+    }
+%>
+
+
+
 
 <%@include file="/WEB-INF/components/header.jsp"%>
 
@@ -81,6 +99,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-czL6JuqcKJfSTNn2tPbdm1cA4y3Z7rU2q2GVxPzrcTtGkh3qHuvZ4z5gDMSlB/xK"
         crossorigin="anonymous"></script>
+<script>
+    function cerrarMensajeError() {
+        const mensaje = document.getElementById("mensajeError");
+        if (mensaje) {
+            mensaje.style.display = "none";
+        }
+    }
+</script>
 
 </body>
 </html>
