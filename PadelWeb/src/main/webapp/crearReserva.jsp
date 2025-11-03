@@ -7,9 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Reserva</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/crearReserva.css">
 </head>
 <body>
+
+<%@include file="/WEB-INF/components/headerAdmin.jsp"%>
+
 <form class="login-form" action="${pageContext.request.contextPath}/crearreserva" method="post" id="reservaForm">
 
     <h1>Crear Reserva</h1>
