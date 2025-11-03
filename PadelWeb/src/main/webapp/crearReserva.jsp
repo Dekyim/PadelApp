@@ -21,18 +21,23 @@
     <div class="form-grid">
 
         <!-- Cédula del jugador -->
+        <!-- Cédula del jugador -->
         <div class="form-input-material">
             <label for="cedulaUsuario">Jugador</label>
             <c:choose>
                 <c:when test="${not empty cedulaUsuarioSeleccionada}">
+                    <!-- Jugador: cédula fija y no editable -->
                     <input type="text" name="cedulaUsuario" id="cedulaUsuario"
                            value="${cedulaUsuarioSeleccionada}" readonly>
                 </c:when>
                 <c:otherwise>
-                    <input type="text" name="cedulaUsuario" id="cedulaUsuario" placeholder="Ingrese la cédula" required>
+                    <!-- Admin: campo vacío para ingresar cédula -->
+                    <input type="text" name="cedulaUsuario" id="cedulaUsuario"
+                           placeholder="Ingrese la cédula" required>
                 </c:otherwise>
             </c:choose>
         </div>
+
 
         <!-- Cancha -->
         <div class="form-input-material">

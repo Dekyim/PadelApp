@@ -15,6 +15,9 @@
             "07:00", "08:30", "10:00", "11:30", "13:00",
             "14:30", "16:00", "17:30", "19:00", "20:30"
     };
+
+    Usuario usuario = (Usuario) session.getAttribute("authUser");
+    boolean esAdministrador = (usuario != null && usuario.esAdministrador());
 %>
 
 <!DOCTYPE html>
@@ -28,7 +31,7 @@
 </head>
 <body>
 
-<%@include file="/WEB-INF/components/headerAdmin.jsp"%>
+<jsp:include page="<%= esAdministrador ? \"/WEB-INF/components/headerAdmin.jsp\" : \"/WEB-INF/components/headerUsuario.jsp\" %>" />
 
 <div class="container mt-5">
     <h2>Editar Reserva</h2>
@@ -49,10 +52,22 @@
     <form action="editarReserva" method="post">
         <input type="hidden" name="id" value="<%= reserva.getId() %>">
 
+        <% if (esAdministrador) { %>
+        <!-- Admin: puede editar la cédula -->
         <div class="mb-3">
             <label>Cédula Usuario</label>
-            <input type="text" name="cedulaUsuario" disabled class="form-control" value="<%= reserva.getCedulaUsuario() %>" required>
+            <input type="text" name="cedulaUsuario" class="form-control"
+                   value="<%= reserva.getCedulaUsuario() %>" required>
         </div>
+        <% } else { %>
+        <!-- Jugador: cédula fija y oculta en campo hidden -->
+        <input type="hidden" name="cedulaUsuario" value="<%= reserva.getCedulaUsuario() %>">
+        <div class="mb-3">
+            <label>Cédula Usuario</label>
+            <input type="text" class="form-control" value="<%= reserva.getCedulaUsuario() %>" readonly>
+        </div>
+        <% } %>
+
 
         <div class="mb-3">
             <label>Número de Cancha</label>
@@ -105,7 +120,6 @@
 
         <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
         <%
-            Usuario usuario = (Usuario) session.getAttribute("authUser");
             String destino = (usuario != null && usuario.esAdministrador()) ? "reserva" : "reservasUsuario";
         %>
         <a href="<%= destino %>" class="btn btn-secondary mt-3">Cancelar</a>

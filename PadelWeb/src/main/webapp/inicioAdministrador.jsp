@@ -116,17 +116,14 @@
 
 <section class="container my-5">
     <h3 class="text-center mb-4">Gráficos</h3>
-    <div class="graficos-wrapper">
-        <div class="grafico-card">
-            <h4 class="text-center mb-3">Reservas pagadas vs no pagadas</h4>
-            <div id="chartReservas"></div>
-        </div>
-        <div class="grafico-card">
-            <h4 class="text-center mb-3">Canchas</h4>
-            <div id="chartCanchas"></div>
-        </div>
-    </div>
+
+    <h4 class="text-center mb-3">Reservas pagadas vs no pagadas</h4>
+    <div id="chartReservas"></div>
+
+    <h4 class="text-center mb-5 mt-5">Canchas</h4>
+    <div id="chartCanchas"></div>
 </section>
+
 
 
 
@@ -153,9 +150,8 @@
         ]);
 
         optionsReservas = {
-            title: '',
             pieHole: 0.4,
-            chartArea: { width: '100%', height: '80%' },
+            chartArea: { width: '90%', height: '90%' },
             legend: { position: 'bottom' },
             backgroundColor: 'transparent'
         };
@@ -171,8 +167,7 @@
         ]);
 
         optionsCanchas = {
-            title: '',
-            chartArea: { width: '70%', height: '80%' },
+            chartArea: { width: '80%', height: '80%' },
             hAxis: { title: 'Cantidad', minValue: 0 },
             vAxis: { title: 'Tipo' },
             bars: 'horizontal',

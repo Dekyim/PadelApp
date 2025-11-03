@@ -321,37 +321,10 @@ main, .hero, .panel, .container, .content, section .footer {
     gap: 30px;
     padding: 60px 30px;
 }
-
-
-.graficos-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 60px;
-    width: 100%;
-    margin-left: 220px;
-    max-width: calc(100vw - 220px);
-    padding: 0 30px;
-}
-
-.grafico-card {
-    width: 100%;
-    max-width: 900px;
-    background: rgba(0, 0, 0, 0.85);
-    border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-    color: #fff;
-}
-
-.grafico-card h4 {
-    color: #00b95e;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
 #chartReservas,
 #chartCanchas {
     width: 100%;
-    height: 450px;
+    max-width: 1200px;
+    height: 600px;
+    margin: 0 auto;
 }
