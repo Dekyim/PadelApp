@@ -16,7 +16,7 @@
     <title>Mis Reservas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
-    <link rel="stylesheet" href="css/panel.css">
+    <link rel="stylesheet" href="css/panelReserva.css">
 </head>
 <body>
 
@@ -29,109 +29,101 @@
 
     <div class="container mt-3">
         <% if (mensajeExito != null) { %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <%= mensajeExito %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        <div class="alert success"><%= mensajeExito %></div>
         <% } else if (mensajeError != null) { %>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <%= mensajeError %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        <div class="alert error"><%= mensajeError %></div>
         <% } %>
     </div>
 
     <!-- Filtros -->
-    <form method="get" action="reservasUsuario" class="mb-4">
-        <div class="row">
-            <div class="col">
-                <input type="date" name="fecha" class="form-control" value="${param.fecha}">
-            </div>
-            <div class="col">
-                <select name="numeroCancha" class="form-select">
-                    <option value="">Todas las canchas</option>
-                    <c:forEach var="cancha" items="${listaCanchas}">
-                        <option value="${cancha.numero}" <c:if test="${param.numeroCancha == cancha.numero}">selected</c:if>>
-                            Cancha Nº ${cancha.numero}
-                        </option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="col">
-                <select name="ordenFecha" class="form-select">
-                    <option value="">Orden por fecha</option>
-                    <option value="asc" <c:if test="${param.ordenFecha == 'asc'}">selected</c:if>>Ascendente</option>
-                    <option value="desc" <c:if test="${param.ordenFecha == 'desc'}">selected</c:if>>Descendente</option>
-                </select>
-            </div>
-        </div>
+    <form method="get" action="reservasUsuario" class="filtros filtros-reserva">
+        <div class="grupo-filtros">
+            <input type="date" name="fecha" value="${param.fecha}" placeholder="Fecha">
 
-        <div class="row mt-2">
-            <div class="col">
-                <select name="estadoPago" class="form-select">
-                    <option value="">Todas</option>
-                    <option value="pagadas" <c:if test="${param.estadoPago == 'pagadas'}">selected</c:if>>Pagadas</option>
-                    <option value="nopagadas" <c:if test="${param.estadoPago == 'nopagadas'}">selected</c:if>>No pagadas</option>
-                </select>
-            </div>
-            <div class="col">
-                <select name="estadoActiva" class="form-select">
-                    <option value="">Todas</option>
-                    <option value="activas" <c:if test="${param.estadoActiva == 'activas'}">selected</c:if>>Activas</option>
-                    <option value="noactivas" <c:if test="${param.estadoActiva == 'noactivas'}">selected</c:if>>No activas</option>
-                </select>
-            </div>
-            <div class="col">
-                <select name="metodoPago" class="form-select">
-                    <option value="">Todos los métodos</option>
-                    <option value="efectivo" <c:if test="${param.metodoPago == 'efectivo'}">selected</c:if>>Efectivo</option>
-                    <option value="transferencia" <c:if test="${param.metodoPago == 'transferencia'}">selected</c:if>>Transferencia</option>
-                    <option value="tarjeta" <c:if test="${param.metodoPago == 'tarjeta'}">selected</c:if>>Tarjeta</option>
-                </select>
-            </div>
-            <div class="col">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
-                <a href="reservasUsuario" class="btn btn-secondary">Limpiar</a>
-            </div>
+            <select name="numeroCancha">
+                <option value="">Todas las canchas</option>
+                <c:forEach var="cancha" items="${listaCanchas}">
+                    <option value="${cancha.numero}" <c:if test="${param.numeroCancha == cancha.numero}">selected</c:if>>
+                        Cancha Nº ${cancha.numero}
+                    </option>
+                </c:forEach>
+            </select>
+
+            <select name="ordenFecha">
+                <option value="">Orden por fecha</option>
+                <option value="asc" <c:if test="${param.ordenFecha == 'asc'}">selected</c:if>>Ascendente</option>
+                <option value="desc" <c:if test="${param.ordenFecha == 'desc'}">selected</c:if>>Descendente</option>
+            </select>
+
+            <select name="estadoPago">
+                <option value="">Todas</option>
+                <option value="pagadas" <c:if test="${param.estadoPago == 'pagadas'}">selected</c:if>>Pagadas</option>
+                <option value="nopagadas" <c:if test="${param.estadoPago == 'nopagadas'}">selected</c:if>>No pagadas</option>
+            </select>
+
+            <select name="estadoActiva">
+                <option value="">Todas</option>
+                <option value="activas" <c:if test="${param.estadoActiva == 'activas'}">selected</c:if>>Activas</option>
+                <option value="noactivas" <c:if test="${param.estadoActiva == 'noactivas'}">selected</c:if>>No activas</option>
+            </select>
+
+            <select name="metodoPago">
+                <option value="">Todos los métodos</option>
+                <option value="efectivo" <c:if test="${param.metodoPago == 'efectivo'}">selected</c:if>>Efectivo</option>
+                <option value="transferencia" <c:if test="${param.metodoPago == 'transferencia'}">selected</c:if>>Transferencia</option>
+                <option value="tarjeta" <c:if test="${param.metodoPago == 'tarjeta'}">selected</c:if>>Tarjeta</option>
+            </select>
+
+            <!-- 🔄 Solo íconos en botones -->
+            <button type="submit" class="btn-icon" title="Filtrar">
+                <i class="fi fi-rr-filter"></i>
+            </button>
+            <a href="reservasUsuario" class="btn-icon" title="Limpiar">
+                <i class="fi fi-rr-cross-small"></i>
+            </a>
         </div>
     </form>
 
-    <!-- Lista de reservas -->
-    <div class="listaUser">
-        <ul>
-            <% if (listaReservas != null && !listaReservas.isEmpty()) {
-                for (Reserva reserva : listaReservas) { %>
-            <li class="<%= reserva.isEstaPagada() ? "reserva-pagada" : "reserva-no-pagada" %>">
-                <span>
-                    Cancha Nº <%= reserva.getNumeroCancha() %><br>
-                    Fecha: <%= reserva.getFecha() %><br>
-                    Horario: <%= reserva.getHorarioInicio() %> - <%= reserva.getHorarioFinal() %><br>
-                    Método de pago: <%= reserva.getMetodoPago().getValue() %><br>
-                    Pagada: <%= reserva.isEstaPagada() ? "Sí" : "No" %><br>
-                    Activa: <%= reserva.isEstaActiva() ? "Sí" : "No" %>
-                </span>
-                <div>
-                    <form action="cancelarReserva" method="post" style="display:inline;">
-                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
-                        <button type="submit" title="Cancelar"
-                                onclick="return confirm('¿Cancelar esta reserva?')">
-                            <i class="fi fi-rr-trash"></i>
-                        </button>
-                    </form>
-
-                    <form action="editarReserva" method="get" style="display:inline;">
-                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
-                        <button type="submit" title="Editar">
-                            <i class="fi fi-rr-user-pen"></i>
-                        </button>
-                    </form>
+    <!-- 🔄 CAMBIO NUEVO: Lista de reservas con estilo admin -->
+    <section class="listaReservas">
+        <% if (listaReservas != null && !listaReservas.isEmpty()) {
+            for (Reserva reserva : listaReservas) { %>
+        <div class="card-reserva">
+            <div class="reserva-info">
+                <div class="fecha">
+                    <i class="fi fi-rr-clock"></i>
+                    <span><%= reserva.getFecha() %></span>
+                    <p><strong><%= reserva.getHorarioInicio() %> - <%= reserva.getHorarioFinal() %></strong></p>
                 </div>
-            </li>
-            <% } } else { %>
-            <li>No tenés reservas registradas.</li>
-            <% } %>
-        </ul>
-    </div>
+
+                <div class="detalles">
+                    <h3>Tu reserva</h3>
+                    <p><i class="fi fi-rr-basketball"></i> Cancha Nº <%= reserva.getNumeroCancha() %></p>
+                    <p><i class="fi fi-rr-credit-card"></i> <%= reserva.getMetodoPago().getValue() %></p>
+                    <span class="estado <%= reserva.isEstaPagada() ? "pagada" : "nopagada" %>">
+                        <%= reserva.isEstaPagada() ? "Pagada" : "Pendiente" %>
+                    </span>
+                    <span class="estado <%= reserva.isEstaActiva() ? "activa" : "inactiva" %>">
+                        <%= reserva.isEstaActiva() ? "Activa" : "Cancelada" %>
+                    </span>
+                </div>
+            </div>
+
+            <div class="acciones-card">
+                <form action="editarReserva" method="get">
+                    <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
+                    <button type="submit" class="edit"><i class="fi fi-rr-edit"></i></button>
+                </form>
+                <form action="cancelarReserva" method="post" onsubmit="return confirm('¿Cancelar esta reserva?')">
+                    <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
+                    <button type="submit" class="delete"><i class="fi fi-rr-trash"></i></button>
+                </form>
+            </div>
+        </div>
+        <% } } else { %>
+        <p class="sinReservas">No tenés reservas registradas todavía 😢</p>
+        <% } %>
+    </section>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

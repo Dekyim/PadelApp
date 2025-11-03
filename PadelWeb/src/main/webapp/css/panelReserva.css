@@ -297,3 +297,92 @@ button.delete:hover {
     font-size: 16px;
     font-style: italic;
 }
+/* 🔧 FILTROS DE RESERVA USUARIO */
+.filtros-reserva {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.filtros-reserva .grupo-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.filtros-reserva input,
+.filtros-reserva select {
+    background: #f5f5f5;
+    color: #000;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    min-width: 150px;
+    max-width: 220px;
+    flex: 1 1 150px;
+}
+
+.filtros-reserva .grupo-botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-filtrar,
+.btn-limpiar {
+    background: linear-gradient(135deg, var(--verde), #00a357);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-filtrar:hover {
+    background: linear-gradient(135deg, var(--celeste), #70c8ff);
+    color: #000;
+}
+
+.btn-limpiar {
+    background: rgba(255,255,255,0.08);
+    color: var(--celeste);
+}
+
+.btn-limpiar:hover {
+    color: var(--verde);
+    transform: rotate(90deg);
+}
+.btn-icon {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    color: var(--celeste);
+    font-size: 20px;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+}
+
+.btn-icon:hover {
+    background: rgba(0,185,94,0.3);
+    color: var(--verde-claro);
+    transform: scale(1.1);
+}
