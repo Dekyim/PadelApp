@@ -1,0 +1,267 @@
+:root {
+    --verde: #00b95e;
+    --verde-oscuro: #009e50;
+    --celeste: #89d4ff;
+    --fondo: #eceffc;
+    --negro: rgba(0, 0, 0, 0.9);
+    --gris-suave: #dcdcdc;
+}
+
+/* ===== Estructura general ===== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: var(--fondo);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: var(--negro);
+    backdrop-filter: blur(8px);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    z-index: 200;
+}
+
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo a {
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sidebar .logo a:hover {
+    color: var(--verde);
+    text-shadow: 0 0 6px rgba(0,185,94,0.5);
+}
+
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--celeste);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+    background: rgba(0,185,94,0.2);
+    color: var(--verde);
+    transform: translateX(5px);
+    text-shadow: 0 0 6px rgba(0,185,94,0.4);
+}
+
+/* ===== Centrado del contenido ===== */
+main, .panel, section, .container, .content, .footer {
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* ===== FORMULARIO PRINCIPAL ===== */
+.login-form {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 45px 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    max-width: 650px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #fff;
+    backdrop-filter: blur(6px);
+    transition: 0.3s;
+}
+
+.login-form:hover {
+    box-shadow: 0 10px 40px rgba(0,185,94,0.25);
+}
+
+.login-form h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--verde);
+}
+
+/* ===== Estructura de campos ===== */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px 30px;
+}
+
+@media (max-width: 650px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Etiquetas ===== */
+.form-input-material label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: var(--gris-suave);
+    font-weight: 500;
+}
+
+/* ===== Inputs y selects ===== */
+.form-input-material input,
+.form-input-material select {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 15px;
+    transition: 0.25s ease;
+    box-shadow: inset 0 0 8px rgba(137, 212, 255, 0.1);
+    outline: none;
+}
+
+.form-input-material input::placeholder {
+    color: #b9c3ce;
+}
+
+.form-input-material input:focus,
+.form-input-material select:focus {
+    border-color: var(--verde);
+    box-shadow: 0 0 8px rgba(0,185,94,0.4);
+    transform: scale(1.02);
+}
+
+.form-input-material select option {
+    background-color: #222;
+    color: #fff;
+}
+
+/* ===== Botón principal ===== */
+.btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--verde), var(--verde-oscuro));
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,185,94,0.3);
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #00d46d, var(--verde));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,185,94,0.4);
+}
+
+/* ===== Mensajes de error ===== */
+p[style*="color:red"] {
+    color: #ff6b6b !important;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ===== Animaciones suaves ===== */
+input, select, button {
+    transition: all 0.3s ease;
+}
+
+/* ===== Scrollbar personalizada ===== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--verde);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--verde-oscuro);
+}
+
+/* ===== Detalles visuales extra ===== */
+input[readonly] {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+select:disabled {
+    opacity: 0.5;
+}
+
+/* ===== Sombra neon al pasar el mouse por el formulario ===== */
+.login-form:focus-within {
+    box-shadow: 0 0 25px rgba(0, 185, 94, 0.35);
+}
+
+/* ===== Ajuste responsivo ===== */
+@media (max-width: 500px) {
+    .login-form {
+        padding: 30px 20px;
+    }
+    .login-form h1 {
+        font-size: 22px;
+    }
+    .btn {
+        font-size: 15px;
+    }
+}
+
+
+/* ===== 📍 CENTRADO DEL CONTENIDO ENTRE SIDEBAR Y PÁGINA ===== */
+main, .panel, section, .container, .content {
+    margin-left: 220px; /* espacio que ocupa el sidebar */
+    width: calc(100vw - 220px); /* resto de la página */
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center; /* centra horizontalmente */
+    align-items: center;     /* centra verticalmente */
+    text-align: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* 🧩 Ajuste extra para el formulario */
+.login-form {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+}

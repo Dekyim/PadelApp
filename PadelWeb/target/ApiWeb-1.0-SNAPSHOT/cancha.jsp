@@ -49,7 +49,7 @@
         </button>
     </form>
 
-    <div class="listaUser">
+    <div class="listaCancha">
         <ul>
             <% if (listaCanchas != null && !listaCanchas.isEmpty()) {
                 for (Cancha cancha : listaCanchas) {
@@ -58,9 +58,10 @@
                         urlFoto = "https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg";
                     }
             %>
-            <li class="tarjeta-usuario" onclick="toggleAcciones(this)">
-                <img src="<%= urlFoto %>" alt="Cancha <%= cancha.getNumero() %>" class="foto-usuario">
+            <li class="tarjeta-cancha" onclick="toggleAcciones(this)">
+
                 <span class="nombre-usuario">Cancha Nro <%= cancha.getNumero() %></span>
+                <img src="<%= urlFoto %>" alt="Cancha <%= cancha.getNumero() %>" class="foto-cancha">
 
                 <div class="acciones" style="display: none;">
                     <form action="cancha" method="post" style="display:inline;">
