@@ -17,10 +17,12 @@
     <meta charset="UTF-8">
     <title>Reservas Cancha <%= numeroCancha %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panelReservaCancha.css">
 </head>
 <body>
-<!-- Botón hamburguesa funcional -->
+
 <button id="toggleSidebar" class="sidebar-toggle">
     <span class="bar"></span>
     <span class="bar"></span>

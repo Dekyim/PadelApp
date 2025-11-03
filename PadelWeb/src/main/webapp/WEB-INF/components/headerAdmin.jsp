@@ -1,3 +1,4 @@
+
 <aside class="sidebar" id="sidebar">
     <h1 class="logo"><a href="<%= request.getContextPath() %>/inicioAdmin">PadelManager</a></h1>
     <nav class="menu">

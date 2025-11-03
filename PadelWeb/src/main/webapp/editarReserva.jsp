@@ -51,7 +51,7 @@
 
         <div class="mb-3">
             <label>Cédula Usuario</label>
-            <input type="text" name="cedulaUsuario" class="form-control" value="<%= reserva.getCedulaUsuario() %>" required>
+            <input type="text" name="cedulaUsuario" disabled class="form-control" value="<%= reserva.getCedulaUsuario() %>" required>
         </div>
 
         <div class="mb-3">

@@ -116,17 +116,18 @@
 
 <section class="container my-5">
     <h3 class="text-center mb-4">Gráficos</h3>
-    <div class="d-flex flex-column align-items-center gap-5">
-        <div style="width: 80%; height: 500px;">
+    <div class="graficos-wrapper">
+        <div class="grafico-card">
             <h4 class="text-center mb-3">Reservas pagadas vs no pagadas</h4>
-            <div id="chartReservas" style="width: 100%; height: 450px;"></div>
+            <div id="chartReservas"></div>
         </div>
-        <div style="width: 80%; height: 500px;">
+        <div class="grafico-card">
             <h4 class="text-center mb-3">Canchas</h4>
-            <div id="chartCanchas" style="width: 100%; height: 450px;"></div>
+            <div id="chartCanchas"></div>
         </div>
     </div>
 </section>
+
 
 
 
@@ -135,6 +136,58 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-czL6JuqcKJfSTNn2tPbdm1cA4y3Z7rU2q2GVxPzrcTtGkh3qHuvZ4z5gDMSlB/xK"
         crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawCharts);
+
+    let chartReservas, chartCanchas;
+    let dataReservas, optionsReservas;
+    let dataCanchas, optionsCanchas;
+
+    function drawCharts() {
+        dataReservas = google.visualization.arrayToDataTable([
+            ['Tipo', 'Cantidad'],
+            ['Pagadas', <%= request.getAttribute("reservasPagadas") %>],
+            ['No pagadas', <%= request.getAttribute("reservasNoPagadas") %>]
+        ]);
+
+        optionsReservas = {
+            title: '',
+            pieHole: 0.4,
+            chartArea: { width: '100%', height: '80%' },
+            legend: { position: 'bottom' },
+            backgroundColor: 'transparent'
+        };
+
+        chartReservas = new google.visualization.PieChart(document.getElementById('chartReservas'));
+        chartReservas.draw(dataReservas, optionsReservas);
+
+        dataCanchas = google.visualization.arrayToDataTable([
+            ['Tipo', 'Cantidad'],
+            ['Totales', <%= request.getAttribute("totalCanchas") %>],
+            ['Techadas', <%= request.getAttribute("canchasTechadas") %>],
+            ['Disponibles', <%= request.getAttribute("canchasDisponibles") %>]
+        ]);
+
+        optionsCanchas = {
+            title: '',
+            chartArea: { width: '70%', height: '80%' },
+            hAxis: { title: 'Cantidad', minValue: 0 },
+            vAxis: { title: 'Tipo' },
+            bars: 'horizontal',
+            legend: { position: 'none' },
+            backgroundColor: 'transparent'
+        };
+
+        chartCanchas = new google.visualization.BarChart(document.getElementById('chartCanchas'));
+        chartCanchas.draw(dataCanchas, optionsCanchas);
+    }
+
+    window.addEventListener('resize', drawCharts);
+</script>
+
+
 
 </body>
 </html>

@@ -30,6 +30,7 @@
 <head>
     <title>Editar Cancha</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/editarCancha.css">
     <style>
         .foto-cancha {
