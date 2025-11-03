@@ -4,11 +4,13 @@ import dao.CanchaDAO;
 import dao.ReservaDAO;
 import dao.UsuarioDAO;
 import dao.JugadorDAO;
+import jakarta.mail.MessagingException;
 import models.*;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import utils.EnviarCorreo;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -109,7 +111,6 @@ public class CrearReservaServlet extends HttpServlet {
 
             MetodoPago metodoPago = MetodoPago.fromString(request.getParameter("metodoPago"));
 
-            // Validar conflicto de horario
             Vector<Reserva> todas = reservaDAO.listarTodasLasReservas();
             boolean hayConflicto = false;
 
@@ -137,22 +138,21 @@ public class CrearReservaServlet extends HttpServlet {
                 return;
             }
 
-            // Crear reserva
-            Reserva reserva = new Reserva(
-                    cedulaUsuario,
-                    numeroCancha,
-                    fecha,
-                    horarioInicio,
-                    horarioFinal,
-                    null,
-                    metodoPago,
-                    false,
-                    true
-            );
+            Reserva reserva = new Reserva(cedulaUsuario, numeroCancha, fecha, horarioInicio, horarioFinal, null, metodoPago, false, true);
 
             reservaDAO.crearReserva(reserva);
-
-            // Redirigir según tipo de usuario
+            String correo = usuario.getCorreo();
+            String nombre = usuario.getNombre();
+            try {
+                EnviarCorreo.enviar(
+                        correo,
+                        "Confirmación de reserva",
+                        "Hola " + nombre + ",\n\nTu reserva de la cancha " + numeroCancha + ", para el día " + new java.text.SimpleDateFormat("dd/MM/yyyy").format(fecha) + " a las " + horarioInicio + ", ha sido agendada con éxito.\n\nSaludos,\nEl equipo de PadelManager."
+                );
+                System.out.println("Confirmación enviada a " + correo);
+            } catch (MessagingException e) {
+                System.err.println("Error al enviar correo: " + e.getMessage());
+            }
             if (usuario != null && usuario.esAdministrador()) {
                 response.sendRedirect(request.getContextPath() + "/reserva");
             } else {
