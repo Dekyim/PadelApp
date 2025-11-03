@@ -1,7 +1,7 @@
 <%@ page import="models.Cancha" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     List<Cancha> listaCanchas = (List<Cancha>) request.getAttribute("listaCanchas");
     Map<Integer, String> fotosPorId = (Map<Integer, String>) request.getAttribute("fotosPorId");
@@ -18,7 +18,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
-    <link rel="stylesheet" href="css/panel.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panelCanchas.css">
 </head>
 <body>
 
@@ -49,8 +49,8 @@
         </button>
     </form>
 
-    <div class="listaCancha">
-        <ul>
+    <div class="listaUser">
+        <ul class="grid-canchas">
             <% if (listaCanchas != null && !listaCanchas.isEmpty()) {
                 for (Cancha cancha : listaCanchas) {
                     String urlFoto = fotosPorId.get(cancha.getId());
@@ -58,10 +58,9 @@
                         urlFoto = "https://res.cloudinary.com/doqev0ese/image/upload/v1761177930/Captura_de_pantalla_2025-10-22_210510_ni5giw.jpg";
                     }
             %>
-            <li class="tarjeta-cancha" onclick="toggleAcciones(this)">
-
-                <span class="nombre-usuario">Cancha Nro <%= cancha.getNumero() %></span>
-                <img src="<%= urlFoto %>" alt="Cancha <%= cancha.getNumero() %>" class="foto-cancha">
+            <li class="tarjeta-usuario" onclick="toggleAcciones(this)">
+                <img src="<%= urlFoto %>" alt="Cancha <%= cancha.getNumero() %>" class="foto-usuario">
+                <span class="nombre-usuario">Cancha N° <%= cancha.getNumero() %></span>
 
                 <div class="acciones" style="display: none;">
                     <form action="cancha" method="post" style="display:inline;">

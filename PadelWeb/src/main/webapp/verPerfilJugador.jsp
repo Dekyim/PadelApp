@@ -37,8 +37,12 @@
     </script>
 </head>
 <body>
-
+<% if (usuario != null && usuario.esAdministrador()) { %>
+<%@include file="/WEB-INF/components/headerAdmin.jsp"%>
+<% } else { %>
 <%@include file="/WEB-INF/components/headerUsuario.jsp"%>
+<% } %>
+
 
 
 <div class="container mt-4">

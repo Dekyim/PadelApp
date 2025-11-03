@@ -19,7 +19,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panelCanchas.css">
 </head>
 <body>
 
@@ -41,7 +41,7 @@
             %>
             <li class="tarjeta-usuario <%= cancha.isEstaDisponible() ? "" : "no-disponible" %>"
                     <%= cancha.isEstaDisponible() ? "onclick=\"window.location.href='" + request.getContextPath() + "/crearreserva?numeroCancha=" + cancha.getNumero() + "'\"" : "" %>>
-            <img src="<%= urlFoto %>" alt="Cancha <%= cancha.getNumero() %>" class="foto-usuario">
+                <img src="<%= urlFoto %>" alt="Cancha <%= cancha.getNumero() %>" class="foto-usuario">
                 <span class="nombre-usuario"><%= cancha.isEstaDisponible() ? "Cancha Nro " + cancha.getNumero() : "Cancha Nro " + cancha.getNumero() + " (No disponible)" %>
             </span>
             </li>

@@ -47,6 +47,7 @@
     </style>
 </head>
 <body>
+<%@include file="/WEB-INF/components/headerAdmin.jsp"%>
 <form class="login-form" action="editarCancha" method="post" enctype="multipart/form-data">
     <h1><i class="bi bi-pencil-square"></i> Editar Cancha N° <%= cancha.getNumero() %></h1>
 

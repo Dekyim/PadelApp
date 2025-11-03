@@ -17,9 +17,17 @@
     <meta charset="UTF-8">
     <title>Reservas Cancha <%= numeroCancha %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panelReservaCancha.css">
 </head>
 <body>
+<!-- Botón hamburguesa funcional -->
+<button id="toggleSidebar" class="sidebar-toggle">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+</button>
+
+
 
 <%@ include file="/WEB-INF/components/headerAdmin.jsp" %>
 
@@ -28,7 +36,7 @@
         <h1 class="tituloGestion">Reservas Cancha Nro <%= numeroCancha %></h1>
     </div>
 
-    <div class="filtros-reservas mb-4 container">
+    <div class="filtros-reservas mb-4">
         <form method="get" action="verReservaCancha" class="row g-3 align-items-end">
             <input type="hidden" name="numeroCancha" value="<%= numeroCancha %>">
 
@@ -72,17 +80,15 @@
                 </select>
             </div>
 
-            <div class="col-md-1">
-                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-fill">Filtrar</button>
+                <a href="verReservaCancha?numeroCancha=<%= numeroCancha %>" class="btn btn-outline-secondary flex-fill">Limpiar</a>
             </div>
 
-            <div class="col-md-1">
-                <a href="verReservaCancha?numeroCancha=<%= numeroCancha %>" class="btn btn-outline-secondary">Limpiar filtros</a>
-            </div>
         </form>
     </div>
 
-    <div class="container mt-3">
+    <div class="bloque-reservas mt-3">
         <% if (reservas != null && !reservas.isEmpty()) { %>
         <table class="table table-striped table-dark align-middle">
             <thead>
@@ -172,5 +178,25 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const boton = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const panel = document.querySelector('.panel');
+
+        boton.addEventListener('click', () => {
+            boton.classList.toggle('active');
+            sidebar.classList.toggle('oculto');
+            panel.classList.toggle('shifted');
+            // Mover el botón junto con el sidebar
+            if (sidebar.classList.contains('oculto')) {
+                boton.style.left = '20px';
+            } else {
+                boton.style.left = '240px';
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

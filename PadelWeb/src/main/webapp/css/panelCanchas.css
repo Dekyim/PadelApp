@@ -1,0 +1,221 @@
+/* Panel general */
+.panel {
+    padding: 40px 30px;
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    background-color: #f4f6f8;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Título */
+.tituloGestion {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #222;
+    border-bottom: 3px solid #00b95e;
+    display: inline-block;
+    padding-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+/* Contenedor de lista */
+.listaUser {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Grid de canchas */
+.listaUser ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 40px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* Tarjeta individual con fondo oscuro */
+.tarjeta-usuario {
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    color: #f0f0f0;
+}
+
+.tarjeta-usuario:hover {
+    transform: translateY(-5px);
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+/* Imagen de cancha */
+.foto-usuario {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 10px rgba(137, 212, 255, 0.2);
+}
+
+/* Número de cancha */
+.nombre-usuario {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #f0f0f0;
+}
+
+/* Botones de acción */
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+.acciones button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.6rem;
+    color: #f0f0f0;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.acciones button:hover {
+    color: #00b95e;
+    transform: scale(1.2);
+}
+
+/* Botón agregar cancha */
+.btn-agregar {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #00b95e;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-agregar:hover {
+    background-color: #00924d;
+    transform: scale(1.1);
+}
+
+
+/* Cancha desactivada */
+.tarjeta-usuario.no-disponible {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .foto-usuario {
+        height: 160px;
+    }
+
+    .nombre-usuario {
+        font-size: 1.2rem;
+    }
+
+    .acciones {
+        gap: 12px;
+    }
+}
+
+/* SIDEBAR MODERNO */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    z-index: 200;
+}
+
+/* LOGO */
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo a {
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sidebar .logo a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0,185,94,0.5);
+}
+
+/* MENÚ DE ENLACES */
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #89d4ff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+    background: rgba(0,185,94,0.2);
+    color: #00b95e;
+    transform: translateX(5px);
+    text-shadow: 0 0 6px rgba(0,185,94,0.4);
+}
+
+/* ✅ CENTRAR CONTENIDO ENTRE EL SIDEBAR Y EL BORDE DERECHO */
+.panel,
+main,
+.container,
+section {
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}

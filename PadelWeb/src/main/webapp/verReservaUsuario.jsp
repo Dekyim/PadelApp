@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <title>Reservas del Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panelReservaUsuario.css">
 </head>
 <body>
 
@@ -83,95 +83,92 @@
                 </select>
             </div>
 
-            <div class="col-md-1">
-                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
-            </div>
-            <div class="col-md-1">
-                <a href="verReservaUsuario?cedula=<%= cedula %>" class="btn btn-outline-secondary">Limpiar filtros</a>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-fill">Filtrar</button>
+                <a href="verReservaUsuario?cedula=<%= cedula %>" class="btn btn-outline-secondary flex-fill">Limpiar</a>
             </div>
 
         </form>
     </div>
 
-    <div class="tabla-reservas">
-        <% if (reservas != null && !reservas.isEmpty()) { %>
-        <table class="table table-borderless align-middle">
-            <thead>
-            <tr>
-                <th>Número de Reserva</th>
-                <th>Fecha</th>
-                <th>Hora Inicio</th>
-                <th>Hora Fin</th>
-                <th>Cancha</th>
-                <th>Pagada</th>
-                <th>Activa</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% for (Reserva reserva : reservas) { %>
-            <tr>
-                <td><%= reserva.getId() %></td>
-                <td><%= reserva.getFecha() %></td>
-                <td><%= reserva.getHorarioInicio() %></td>
-                <td><%= reserva.getHorarioFinal() %></td>
-                <td>
-                    <%= reserva.getNumeroCancha() %>
-                    <% Double precio = preciosPorReserva.get(reserva.getId()); %>
-                    <span class="text-muted">
+    <% if (reservas != null && !reservas.isEmpty()) { %>
+    <table class="table table-striped table-dark align-middle">
+        <thead>
+        <tr>
+            <th>Número de Reserva</th>
+            <th>Fecha</th>
+            <th>Hora Inicio</th>
+            <th>Hora Fin</th>
+            <th>Cancha</th>
+            <th>Pagada</th>
+            <th>Activa</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (Reserva reserva : reservas) { %>
+        <tr>
+            <td><%= reserva.getId() %></td>
+            <td><%= reserva.getFecha() %></td>
+            <td><%= reserva.getHorarioInicio() %></td>
+            <td><%= reserva.getHorarioFinal() %></td>
+            <td>
+                <%= reserva.getNumeroCancha() %>
+                <% Double precio = preciosPorReserva.get(reserva.getId()); %>
+                <span class="precio-claro">
                     (<%= precio != null ? "$" + String.format("%.2f", precio) : "Precio no disponible" %>)
                     </span>
 
-                </td>
-                <td>
-                    <% if (reserva.isEstaPagada()) { %>
-                    <span class="badge bg-success">Sí</span>
-                    <% } else { %>
-                    <span class="badge bg-danger">No</span>
-                    <% } %>
-                </td>
-                <td>
+            </td>
+            <td>
+                <% if (reserva.isEstaPagada()) { %>
+                <span class="badge bg-success">Sí</span>
+                <% } else { %>
+                <span class="badge bg-danger">No</span>
+                <% } %>
+            </td>
+            <td>
+                <% if (reserva.isEstaActiva()) { %>
+                <span class="badge bg-success">Sí</span>
+                <% } else { %>
+                <span class="badge bg-secondary">No</span>
+                <% } %>
+            </td>
+            <td>
+                <form action="verReservaUsuario" method="post" style="display:inline;">
+                    <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
+                    <input type="hidden" name="cedula" value="<%= cedula %>">
                     <% if (reserva.isEstaActiva()) { %>
-                    <span class="badge bg-success">Sí</span>
+                    <% if (reserva.isEstaPagada()) { %>
+                    <button type="submit" name="accion" value="despagar" class="btn btn-warning btn-sm">Cancelar</button>
                     <% } else { %>
-                    <span class="badge bg-secondary">No</span>
+                    <button type="submit" name="accion" value="pagar" class="btn btn-success btn-sm">Pagar</button>
                     <% } %>
-                </td>
-                <td>
-                    <form action="verReservaUsuario" method="post" style="display:inline;">
-                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
-                        <input type="hidden" name="cedula" value="<%= cedula %>">
-                        <% if (reserva.isEstaActiva()) { %>
-                        <% if (reserva.isEstaPagada()) { %>
-                        <button type="submit" name="accion" value="despagar" class="btn btn-warning btn-sm">Cancelar</button>
-                        <% } else { %>
-                        <button type="submit" name="accion" value="pagar" class="btn btn-success btn-sm">Pagar</button>
-                        <% } %>
-                        <% } else { %>
-                        <button class="btn btn-secondary btn-sm" disabled>No disponible</button>
-                        <% } %>
-                    </form>
+                    <% } else { %>
+                    <button class="btn btn-secondary btn-sm" disabled>No disponible</button>
+                    <% } %>
+                </form>
 
-                    <form action="verReservaUsuario" method="post" style="display:inline;">
-                        <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
-                        <input type="hidden" name="cedula" value="<%= cedula %>">
-                        <% if (reserva.isEstaActiva()) { %>
-                        <button type="submit" name="accion" value="desactivar" class="btn btn-danger btn-sm">Desactivar</button>
-                        <% } else { %>
-                        <button type="submit" name="accion" value="activar" class="btn btn-primary btn-sm">Activar</button>
-                        <% } %>
-                    </form>
-                </td>
-            </tr>
-            <% } %>
-            </tbody>
-        </table>
-        <% } else { %>
-        <div class="alert alert-info text-center mt-3">
-            No hay reservas registradas para este usuario.
-        </div>
+                <form action="verReservaUsuario" method="post" style="display:inline;">
+                    <input type="hidden" name="idReserva" value="<%= reserva.getId() %>">
+                    <input type="hidden" name="cedula" value="<%= cedula %>">
+                    <% if (reserva.isEstaActiva()) { %>
+                    <button type="submit" name="accion" value="desactivar" class="btn btn-danger btn-sm">Desactivar</button>
+                    <% } else { %>
+                    <button type="submit" name="accion" value="activar" class="btn btn-primary btn-sm">Activar</button>
+                    <% } %>
+                </form>
+            </td>
+        </tr>
         <% } %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <div class="alert alert-info text-center mt-3">
+        No hay reservas registradas para este usuario.
     </div>
+    <% } %>
+
     <div class="text-center mt-4">
         <div class="alert alert-success d-inline-block px-4 py-3">
             <h5 class="mb-0">💰 <strong>Pagos totales del jugador:</strong> $<%= String.format("%.2f", totalPagado) %></h5>
