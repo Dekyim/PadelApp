@@ -77,6 +77,13 @@
                                 <i class="fi fi-rr-trash"></i> Eliminar
                             </button>
                         </form>
+                        <form action="${pageContext.request.contextPath}/creargrupo" method="get">
+                            <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
+                            <button type="submit" class="btn btn-info">
+                                <i class="fi fi-rr-edit"></i> Editar
+                            </button>
+                        </form>
+
                     </div>
 
                 </div>

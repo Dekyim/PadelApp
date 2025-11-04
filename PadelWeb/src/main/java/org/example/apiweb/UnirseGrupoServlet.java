@@ -31,10 +31,10 @@ public class UnirseGrupoServlet extends HttpServlet {
             ParticipantesGrupoDAO dao = new ParticipantesGrupoDAO();
 
             if (dao.existeParticipante(idGrupo, cedula)) {
-                request.setAttribute("mensajeError", "Ya estÃ¡s inscrito en este grupo.");
-                request.getRequestDispatcher("/grupo.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/grupojugador?error=yaEnGrupo");
                 return;
             }
+
 
             ParticipantesGrupo participante = new ParticipantesGrupo();
             participante.setIdGrupo(idGrupo);
@@ -43,12 +43,12 @@ public class UnirseGrupoServlet extends HttpServlet {
 
             dao.agregarParticipante(participante);
 
-            response.sendRedirect("grupo");
+            response.sendRedirect("grupojugador");
 
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("mensajeError", "No se pudo unir al grupo.");
-            request.getRequestDispatcher("/grupo.jsp").forward(request, response);
+            request.getRequestDispatcher("/grupojugador.jsp").forward(request, response);
         }
     }
 }

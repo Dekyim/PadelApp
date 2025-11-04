@@ -21,6 +21,10 @@ public class GrupoJugadorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String error = request.getParameter("error");
+        if ("yaEnGrupo".equals(error)) {
+            request.setAttribute("mensajeError", "Ya estás inscrito en este grupo.");
+        }
 
         HttpSession session = request.getSession(false);
         Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
@@ -138,21 +142,21 @@ public class GrupoJugadorServlet extends HttpServlet {
                 GrupoDAO grupoDAO = new GrupoDAO();
 
                 Grupo grupo = grupoDAO.obtenerGrupoPorId(idGrupo);
-                if (grupo == null || !cedulaUsuario.equals(grupo.getIdCreador())) {
-                    request.setAttribute("mensajeError", "No tienes permiso para modificar este grupo.");
-                    doGet(request, response);
-                    return;
-                }
-
                 switch (accion) {
                     case "cerrar":
-                        grupoDAO.cerrarGrupo(idGrupo);
-                        request.setAttribute("mensajeExito", "Grupo cerrado correctamente.");
-                        break;
-
                     case "eliminar":
-                        grupoDAO.eliminarGrupo(idGrupo);
-                        request.setAttribute("mensajeExito", "Grupo eliminado correctamente.");
+                        if (grupo == null || !cedulaUsuario.equals(grupo.getIdCreador())) {
+                            request.setAttribute("mensajeError", "No tienes permiso para modificar este grupo.");
+                            break;
+                        }
+
+                        if (accion.equals("cerrar")) {
+                            grupoDAO.cerrarGrupo(idGrupo);
+                            request.setAttribute("mensajeExito", "Grupo cerrado correctamente.");
+                        } else {
+                            grupoDAO.eliminarGrupo(idGrupo);
+                            request.setAttribute("mensajeExito", "Grupo eliminado correctamente.");
+                        }
                         break;
 
                     case "salir":
@@ -165,6 +169,7 @@ public class GrupoJugadorServlet extends HttpServlet {
                         request.setAttribute("mensajeError", "Acción no reconocida.");
                         break;
                 }
+
 
             } catch (Exception e) {
                 e.printStackTrace();

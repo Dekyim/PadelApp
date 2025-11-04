@@ -16,6 +16,16 @@
 <%@include file="/WEB-INF/components/headerUsuario.jsp"%>
 
 <main class="contenedor-grupos">
+    <c:if test="${not empty mensajeError}">
+        <div id="mensajeErrorOverlay">
+            <div class="mensajeErrorBox">
+                <button class="cerrarError" onclick="document.getElementById('mensajeErrorOverlay').remove()">×</button>
+                    ${mensajeError}
+            </div>
+        </div>
+    </c:if>
+
+
     <form action="${pageContext.request.contextPath}/creargrupojugador" method="get">
         <button type="submit" class="btn-agregar-jugador">
             <i class="fi fi-rr-plus"></i>
@@ -77,6 +87,13 @@
                                 <i class="fi fi-rr-trash"></i> Eliminar
                             </button>
                         </form>
+                        <form action="${pageContext.request.contextPath}/creargrupojugador" method="get">
+                            <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
+                            <button type="submit" class="btn btn-info">
+                                <i class="fi fi-rr-edit"></i> Editar
+                            </button>
+                        </form>
+
                     </c:if>
                     <c:if test="${grupo.idCreador != cedulaUsuario}">
                         <form action="${pageContext.request.contextPath}/grupojugador" method="post" class="d-inline">

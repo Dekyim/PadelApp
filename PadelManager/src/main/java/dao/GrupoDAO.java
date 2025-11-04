@@ -161,4 +161,23 @@ public class GrupoDAO {
             e.printStackTrace();
         }
     }
+
+    public void actualizarGrupo(Grupo grupo) {
+        String consulta = "UPDATE Grupo SET horaDesde = ?, horaHasta = ?, categoria = ?, cupos = ?, descripcion = ?, estado = ? WHERE idGrupo = ?";
+
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setTime(1, grupo.getHoraDesde());
+            ps.setTime(2, grupo.getHoraHasta());
+            ps.setString(3, grupo.getCategoria());
+            ps.setInt(4, grupo.getCupos());
+            ps.setString(5, grupo.getDescripcion());
+            ps.setString(6, grupo.getEstado());
+            ps.setInt(7, grupo.getIdGrupo());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar el grupo", e);
+        }
+    }
+
 }

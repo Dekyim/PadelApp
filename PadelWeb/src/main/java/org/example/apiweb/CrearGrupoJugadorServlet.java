@@ -33,6 +33,27 @@ public class CrearGrupoJugadorServlet extends HttpServlet {
             return;
         }
 
+        String idGrupoStr = request.getParameter("idGrupo");
+        if (idGrupoStr != null && !idGrupoStr.isEmpty()) {
+            try {
+                int idGrupo = Integer.parseInt(idGrupoStr);
+                GrupoDAO grupoDAO = new GrupoDAO();
+                Grupo grupo = grupoDAO.obtenerGrupoPorId(idGrupo);
+
+                if (!grupo.getIdCreador().equals(cedulaUsuario)) {
+                    request.setAttribute("mensajeError", "No tienes permiso para editar este grupo.");
+                } else {
+                    ParticipantesGrupoDAO participantesDAO = new ParticipantesGrupoDAO();
+                    int cantidadActual = participantesDAO.obtenerCedulasPorGrupo(idGrupo).size();
+
+                    request.setAttribute("grupoEditado", grupo);
+                    request.setAttribute("cantidadActual", cantidadActual);
+                }
+            } catch (Exception e) {
+                request.setAttribute("mensajeError", "No se pudo cargar el grupo para edición.");
+            }
+        }
+
         List<String> categorias = Arrays.asList("primera", "segunda", "tercera", "cuarta", "quinta", "desconoce");
         request.setAttribute("categoriasDisponibles", categorias);
         request.setAttribute("cedulaUsuario", cedulaUsuario);
@@ -43,6 +64,12 @@ public class CrearGrupoJugadorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        GrupoDAO grupoDAO = new GrupoDAO();
+        ParticipantesGrupoDAO participantesDAO = new ParticipantesGrupoDAO();
+
+        String idGrupoStr = request.getParameter("idGrupo");
+        boolean esEdicion = idGrupoStr != null && !idGrupoStr.isEmpty();
+
 
         HttpSession session = request.getSession(false);
         Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
@@ -71,15 +98,32 @@ public class CrearGrupoJugadorServlet extends HttpServlet {
             grupo.setDescripcion(descripcion);
             grupo.setEstado("abierto");
 
-            GrupoDAO grupoDAO = new GrupoDAO();
-            grupoDAO.crearGrupo(grupo);
+            if (esEdicion) {
+                int idGrupo = Integer.parseInt(idGrupoStr);
+                grupo.setIdGrupo(idGrupo);
 
-            ParticipantesGrupoDAO participantesDAO = new ParticipantesGrupoDAO();
-            ParticipantesGrupo creador = new ParticipantesGrupo(grupo.getIdGrupo(), idCreador, true);
-            participantesDAO.agregarParticipante(creador);
+                Grupo grupoExistente = grupoDAO.obtenerGrupoPorId(idGrupo);
+                if (!grupoExistente.getIdCreador().equals(idCreador)) {
+                    request.setAttribute("mensajeError", "No tienes permiso para modificar este grupo.");
+                    doGet(request, response);
+                    return;
+                }
 
-            response.sendRedirect("grupojugador");
+                int cantidadActual = participantesDAO.obtenerCedulasPorGrupo(idGrupo).size();
+                if (cupos < cantidadActual) {
+                    request.setAttribute("mensajeError", "No puedes asignar menos cupos que los participantes actuales.");
+                    doGet(request, response);
+                    return;
+                }
 
+                grupoDAO.actualizarGrupo(grupo);
+            } else {
+                grupoDAO.crearGrupo(grupo);
+                ParticipantesGrupo creador = new ParticipantesGrupo(grupo.getIdGrupo(), idCreador, true);
+                participantesDAO.agregarParticipante(creador);
+            }
+
+            response.sendRedirect(request.getContextPath() + "/grupojugador");
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("mensajeError", "Error al crear el grupo.");

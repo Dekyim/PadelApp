@@ -23,7 +23,7 @@ public class AuthFilter implements Filter {
         // Obtener usuario logueado (si existe)
         Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
 
-        // --- 1️⃣ Permitir acceso libre a estas rutas ---
+        // todos
         if (path.endsWith("/login") ||
                 path.endsWith("/registro") ||
                 path.endsWith("/inicio") ||
@@ -34,7 +34,7 @@ public class AuthFilter implements Filter {
         }
 
 
-        // --- 2️⃣ Bloquear si no está logueado ---
+        // Solo personas logeadas (admin y jugador)
         if (usuario == null) {
             if (path.endsWith("/verPerfilJugador") ||
                     path.endsWith("/logout") ||
@@ -50,10 +50,13 @@ public class AuthFilter implements Filter {
             }
         }
 
-
+    // Solo jugador
         if (usuario == null || usuario.esAdministrador()) {
             if (path.endsWith("/reservasUsuario") ||
                     path.endsWith("/inicioUsers") ||
+                    path.endsWith("/grupojugador") ||
+                    path.endsWith("/unirsegrupo") ||
+                    path.endsWith("/creargrupojugador") ||
                     path.endsWith("/canchaUsuario")) {
 
                 System.out.println("[AuthFilter] Acceso denegado: solo jugadores → " + path);
@@ -65,7 +68,7 @@ public class AuthFilter implements Filter {
         }
 
 
-        // --- 3️⃣ Bloquear si es usuario normal y quiere ver el dashboard ---
+        // Solo admin
         if (usuario == null || !usuario.esAdministrador()) {
             if (path.endsWith("/verReservaCancha") ||
                     path.endsWith("/verReservaUsuario") ||
@@ -76,6 +79,8 @@ public class AuthFilter implements Filter {
                     path.endsWith("/editarCancha") ||
                     path.endsWith("/cancha") ||
                     path.endsWith("/agregarUsuario") ||
+                    path.endsWith("/grupo") ||
+                    path.endsWith("/creargrupo") ||
                     path.endsWith("/agregarCancha")) {
 
                 System.out.println("[AuthFilter] Acceso denegado: solo administradores → " + path);
