@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: Matías
   Date: 3/11/2025
-  Time: 17:47
+  Time: 22:22
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -20,9 +20,8 @@
 
 <h2>Crear nuevo grupo</h2>
 
-<form action="${pageContext.request.contextPath}/creargrupo" class="login-form" method="post">
-    <label for="cedulaJugador">Cédula del jugador:</label>
-    <input type="text" name="cedulaJugador" required />
+<form action="${pageContext.request.contextPath}/creargrupojugador" class="login-form" method="post">
+    <input type="hidden" name="idCreador" value="${cedulaUsuario}" />
 
     <label for="horaDesde">Hora desde:</label>
     <input type="time" name="horaDesde" required />

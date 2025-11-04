@@ -4,7 +4,10 @@ import dao.GrupoDAO;
 import dao.ParticipantesGrupoDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import models.Grupo;
 import models.ParticipantesGrupo;
 import models.Usuario;
@@ -14,8 +17,8 @@ import java.sql.Time;
 import java.util.Arrays;
 import java.util.List;
 
-@WebServlet(name = "CrearGrupoServlet", value = "/creargrupo")
-public class CrearGrupoServlet extends HttpServlet {
+@WebServlet(name = "CrearGrupoJugadorServlet", value = "/creargrupojugador")
+public class CrearGrupoJugadorServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,7 +37,7 @@ public class CrearGrupoServlet extends HttpServlet {
         request.setAttribute("categoriasDisponibles", categorias);
         request.setAttribute("cedulaUsuario", cedulaUsuario);
 
-        request.getRequestDispatcher("/crearGrupo.jsp").forward(request, response);
+        request.getRequestDispatcher("/crearGrupoJugador.jsp").forward(request, response);
     }
 
     @Override
@@ -43,8 +46,7 @@ public class CrearGrupoServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
-        String idCreador = request.getParameter("cedulaJugador");
-
+        String idCreador = (usuario != null) ? usuario.getCedula() : null;
 
         if (idCreador == null) {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -76,7 +78,7 @@ public class CrearGrupoServlet extends HttpServlet {
             ParticipantesGrupo creador = new ParticipantesGrupo(grupo.getIdGrupo(), idCreador, true);
             participantesDAO.agregarParticipante(creador);
 
-            response.sendRedirect("grupo");
+            response.sendRedirect("grupojugador");
 
         } catch (Exception e) {
             e.printStackTrace();

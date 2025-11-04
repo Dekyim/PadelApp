@@ -45,6 +45,8 @@ public class ParticipantesGrupoDAO {
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
             ps.setInt(1, idGrupo);
             ps.setString(2, idJugador);
+            System.out.println("Intentando eliminar participante: grupo=" + idGrupo + ", jugador=" + idJugador);
+
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

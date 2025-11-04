@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Matías
-  Date: 3/11/2025
-  Time: 17:49
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -16,21 +9,21 @@
     <title>Grupos del Jugador</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tarjetaGrupo.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
 </head>
 <body>
 
-<div class="contenedor-grupos">
+<%@include file="/WEB-INF/components/headerUsuario.jsp"%>
 
-    <!-- Botón para crear nuevo grupo -->
+<main class="container my-4">
     <div class="crear-grupo-btn mb-4">
-        <form action="${pageContext.request.contextPath}/creargrupo" method="get">
+        <form action="${pageContext.request.contextPath}/creargrupojugador" method="get">
             <button type="submit" class="btn btn-success">
                 <i class="fi fi-rr-plus"></i> Crear nuevo grupo
             </button>
         </form>
     </div>
 
-    <!-- ✅ Sección: Mis grupos -->
     <h3 class="mb-3">Mis grupos</h3>
     <c:choose>
         <c:when test="${not empty gruposDelJugador}">
@@ -38,21 +31,63 @@
                 <c:set var="cedulasParticipantes" value="${participantesPorGrupo[grupo.idGrupo]}" />
                 <c:set var="cuposRestantes" value="${grupo.cupos + 1 - fn:length(cedulasParticipantes)}" />
 
-                <div class="tarjeta-grupo mb-4">
-                    <div class="info-grupo">
+                <div class="tarjeta-grupo mb-4 p-3 shadow-sm rounded bg-light">
+                    <div class="info-grupo mb-3">
                         <p><b>Horario:</b> ${grupo.horaDesde} a ${grupo.horaHasta}</p>
+                        <p><b>Cupos restantes:</b> ${cuposRestantes}</p>
 
-                        <c:set var="categoriasArray" value="${fn:split(grupo.categoria, ',')}" />
                         <p><b>Categorías permitidas:</b></p>
                         <div class="mb-2">
-                            <c:forEach var="cat" items="${categoriasArray}">
-                                <c:set var="categoria" value="${fn:toUpperCase(fn:substring(cat, 0, 1))}${fn:substring(cat, 1, fn:length(cat))}" />
-                                <span class="badge bg-primary me-1">${categoria}</span>
+                            <c:forEach var="cat" items="${fn:split(grupo.categoria, ',')}">
+                                <span class="badge bg-primary me-1">${cat}</span>
                             </c:forEach>
                         </div>
 
                         <p><b>Descripción:</b> ${grupo.descripcion}</p>
                     </div>
+
+                    <div class="d-flex gap-3 flex-wrap">
+                        <div class="jugador text-center">
+                            <img src="${fotosJugadores[grupo.idCreador]}" class="foto-jugador" alt="Foto del creador">
+                            <p>${nombresJugadores[grupo.idCreador]}</p>
+                        </div>
+
+                        <c:forEach var="cedula" items="${cedulasParticipantes}">
+                            <c:if test="${cedula != grupo.idCreador}">
+                                <div class="jugador text-center">
+                                    <img src="${fotosJugadores[cedula]}" class="foto-jugador" alt="Foto del jugador">
+                                    <p>${nombresJugadores[cedula]}</p>
+                                </div>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                    <c:if test="${grupo.idCreador == cedulaUsuario}">
+                        <form action="${pageContext.request.contextPath}/grupojugador" method="post">
+                            <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
+                            <input type="hidden" name="accion" value="cerrar" />
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fi fi-rr-lock"></i> Cerrar
+                            </button>
+                        </form>
+
+                        <form action="${pageContext.request.contextPath}/grupojugador" method="post">
+                            <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
+                            <input type="hidden" name="accion" value="eliminar" />
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fi fi-rr-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </c:if>
+                    <c:if test="${grupo.idCreador != cedulaUsuario}">
+                        <form action="${pageContext.request.contextPath}/grupojugador" method="post" class="d-inline">
+                            <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
+                            <input type="hidden" name="accion" value="salir" />
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                <i class="fi fi-rr-exit"></i> Salir del grupo
+                            </button>
+                        </form>
+                    </c:if>
+
                 </div>
             </c:forEach>
         </c:when>
@@ -61,7 +96,6 @@
         </c:otherwise>
     </c:choose>
 
-    <!-- ✅ Sección: Grupos disponibles -->
     <h3 class="mt-5 mb-3">Grupos disponibles</h3>
     <c:choose>
         <c:when test="${not empty gruposDisponibles}">
@@ -69,32 +103,47 @@
                 <c:set var="cedulasParticipantes" value="${participantesPorGrupo[grupo.idGrupo]}" />
                 <c:set var="cuposRestantes" value="${grupo.cupos + 1 - fn:length(cedulasParticipantes)}" />
 
-                <div class="tarjeta-grupo mb-4">
-                    <div class="info-grupo">
+                <div class="tarjeta-grupo mb-4 p-3 shadow-sm rounded bg-light">
+                    <div class="info-grupo mb-3">
                         <p><b>Horario:</b> ${grupo.horaDesde} a ${grupo.horaHasta}</p>
+                        <p><b>Cupos restantes:</b> ${cuposRestantes}</p>
 
-                        <c:set var="categoriasArray" value="${fn:split(grupo.categoria, ',')}" />
                         <p><b>Categorías permitidas:</b></p>
                         <div class="mb-2">
-                            <c:forEach var="cat" items="${categoriasArray}">
-                                <c:set var="categoria" value="${fn:toUpperCase(fn:substring(cat, 0, 1))}${fn:substring(cat, 1, fn:length(cat))}" />
-                                <span class="badge bg-primary me-1">${categoria}</span>
+                            <c:forEach var="cat" items="${fn:split(grupo.categoria, ',')}">
+                                <span class="badge bg-primary me-1">${cat}</span>
                             </c:forEach>
                         </div>
 
                         <p><b>Descripción:</b> ${grupo.descripcion}</p>
                     </div>
 
-                    <div class="cupos">
-                        <c:forEach var="i" begin="1" end="${cuposRestantes}">
-                            <form action="${pageContext.request.contextPath}/unirsegrupo" method="post" class="form-cupo">
-                                <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
-                                <input type="hidden" name="cedulaUsuario" value="${cedulaUsuario}" />
-                                <button type="submit" class="btn btn-outline-primary me-2" title="Unirse al grupo">
-                                    <i class="fi fi-rr-plus"></i> Unirse
-                                </button>
-                            </form>
+                    <div class="d-flex gap-3 flex-wrap align-items-center">
+                        <div class="jugador text-center">
+                            <img src="${fotosJugadores[grupo.idCreador]}" class="foto-jugador" alt="Foto del creador">
+                            <p>${nombresJugadores[grupo.idCreador]}</p>
+                        </div>
+
+                        <c:forEach var="cedula" items="${cedulasParticipantes}">
+                            <c:if test="${cedula != grupo.idCreador}">
+                                <div class="jugador text-center">
+                                    <img src="${fotosJugadores[cedula]}" class="foto-jugador" alt="Foto del jugador">
+                                    <p>${nombresJugadores[cedula]}</p>
+                                </div>
+                            </c:if>
                         </c:forEach>
+
+                        <div class="cupos ms-auto">
+                            <c:forEach var="i" begin="1" end="${cuposRestantes}">
+                                <form action="${pageContext.request.contextPath}/unirsegrupo" method="post" class="d-inline">
+                                    <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
+                                    <input type="hidden" name="cedulaUsuario" value="${cedulaUsuario}" />
+                                    <button type="submit" class="btn btn-outline-success btn-sm" title="Unirse al grupo">
+                                        <i class="fi fi-rr-plus"></i>
+                                    </button>
+                                </form>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
             </c:forEach>
@@ -103,8 +152,7 @@
             <p class="text-center">No hay grupos disponibles para tu categoría.</p>
         </c:otherwise>
     </c:choose>
-
-</div>
+</main>
 
 </body>
 </html>

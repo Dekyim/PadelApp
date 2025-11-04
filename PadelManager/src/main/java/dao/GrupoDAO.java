@@ -116,7 +116,7 @@ public class GrupoDAO {
 
     public List<Grupo> obtenerGruposPorJugador(String cedulaJugador) {
         List<Grupo> grupos = new ArrayList<>();
-        String consulta = "SELECT g.* FROM Grupo g JOIN ParticipantesGrupo p ON g.idGrupo = p.idGrupo WHERE p.idJugador = ?";
+        String consulta = "SELECT g.* FROM Grupo g JOIN ParticipantesGrupo p ON g.idGrupo = p.idGrupo WHERE p.idJugador = ? AND g.estado = 'abierto'";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
             ps.setString(1, cedulaJugador);

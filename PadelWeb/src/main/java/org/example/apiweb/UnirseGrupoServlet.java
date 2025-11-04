@@ -9,7 +9,7 @@ import models.Usuario;
 
 import java.io.IOException;
 
-@WebServlet(name = "UnirseGrupoServlet", value = "/unirseGrupo")
+@WebServlet(name = "UnirseGrupoServlet", value = "/unirsegrupo")
 public class UnirseGrupoServlet extends HttpServlet {
 
     @Override
@@ -31,7 +31,7 @@ public class UnirseGrupoServlet extends HttpServlet {
             ParticipantesGrupoDAO dao = new ParticipantesGrupoDAO();
 
             if (dao.existeParticipante(idGrupo, cedula)) {
-                request.setAttribute("mensajeError", "Ya estás inscrito en este grupo.");
+                request.setAttribute("mensajeError", "Ya estÃ¡s inscrito en este grupo.");
                 request.getRequestDispatcher("/grupo.jsp").forward(request, response);
                 return;
             }

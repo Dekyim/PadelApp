@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Matías
-  Date: 3/11/2025
-  Time: 17:47
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -22,7 +15,6 @@
 
 <div class="contenedor-grupos">
 
-    <!-- Botón para crear nuevo grupo -->
     <div class="crear-grupo-btn">
         <form action="${pageContext.request.contextPath}/creargrupo" method="get">
             <button type="submit" class="btn-crear-grupo">
@@ -67,18 +59,24 @@
                             </div>
                         </c:if>
                     </c:forEach>
+                    <div class="acciones-grupo mt-3 d-flex gap-2">
+                        <form action="${pageContext.request.contextPath}/grupo" method="post">
+                            <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
+                            <input type="hidden" name="accion" value="cerrar" />
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fi fi-rr-lock"></i> Cerrar
+                            </button>
+                        </form>
 
-                    <div class="cupos">
-                        <c:forEach var="i" begin="1" end="${cuposRestantes}">
-                            <form action="${pageContext.request.contextPath}/unirseGrupo" method="post" class="form-cupo">
-                                <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
-                                <input type="hidden" name="cedulaUsuario" value="${sessionScope.cedulaUsuario}" />
-                                <button type="submit" class="btn-cupo" title="Unirse al grupo">
-                                    <i class="fi fi-rr-plus"></i>
-                                </button>
-                            </form>
-                        </c:forEach>
+                        <form action="${pageContext.request.contextPath}/grupo" method="post">
+                            <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
+                            <input type="hidden" name="accion" value="eliminar" />
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fi fi-rr-trash"></i> Eliminar
+                            </button>
+                        </form>
                     </div>
+
                 </div>
             </c:forEach>
         </c:when>
