@@ -1,27 +1,207 @@
-.contenedor-grupos {
+/* === FONDO Y TIPOGRAFÍA === */
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #e6ebff, #f2f5ff);
+    font-family: "Poppins", sans-serif;
+    color: #222;
+    min-height: 100vh;
+}
+
+/* === SIDEBAR FIJO === */
+/* SIDEBAR MODERNO */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 2rem;
-}
-
-.tarjeta-grupo {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    border: 2px solid #ccc;
-    border-radius: 15px;
-    padding: 1rem 2rem;
-    background-color: #f9f9f9;
+    padding: 40px 20px;
+    z-index: 200;
 }
 
-.info-grupo {
-    flex: 1;
+/* LOGO */
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
 }
 
+.sidebar .logo a {
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sidebar .logo a:hover {
+    color: #00b95e;
+    text-shadow: 0 0 6px rgba(0,185,94,0.5);
+}
+
+/* MENÚ DE ENLACES */
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sidebar .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #89d4ff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+    background: rgba(0,185,94,0.2);
+    color: #00b95e;
+    transform: translateX(5px);
+    text-shadow: 0 0 6px rgba(0,185,94,0.4);
+}
+
+/* === TÍTULO PRINCIPAL PARA JUGADOR === */
+.titulo-jugador {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+    background: linear-gradient(90deg, #00b95e, #00e085);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* === CUPOS RESTANTES === */
+.cupos {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.cupos form {
+    display: inline-block;
+}
+
+.cupos button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.cupos button:hover {
+    transform: scale(1.1);
+}
+
+/* === BOTÓN SALIR DEL GRUPO === */
+.btn-salir {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.3s ease;
+}
+
+.btn-salir:hover {
+    transform: translateY(-2px);
+}
+
+/* === BOTÓN CREAR GRUPO FLOTANTE PARA JUGADOR === */
+.btn-agregar-jugador {
+    background-color: #00c36b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    cursor: pointer;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 999;
+}
+
+.btn-agregar-jugador i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-agregar-jugador:hover {
+    background-color: #00a95c;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* === CONTENEDOR PRINCIPAL === */
+.contenedor-grupos {
+    margin-left: 220px;
+    max-width: calc(100vw - 220px);
+    padding: 80px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+/* === TARJETA DE GRUPO === */
+.tarjeta-grupo {
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* === INFO DEL GRUPO === */
+.info-grupo p {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+.badge {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 12px;
+}
+
+/* === PARTICIPANTES EN FILA === */
 .participantes {
     display: flex;
-    gap: 1rem;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .jugador {
@@ -29,46 +209,91 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    max-width: 120px;
+    word-wrap: break-word;
 }
 
 .foto-jugador {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid #aaa;
+    border: 2px solid #00b95e;
+    margin-bottom: 8px;
 }
 
-.cupos {
+.jugador p {
+    font-size: 14px;
+    color: #fff;
+    word-break: break-word;
+}
+
+/* === ACCIONES DEL GRUPO === */
+.acciones-grupo {
     display: flex;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-.icono-cupo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
+.acciones-grupo button {
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
+    gap: 8px;
+    transition: 0.3s ease;
 }
 
-.form-cupo {
-    display: inline-block;
-    margin: 0 5px;
+.acciones-grupo button:hover {
+    transform: translateY(-2px);
 }
 
-.btn-cupo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
+/* === BOTÓN FLOTANTE ABAJO A LA DERECHA === */
+.btn-agregar {
+    background-color: #00c36b;
+    color: white;
     border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    line-height: 0;
     cursor: pointer;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 999;
+}
+
+.btn-agregar i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-agregar:hover {
+    background-color: #00a95c;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* === MENSAJE VACÍO === */
+.text-center {
+    font-size: 18px;
+    color: #555;
+    margin-top: 50px;
+}
+.titulo-grupos {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    background: linear-gradient(90deg, #00b95e, #00e085);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

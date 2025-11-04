@@ -12,17 +12,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
+<%@include file="/WEB-INF/components/headerAdmin.jsp"%>
 <div class="contenedor-grupos">
 
-    <div class="crear-grupo-btn">
-        <form action="${pageContext.request.contextPath}/creargrupo" method="get">
-            <button type="submit" class="btn-crear-grupo">
-                <i class="fi fi-rr-plus"></i> Crear nuevo grupo
-            </button>
-        </form>
-    </div>
+    <form action="${pageContext.request.contextPath}/creargrupo" method="get">
+        <button type="submit" class="btn-agregar">
+            <i class="fi fi-rr-plus"></i>
+        </button>
+    </form>
 
+    <h2 class="titulo-grupos">Grupos</h2>
     <c:choose>
         <c:when test="${not empty listaGrupos}">
             <c:forEach var="grupo" items="${listaGrupos}">
@@ -46,19 +45,22 @@
                         <p><b>Descripción:</b> ${grupo.descripcion}</p>
                     </div>
 
-                    <div class="jugador">
-                        <img src="${fotosJugadores[grupo.idCreador]}" class="foto-jugador" alt="Foto del creador">
-                        <p>${nombresJugadores[grupo.idCreador]}</p>
+                    <div class="participantes">
+                        <div class="jugador">
+                            <img src="${fotosJugadores[grupo.idCreador]}" class="foto-jugador" alt="Foto del creador">
+                            <p>${nombresJugadores[grupo.idCreador]}</p>
+                        </div>
+
+                        <c:forEach var="cedula" items="${cedulasParticipantes}">
+                            <c:if test="${cedula != grupo.idCreador}">
+                                <div class="jugador">
+                                    <img src="${fotosJugadores[cedula]}" class="foto-jugador" alt="Foto del jugador">
+                                    <p>${nombresJugadores[cedula]}</p>
+                                </div>
+                            </c:if>
+                        </c:forEach>
                     </div>
 
-                    <c:forEach var="cedula" items="${cedulasParticipantes}">
-                        <c:if test="${cedula != grupo.idCreador}">
-                            <div class="jugador">
-                                <img src="${fotosJugadores[cedula]}" class="foto-jugador" alt="Foto del jugador">
-                                <p>${nombresJugadores[cedula]}</p>
-                            </div>
-                        </c:if>
-                    </c:forEach>
                     <div class="acciones-grupo mt-3 d-flex gap-2">
                         <form action="${pageContext.request.contextPath}/grupo" method="post">
                             <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />

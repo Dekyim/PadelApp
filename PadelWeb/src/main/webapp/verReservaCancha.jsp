@@ -22,14 +22,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panelReservaCancha.css">
 </head>
 <body>
-
+<%--
 <button id="toggleSidebar" class="sidebar-toggle">
     <span class="bar"></span>
     <span class="bar"></span>
     <span class="bar"></span>
 </button>
-
-
+--%>
 
 <%@ include file="/WEB-INF/components/headerAdmin.jsp" %>
 
@@ -180,7 +179,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
+<%-- <script>
     document.addEventListener('DOMContentLoaded', () => {
         const boton = document.getElementById('toggleSidebar');
         const sidebar = document.getElementById('sidebar');
@@ -198,7 +197,7 @@
             }
         });
     });
-</script>
+</script>--%>
 
 </body>
 </html>

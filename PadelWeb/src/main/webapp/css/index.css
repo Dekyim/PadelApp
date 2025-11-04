@@ -321,13 +321,14 @@ main, .hero, .panel, .container, .content, section .footer {
     gap: 30px;
     padding: 60px 30px;
 }
+/*
 #chartReservas,
 #chartCanchas {
     width: 100%;
     max-width: 1200px;
     height: 600px;
     margin: 0 auto;
-}
+}*/
 
 #mensajeErrorOverlay {
     position: fixed;

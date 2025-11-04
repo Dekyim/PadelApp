@@ -15,14 +15,14 @@
 
 <%@include file="/WEB-INF/components/headerUsuario.jsp"%>
 
-<main class="container my-4">
-    <div class="crear-grupo-btn mb-4">
-        <form action="${pageContext.request.contextPath}/creargrupojugador" method="get">
-            <button type="submit" class="btn btn-success">
-                <i class="fi fi-rr-plus"></i> Crear nuevo grupo
-            </button>
-        </form>
-    </div>
+<main class="contenedor-grupos">
+    <form action="${pageContext.request.contextPath}/creargrupojugador" method="get">
+        <button type="submit" class="btn-agregar-jugador">
+            <i class="fi fi-rr-plus"></i>
+        </button>
+    </form>
+
+    <h2 class="titulo-jugador">Grupos del Jugador</h2>
 
     <h3 class="mb-3">Mis grupos</h3>
     <c:choose>
@@ -31,8 +31,8 @@
                 <c:set var="cedulasParticipantes" value="${participantesPorGrupo[grupo.idGrupo]}" />
                 <c:set var="cuposRestantes" value="${grupo.cupos + 1 - fn:length(cedulasParticipantes)}" />
 
-                <div class="tarjeta-grupo mb-4 p-3 shadow-sm rounded bg-light">
-                    <div class="info-grupo mb-3">
+                <div class="tarjeta-grupo">
+                <div class="info-grupo mb-3">
                         <p><b>Horario:</b> ${grupo.horaDesde} a ${grupo.horaHasta}</p>
                         <p><b>Cupos restantes:</b> ${cuposRestantes}</p>
 
@@ -82,7 +82,7 @@
                         <form action="${pageContext.request.contextPath}/grupojugador" method="post" class="d-inline">
                             <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
                             <input type="hidden" name="accion" value="salir" />
-                            <button type="submit" class="btn btn-outline-secondary btn-sm">
+                            <button type="submit" class="btn btn-outline-secondary btn-sm btn-salir">
                                 <i class="fi fi-rr-exit"></i> Salir del grupo
                             </button>
                         </form>
@@ -103,8 +103,8 @@
                 <c:set var="cedulasParticipantes" value="${participantesPorGrupo[grupo.idGrupo]}" />
                 <c:set var="cuposRestantes" value="${grupo.cupos + 1 - fn:length(cedulasParticipantes)}" />
 
-                <div class="tarjeta-grupo mb-4 p-3 shadow-sm rounded bg-light">
-                    <div class="info-grupo mb-3">
+                <div class="tarjeta-grupo">
+                <div class="info-grupo mb-3">
                         <p><b>Horario:</b> ${grupo.horaDesde} a ${grupo.horaHasta}</p>
                         <p><b>Cupos restantes:</b> ${cuposRestantes}</p>
 
