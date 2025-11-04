@@ -4,19 +4,26 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio - PadelManager</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
-    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <title>PadelManager - Inicio</title>
+
+    <!-- Bootstrap 5.3.3 sin integrity (para evitar errores de hash) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Iconos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tu CSS -->
+    <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
+
 <%
     String mensajeError = (String) session.getAttribute("mensajeError");
     if (mensajeError != null) {
 %>
-
 <div id="mensajeErrorOverlay">
     <div class="mensajeErrorBox">
         <button class="cerrarError" onclick="document.getElementById('mensajeErrorOverlay').remove()">×</button>
@@ -28,12 +35,9 @@
     }
 %>
 
-
-
-
 <%@include file="/WEB-INF/components/header.jsp"%>
 
-<main class="hero text-center py-5">
+<main class="hero text-center">
     <div class="hero-content container">
         <h2 class="tituloPrincipal mb-3">Bienvenido</h2>
         <p class="lead mb-4">
@@ -64,6 +68,121 @@
     </div>
 </section>
 
+<!-- Preguntas frecuentes -->
+<section id="faq" class="py-5 ">
+    <h2 class="text-center mb-4">Preguntas Frecuentes</h2>
+
+    <div class="accordion" id="faqAccordion">
+
+        <!-- CANCHAS -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                    ¿Cómo reservo una cancha?
+                </button>
+            </h2>
+            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Inicia sesión, accede a la sección <strong>"Canchas"</strong>, selecciona la cancha que prefieras y completa el formulario.
+                </div>
+            </div>
+        </div>
+
+        <!-- RESERVAS -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                    ¿Puedo modificar o cancelar una reserva?
+                </button>
+            </h2>
+            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Sí. En la sección <strong>"Reservas"</strong> puedes ver todas tus reservas y, desde allí, actualizarlas o eliminarlas fácilmente según tus necesidades.
+                </div>
+            </div>
+        </div>
+
+        <!-- GRUPOS -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                    ¿Cómo puedo unirme o crear un grupo de juego?
+                </button>
+            </h2>
+            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Ingresa a la sección <strong>"Grupos"</strong> para ver los grupos disponibles y unirte a uno. Si lo prefieres, también puedes crear tu propio grupo para organizar partidos con tus amigos.
+                </div>
+            </div>
+        </div>
+
+        <!-- PERFIL -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                    ¿Cómo actualizo mi información o foto de perfil?
+                </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Dirígete a <strong>"Ver Perfil"</strong> para visualizar tus datos personales. Desde allí puedes actualizar tu información y cargar una nueva foto de perfil.
+                </div>
+            </div>
+        </div>
+
+        <!-- USABILIDAD GENERAL -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                    ¿Puedo filtrar las reservas o buscar canchas específicas?
+                </button>
+            </h2>
+            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Sí, puedes utilizar los filtros de búsqueda disponibles en las seccion <strong>"Reservas"</strong> para encontrar exactamente lo que necesitas según fecha, cancha o estado de reserva.
+                </div>
+            </div>
+        </div>
+
+        <!-- SESIÓN -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq6">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                    ¿Qué sucede al cerrar sesión?
+                </button>
+            </h2>
+            <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="faq6" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Al cerrar sesión, tu cuenta se desconecta de forma segura del sistema y se protege tu información personal. Puedes volver a iniciar sesión cuando lo desees.
+                </div>
+            </div>
+        </div>
+
+        <!-- GENERAL -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq7">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                    ¿PadelManager es gratuito?
+                </button>
+            </h2>
+            <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="faq7" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Sí, la versión básica de PadelManager es totalmente gratuita. Algunas funciones avanzadas o personalizadas podrían requerir una suscripción en el futuro.
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Opiniones -->
 <section class="container my-5">
     <h3 class="text-center mb-4">Opiniones de la comunidad</h3>
     <div class="row justify-content-center">
@@ -96,9 +215,9 @@
 
 <%@include file="/WEB-INF/components/footer.jsp"%>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-czL6JuqcKJfSTNn2tPbdm1cA4y3Z7rU2q2GVxPzrcTtGkh3qHuvZ4z5gDMSlB/xK"
-        crossorigin="anonymous"></script>
+<!-- Bootstrap JS bundle (sin integrity para evitar bloqueo) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     function cerrarMensajeError() {
         const mensaje = document.getElementById("mensajeError");
@@ -110,4 +229,3 @@
 
 </body>
 </html>
-
