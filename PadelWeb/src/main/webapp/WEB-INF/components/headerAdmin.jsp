@@ -6,7 +6,7 @@
         <a href="<%= request.getContextPath() %>/users"><i class="fi fi-rr-users"></i> Usuarios</a>
         <a href="<%= request.getContextPath() %>/cancha"><i class="fi fi-rr-basketball"></i> Canchas</a>
         <a href="<%= request.getContextPath() %>/reserva"><i class="fi fi-rr-calendar"></i> Reservas</a>
-        <a href="<%= request.getContextPath() %>/grupo"><i class="fi fi-rr-calendar"></i> Grupo</a>
+        <a href="<%= request.getContextPath() %>/grupo"><i class="fi fi-rr-calendar"></i> Grupos</a>
         <a href="<%= request.getContextPath() %>/verPerfilAdmin"><i class="fi fi-rr-user"></i> Ver Perfil</a>
         <a href="<%= request.getContextPath() %>/logout"><i class="fi fi-rr-exit"></i> Salir </a>
     </nav>

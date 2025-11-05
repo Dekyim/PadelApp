@@ -4,6 +4,7 @@ import dao.GrupoDAO;
 import dao.JugadorDAO;
 import dao.ParticipantesGrupoDAO;
 import dao.FotoPerfilUsuarioDAO;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -11,6 +12,7 @@ import models.Grupo;
 import models.Jugador;
 import models.ParticipantesGrupo;
 import models.Usuario;
+import utils.EnviarCorreo;
 
 import java.io.IOException;
 import java.util.*;
@@ -21,6 +23,7 @@ public class GrupoJugadorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String error = request.getParameter("error");
         if ("yaEnGrupo".equals(error)) {
             request.setAttribute("mensajeError", "Ya estás inscrito en este grupo.");
@@ -51,7 +54,10 @@ public class GrupoJugadorServlet extends HttpServlet {
         FotoPerfilUsuarioDAO fotoDAO = new FotoPerfilUsuarioDAO();
 
         List<Grupo> todosLosGrupos = grupoDAO.listarGrupos();
-        List<Grupo> gruposDelJugador = grupoDAO.obtenerGruposPorJugador(cedula);
+        List<Grupo> gruposDelJugador = grupoDAO.obtenerGruposPorJugador(cedula).stream()
+                .filter(g -> "abierto".equalsIgnoreCase(g.getEstado()))
+                .toList();
+
         Set<Integer> idsDelJugador = new HashSet<>();
         for (Grupo g : gruposDelJugador) {
             idsDelJugador.add(g.getIdGrupo());
@@ -97,7 +103,7 @@ public class GrupoJugadorServlet extends HttpServlet {
                 nombresJugadores.put(cedulaCreador, nombre);
             }
 
-            if (!idsDelJugador.contains(idGrupo)) {
+            if (!idsDelJugador.contains(idGrupo) && "abierto".equalsIgnoreCase(grupo.getEstado())) {
                 List<String> categoriasPermitidas = Arrays.stream(grupo.getCategoria().split(","))
                         .map(String::trim)
                         .map(String::toLowerCase)
@@ -140,8 +146,11 @@ public class GrupoJugadorServlet extends HttpServlet {
             try {
                 int idGrupo = Integer.parseInt(idStr);
                 GrupoDAO grupoDAO = new GrupoDAO();
+                JugadorDAO jugadorDAO = new JugadorDAO();
+                ParticipantesGrupoDAO participantesDAO = new ParticipantesGrupoDAO();
 
                 Grupo grupo = grupoDAO.obtenerGrupoPorId(idGrupo);
+
                 switch (accion) {
                     case "cerrar":
                     case "eliminar":
@@ -153,6 +162,57 @@ public class GrupoJugadorServlet extends HttpServlet {
                         if (accion.equals("cerrar")) {
                             grupoDAO.cerrarGrupo(idGrupo);
                             request.setAttribute("mensajeExito", "Grupo cerrado correctamente.");
+
+                            List<ParticipantesGrupo> participantes = participantesDAO.obtenerParticipantesPorGrupo(idGrupo);
+                            List<Jugador> jugadores = new ArrayList<>();
+                            for (ParticipantesGrupo p : participantes) {
+                                Jugador j = jugadorDAO.obtenerJugadorPorCedula(p.getIdJugador());
+                                if (j != null) jugadores.add(j);
+                            }
+
+                            String correoCreador = usuario.getCorreo();
+                            String nombreCreador = usuario.getNombre();
+
+                            String mensaje = "Hola " + nombreCreador + ",\n\n" +
+                                    "Tu grupo se ha completado. Estos son los jugadores que se unieron y sus correos:\n\n";
+
+                            for (Jugador j : jugadores) {
+                                if (!j.getCedula().equals(grupo.getIdCreador())) {
+                                    mensaje += "- " + j.getNombre() + " — " + j.getCorreo() + "\n";
+                                }
+                            }
+
+                            mensaje += "\nDetalles del grupo:\n" +
+                                    "- Categoría: " + grupo.getCategoria() + "\n" +
+                                    "- Horario: " + grupo.getHoraDesde() + " - " + grupo.getHoraHasta() + "\n" +
+                                    "- Descripción: " + grupo.getDescripcion() + "\n\n" +
+                                    "Saludos,\nEl equipo de PadelManager.";
+
+                            try {
+                                EnviarCorreo.enviar(correoCreador, "Tu grupo se ha completado", mensaje);
+                            } catch (MessagingException e) {
+                                System.err.println("Error al enviar correo al creador: " + e.getMessage());
+                            }
+
+                            for (Jugador j : jugadores) {
+                                if (!j.getCedula().equals(grupo.getIdCreador())) {
+                                    String mensajeJugador = "Hola " + j.getNombre() + ",\n\n" +
+                                            "El grupo al que te uniste se completó.\n\n" +
+                                            "Contactá al creador para coordinar:\n" +
+                                            "- " + nombreCreador + " — " + correoCreador + "\n\n" +
+                                            "Detalles del grupo:\n" +
+                                            "- Horario: " + grupo.getHoraDesde() + " - " + grupo.getHoraHasta() + "\n" +
+                                            "- Descripción: " + grupo.getDescripcion() + "\n\n" +
+                                            "Saludos,\nEl equipo de PadelManager.";
+
+                                    try {
+                                        EnviarCorreo.enviar(j.getCorreo(), "Confirmación de grupo completo", mensajeJugador);
+                                        System.out.println("Correo enviado a " + j.getCorreo());
+                                    } catch (MessagingException e) {
+                                        System.err.println("Error al enviar correo a " + j.getCorreo() + ": " + e.getMessage());
+                                    }
+                                }
+                            }
                         } else {
                             grupoDAO.eliminarGrupo(idGrupo);
                             request.setAttribute("mensajeExito", "Grupo eliminado correctamente.");
@@ -160,7 +220,6 @@ public class GrupoJugadorServlet extends HttpServlet {
                         break;
 
                     case "salir":
-                        ParticipantesGrupoDAO participantesDAO = new ParticipantesGrupoDAO();
                         participantesDAO.eliminarParticipante(idGrupo, cedulaUsuario);
                         request.setAttribute("mensajeExito", "Has salido del grupo correctamente.");
                         break;
@@ -170,7 +229,6 @@ public class GrupoJugadorServlet extends HttpServlet {
                         break;
                 }
 
-
             } catch (Exception e) {
                 e.printStackTrace();
                 request.setAttribute("mensajeError", "Ocurrió un error al procesar la acción.");
@@ -179,5 +237,4 @@ public class GrupoJugadorServlet extends HttpServlet {
 
         doGet(request, response);
     }
-
 }
