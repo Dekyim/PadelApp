@@ -64,111 +64,103 @@
     </div>
 </section>
 
-<section id="faq" class="py-5 ">
+<section id="faq">
     <h2 class="text-center mb-4">Preguntas Frecuentes</h2>
 
-    <div class="accordion" id="faqAccordion">
+    <div class="faq-section">
+        <div class="accordion" id="faqAccordion">
 
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="faq1">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                    ¿Cómo reservo una cancha?
-                </button>
-            </h2>
-            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    Inicia sesión, accede a la sección <strong>"Canchas"</strong>, selecciona la cancha que prefieras y completa el formulario.
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                        ¿Cómo reservo una cancha?
+                    </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Puedes reservar una cancha desde el panel principal seleccionando fecha, hora y ubicación. Luego confirma tu reserva.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="faq2">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                    ¿Puedo modificar o cancelar una reserva?
-                </button>
-            </h2>
-            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    Sí. En la sección <strong>"Reservas"</strong> puedes ver todas tus reservas y, desde allí, actualizarlas o eliminarlas fácilmente según tus necesidades.
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                        ¿Puedo modificar o cancelar una reserva?
+                    </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Sí, desde tu perfil puedes editar o cancelar reservas activas siempre que sea con al menos 2 horas de anticipación.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="faq3">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                    ¿Cómo puedo unirme o crear un grupo de juego?
-                </button>
-            </h2>
-            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    Ingresa a la sección <strong>"Grupos"</strong> para ver los grupos disponibles y unirte a uno. Si lo prefieres, también puedes crear tu propio grupo para organizar partidos con tus amigos.
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                        ¿Cómo puedo unirme o crear un grupo de juego?
+                    </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        En la sección “Grupos” puedes buscar grupos existentes o crear uno nuevo invitando a otros jugadores.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="faq4">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                    ¿Cómo actualizo mi información o foto de perfil?
-                </button>
-            </h2>
-            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    Dirígete a <strong>"Ver Perfil"</strong> para visualizar tus datos personales. Desde allí puedes actualizar tu información y cargar una nueva foto de perfil.
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                        ¿Cómo actualizo mi información o foto de perfil?
+                    </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Accede a tu perfil y haz clic en “Editar”. Desde allí puedes modificar tus datos personales y subir una nueva foto.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="faq5">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                    ¿Puedo filtrar las reservas o buscar canchas específicas?
-                </button>
-            </h2>
-            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    Sí, puedes utilizar los filtros de búsqueda disponibles en las seccion <strong>"Reservas"</strong> para encontrar exactamente lo que necesitas según fecha, cancha o estado de reserva.
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                        ¿Puedo filtrar las reservas o buscar canchas específicas?
+                    </button>
+                </h2>
+                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Sí, puedes usar los filtros por fecha, ubicación, tipo de cancha y disponibilidad para encontrar lo que necesitas.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- SESIÓN -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="faq6">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
-                    ¿Qué sucede al cerrar sesión?
-                </button>
-            </h2>
-            <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="faq6" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    Al cerrar sesión, tu cuenta se desconecta de forma segura del sistema y se protege tu información personal. Puedes volver a iniciar sesión cuando lo desees.
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading6">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                        ¿Qué sucede si cierro sesión?
+                    </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Al cerrar sesión, se cerrará tu sesión activa y deberás iniciar sesión nuevamente para acceder a tus reservas y perfil.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- GENERAL -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="faq7">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
-                    ¿PadelManager es gratuito?
-                </button>
-            </h2>
-            <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="faq7" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    Sí, la versión básica de PadelManager es totalmente gratuita. Algunas funciones avanzadas o personalizadas podrían requerir una suscripción en el futuro.
-                </div>
-            </div>
         </div>
-
     </div>
 </section>
 

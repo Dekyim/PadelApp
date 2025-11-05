@@ -364,7 +364,7 @@ main, .hero, .panel, .container, .content, section .footer {
 }
 .accordion-item {
     border-radius: 10px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem; /* antes 1rem */
     border: 1px solid #dee2e6;
     overflow: hidden;
 }
@@ -386,12 +386,59 @@ main, .hero, .panel, .container, .content, section .footer {
 .accordion-body {
     background-color: #fff;
     border-radius: 8px;
-    font-size: 1rem;
-    line-height: 1.6;
-    padding: 1.3rem 1.8rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    padding: 0.7rem 1.2rem; /* más compacto */
 }
 
 .accordion {
     max-width: 700px;
     margin: 0 auto;
+}
+/* ==========================
+   CENTRADO PREGUNTAS FRECUENTES
+   ========================== */
+#faq {
+    margin-left: 220px;               /* deja espacio para el sidebar */
+    width: calc(100vw - 220px);       /* ocupa todo el espacio disponible */
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Elimina los límites del container Bootstrap */
+#faq.container,
+#faq .container {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+/* Centra título y acordeón */
+#faq h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.faq-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Acordeón más ancho */
+.faq-section .accordion {
+    width: 100%;
+    max-width: 1000px;  /* ← antes estaba en 700px, ahora ocupa más */
+    margin: 0 auto;
+}
+.accordion-button {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem; /* menos alto */
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease;
 }
