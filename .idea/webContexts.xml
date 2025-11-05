@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/PadelWeb/src/main/webapp/crearGrupoJugador.jsp" value="file://$PROJECT_DIR$/PadelWeb/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/PadelWeb/src/main/webapp/editarReserva.jsp" value="file://$PROJECT_DIR$/PadelWeb/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/PadelWeb/src/main/webapp/grupoJugador.jsp" value="file://$PROJECT_DIR$/PadelWeb/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/PadelWeb/src/main/webapp/usuarios.jsp" value="file://$PROJECT_DIR$/PadelWeb/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/PadelWeb/src/main/webapp/verPerfilJugador.jsp" value="file://$PROJECT_DIR$/PadelWeb/src/main/webapp" />
       </map>

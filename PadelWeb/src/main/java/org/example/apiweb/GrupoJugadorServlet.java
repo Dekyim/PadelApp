@@ -219,6 +219,23 @@ public class GrupoJugadorServlet extends HttpServlet {
                         }
                         break;
 
+                    case "expulsar":
+                        String cedulaJugador = request.getParameter("cedulaJugador");
+
+                        if (grupo == null || !cedulaUsuario.equals(grupo.getIdCreador())) {
+                            request.setAttribute("mensajeError", "No tienes permiso para modificar este grupo.");
+                            break;
+                        }
+
+                        if (cedulaJugador == null || cedulaJugador.equals(grupo.getIdCreador())) {
+                            request.setAttribute("mensajeError", "No puedes eliminar al creador del grupo.");
+                            break;
+                        }
+
+                        participantesDAO.eliminarParticipante(idGrupo, cedulaJugador);
+                        request.setAttribute("mensajeExito", "Jugador eliminado correctamente del grupo.");
+                        break;
+
                     case "salir":
                         participantesDAO.eliminarParticipante(idGrupo, cedulaUsuario);
                         request.setAttribute("mensajeExito", "Has salido del grupo correctamente.");

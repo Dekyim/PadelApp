@@ -67,10 +67,23 @@
                                 <div class="jugador text-center">
                                     <img src="${fotosJugadores[cedula]}" class="foto-jugador" alt="Foto del jugador">
                                     <p>${nombresJugadores[cedula]}</p>
+
+                                    <c:if test="${grupo.idCreador == cedulaUsuario}">
+                                        <form action="${pageContext.request.contextPath}/grupojugador" method="post" class="mt-2">
+                                            <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
+                                            <input type="hidden" name="accion" value="expulsar" />
+                                            <input type="hidden" name="cedulaJugador" value="${cedula}" />
+                                            <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Estás seguro de que querés expulsar a este jugador?')">
+                                                <i class="fi fi-rr-user-delete"></i> Expulsar
+                                            </button>
+                                        </form>
+                                    </c:if>
                                 </div>
                             </c:if>
                         </c:forEach>
+
                     </div>
+                    <div class="acciones-grupo mt-3 d-flex gap-2">
                     <c:if test="${grupo.idCreador == cedulaUsuario}">
                         <form action="${pageContext.request.contextPath}/grupojugador" method="post">
                             <input type="hidden" name="idGrupo" value="${grupo.idGrupo}" />
@@ -93,7 +106,7 @@
                                 <i class="fi fi-rr-edit"></i> Editar
                             </button>
                         </form>
-
+                    </div>
                     </c:if>
                     <c:if test="${grupo.idCreador != cedulaUsuario}">
                         <form action="${pageContext.request.contextPath}/grupojugador" method="post" class="d-inline">
