@@ -6,16 +6,12 @@
     <meta charset="UTF-8">
     <title>PadelManager - Inicio</title>
 
-    <!-- Bootstrap 5.3.3 sin integrity (para evitar errores de hash) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Iconos -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Fuente -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tu CSS -->
     <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
@@ -68,13 +64,11 @@
     </div>
 </section>
 
-<!-- Preguntas frecuentes -->
 <section id="faq" class="py-5 ">
     <h2 class="text-center mb-4">Preguntas Frecuentes</h2>
 
     <div class="accordion" id="faqAccordion">
 
-        <!-- CANCHAS -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq1">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -89,7 +83,6 @@
             </div>
         </div>
 
-        <!-- RESERVAS -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq2">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -104,7 +97,6 @@
             </div>
         </div>
 
-        <!-- GRUPOS -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq3">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -119,7 +111,6 @@
             </div>
         </div>
 
-        <!-- PERFIL -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq4">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -134,7 +125,6 @@
             </div>
         </div>
 
-        <!-- USABILIDAD GENERAL -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq5">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

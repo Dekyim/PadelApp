@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Matías
-  Date: 3/11/2025
-  Time: 22:22
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -13,7 +6,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Grupo</title>
+    <title>
+        <c:choose>
+            <c:when test="${not empty grupoEditado}">Editar Grupo</c:when>
+            <c:otherwise>Crear Grupo</c:otherwise>
+        </c:choose>
+    </title>
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/crearGrupo.css">
 </head>
@@ -22,7 +20,12 @@
 <%@include file="/WEB-INF/components/headerUsuario.jsp"%>
 
 <div class="contenedor-crear-grupo">
-    <h2 class="titulo-crear">Crear nuevo grupo</h2>
+    <h2 class="titulo-crear">
+        <c:choose>
+            <c:when test="${not empty grupoEditado}">Editar grupo</c:when>
+            <c:otherwise>Crear nuevo grupo</c:otherwise>
+        </c:choose>
+    </h2>
 
     <form action="${pageContext.request.contextPath}/creargrupojugador" class="login-form" method="post">
         <c:if test="${not empty grupoEditado}">
@@ -32,10 +35,12 @@
         <input type="hidden" name="idCreador" value="${cedulaUsuario}" />
 
         <label for="horaDesde">Hora desde:</label>
-        <input type="time" name="horaDesde" value="${grupoEditado.horaDesde}" required />
+        <input type="time" name="horaDesde"
+               value="${grupoEditado != null ? fn:substring(grupoEditado.horaDesde, 0, 5) : ''}" required />
 
         <label for="horaHasta">Hora hasta:</label>
-        <input type="time" name="horaHasta" value="${grupoEditado.horaHasta}" required />
+        <input type="time" name="horaHasta"
+               value="${grupoEditado != null ? fn:substring(grupoEditado.horaHasta, 0, 5) : ''}" required />
 
         <label>Categorías permitidas:</label>
         <div class="checkboxes">
@@ -56,7 +61,8 @@
         </select>
 
         <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion" rows="3" required>${grupoEditado.descripcion}</textarea>
+        <textarea name="descripcion" rows="3" required><c:out value="${grupoEditado != null ? grupoEditado.descripcion : ''}" /></textarea>
+
 
         <button type="submit">
             <c:choose>
@@ -65,7 +71,6 @@
             </c:choose>
         </button>
     </form>
-
 </div>
 
 </body>
