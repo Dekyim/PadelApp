@@ -1,7 +1,11 @@
+<%@ page import="models.Usuario" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
-
+<%
+    Usuario usuario = (Usuario) session.getAttribute("authUser");
+    boolean esAdministrador = (usuario != null && usuario.esAdministrador());
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +16,7 @@
 </head>
 <body>
 
-<%@include file="/WEB-INF/components/headerAdmin.jsp"%>
+<jsp:include page="<%= esAdministrador ? \"/WEB-INF/components/headerAdmin.jsp\" : \"/WEB-INF/components/headerUsuario.jsp\" %>" />
 
 <form class="login-form" action="${pageContext.request.contextPath}/crearreserva" method="post" id="reservaForm">
 
@@ -20,18 +24,14 @@
 
     <div class="form-grid">
 
-        <!-- Cédula del jugador -->
-        <!-- Cédula del jugador -->
         <div class="form-input-material">
             <label for="cedulaUsuario">Jugador</label>
             <c:choose>
                 <c:when test="${not empty cedulaUsuarioSeleccionada}">
-                    <!-- Jugador: cédula fija y no editable -->
-                    <input type="text" name="cedulaUsuario" id="cedulaUsuario"
+                   <input type="text" name="cedulaUsuario" id="cedulaUsuario"
                            value="${cedulaUsuarioSeleccionada}" readonly>
                 </c:when>
                 <c:otherwise>
-                    <!-- Admin: campo vacío para ingresar cédula -->
                     <input type="text" name="cedulaUsuario" id="cedulaUsuario"
                            placeholder="Ingrese la cédula" required>
                 </c:otherwise>
@@ -39,7 +39,6 @@
         </div>
 
 
-        <!-- Cancha -->
         <div class="form-input-material">
             <label for="numeroCancha">Cancha</label>
             <select name="numeroCancha" id="numeroCancha" required>
@@ -52,14 +51,12 @@
             </select>
         </div>
 
-        <!-- Fecha -->
         <div class="form-input-material">
             <label for="fecha">Fecha</label>
             <input type="date" name="fecha" id="fecha" required
                    value="${fechaSeleccionada != null ? fechaSeleccionada : param.fecha != null ? param.fecha : ''}">
         </div>
 
-        <!-- Horario de inicio -->
         <div class="form-input-material">
             <label for="horarioInicio">Horario de Inicio</label>
             <select name="horarioInicio" id="horarioInicio" required>
@@ -72,7 +69,6 @@
         </div>
 
 
-        <!-- Método de pago -->
         <div class="form-input-material">
             <label for="metodoPago">Método de Pago</label>
             <select name="metodoPago" id="metodoPago" required>

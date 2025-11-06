@@ -74,7 +74,9 @@
                 <option value="tarjeta" <c:if test="${param.metodoPago == 'tarjeta'}">selected</c:if>>Tarjeta</option>
             </select>
 
-            <!-- 🔄 Solo íconos en botones -->
+        </div>
+
+        <div class="botones-filtros">
             <button type="submit" class="btn-icon" title="Filtrar">
                 <i class="fi fi-rr-filter"></i>
             </button>

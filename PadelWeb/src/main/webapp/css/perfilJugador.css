@@ -90,6 +90,30 @@ body {
     outline: none;
 }
 
+/* ====== SELECT OSCURO ====== */
+.select-dark {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 16px;
+    padding: 8px 4px;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.select-dark:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.select-dark option {
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+/* ====== BOTONES ====== */
 .btn {
     padding: 10px 20px;
     border-radius: 4px;
@@ -158,8 +182,7 @@ body {
     justify-content: center;
 }
 
-
-/* SIDEBAR MODERNO */
+/* ====== SIDEBAR MODERNO ====== */
 .sidebar {
     position: fixed;
     top: 0;
@@ -176,7 +199,7 @@ body {
     z-index: 200;
 }
 
-/* LOGO */
+/* ====== LOGO ====== */
 .sidebar .logo {
     font-size: 22px;
     font-weight: 600;
@@ -196,7 +219,7 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.5);
 }
 
-/* MENÚ DE ENLACES */
+/* ====== MENÚ DE ENLACES ====== */
 .sidebar .menu {
     display: flex;
     flex-direction: column;

@@ -111,7 +111,7 @@
 
             <div class="form-input-material">
                 <label for="categoria">Categoría</label>
-                <select id="categoria" name="categoria" class="editable-select" disabled required>
+                <select id="categoria" name="categoria" class="editable-select select-dark" disabled required>
                     <option value="Primera categoría" <%= "Primera categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Primera categoría</option>
                     <option value="Segunda categoría" <%= "Segunda categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Segunda categoría</option>
                     <option value="Tercera categoría" <%= "Tercera categoría".equals(jugador.getCategoria()) ? "selected" : "" %>>Tercera categoría</option>
@@ -123,7 +123,8 @@
 
             <div class="form-input-material">
                 <label for="genero">Género</label>
-                <select id="genero" name="genero" class="editable-select" disabled>
+                <select id="genero" name="genero" class="editable-select select-dark" disabled>
+
                     <option value="Masculino" <%= "Masculino".equals(jugador.getGenero()) ? "selected" : "" %>>Masculino</option>
                     <option value="Femenino" <%= "Femenino".equals(jugador.getGenero()) ? "selected" : "" %>>Femenino</option>
                     <option value="Otro" <%= "Otro".equals(jugador.getGenero()) ? "selected" : "" %>>Otro</option>

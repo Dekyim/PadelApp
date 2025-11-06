@@ -22,10 +22,12 @@ public class JugadorDAO {
 
         String consultaUsuario = "INSERT INTO Usuario (cedula, nombre, apellido, correo, telefono, contraseniaCuenta) VALUES (?, ?, ?, ?, ?, ?)";
         String consultaJugador = "INSERT INTO Jugador (cedula, fechaNacimiento, categoria, genero, incumplePago, estaBaneado) VALUES (?, ?, ?, ?, ?, ?)";
+        String consultaFoto = "INSERT INTO FotoPerfilUsuario (cedulaUsuario) VALUES (?)";
 
         try (
                 PreparedStatement psUsuario = DatabaseConnection.getInstancia().getConnection().prepareStatement(consultaUsuario);
                 PreparedStatement psJugador = DatabaseConnection.getInstancia().getConnection().prepareStatement(consultaJugador);
+                PreparedStatement psFoto = DatabaseConnection.getInstancia().getConnection().prepareStatement(consultaFoto);
         ) {
 
             psUsuario.setString(1, nuevoJugador.getCedula());
@@ -44,6 +46,9 @@ public class JugadorDAO {
             psJugador.setInt(5, nuevoJugador.isIncumplePago());
             psJugador.setBoolean(6, nuevoJugador.isEstaBaneado());
             psJugador.executeUpdate();
+
+            psFoto.setString(1, nuevoJugador.getCedula());
+            psFoto.executeUpdate();
 
             System.out.println("Jugador creado correctamente");
         } catch (Exception e) {

@@ -1,4 +1,3 @@
-/* 🎨 PALETA PRINCIPAL */
 :root {
     --verde: #00b95e;
     --verde-claro: #00ff9d;
@@ -7,7 +6,6 @@
     --oscuro: rgba(0, 0, 0, 0.92);
 }
 
-/* GENERAL */
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
@@ -51,7 +49,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.5);
 }
 
-/* MENÚ */
 .sidebar .menu {
     display: flex;
     flex-direction: column;
@@ -113,8 +110,9 @@ body {
     color: #ff8080;
 }
 
-/* 🌐 FILTROS / BARRA DE BÚSQUEDA */
-.filtros {
+/* FILTROS */
+.filtros,
+.filtros-reserva {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -130,12 +128,15 @@ body {
     transition: 0.3s ease;
 }
 
-.filtros:hover {
+.filtros:hover,
+.filtros-reserva:hover {
     box-shadow: 0 6px 20px rgba(0,185,94,0.25);
 }
 
 .filtros input,
-.filtros select {
+.filtros select,
+.filtros-reserva input,
+.filtros-reserva select {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #fff;
@@ -144,21 +145,44 @@ body {
     border-radius: 10px;
     outline: none;
     transition: 0.3s;
+    min-width: 150px;
+    max-width: 220px;
+    flex: 1 1 150px;
 }
+
 .filtros input:focus,
-.filtros select:focus {
+.filtros select:focus,
+.filtros-reserva input:focus,
+.filtros-reserva select:focus {
     border-color: var(--verde);
     box-shadow: 0 0 8px rgba(0,185,94,0.4);
 }
 
-/* 🔍 ÍCONOS DE BUSCAR Y LIMPIAR */
-.iconos {
+.filtros input::placeholder,
+.filtros-reserva input::placeholder {
+    color: #ccc;
+}
+
+.filtros select option,
+.filtros-reserva select option {
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+/* BOTONES FILTRO */
+.iconos,
+.filtros-reserva .grupo-botones {
     display: flex;
     align-items: center;
     gap: 10px;
+    justify-content: flex-end;
+    margin-top: 10px;
 }
+
 .filtros button,
-.btn-limpiar {
+.btn-limpiar,
+.btn-filtrar,
+.btn-icon {
     background: linear-gradient(135deg, var(--celeste), #70c8ff);
     border: none;
     color: #000;
@@ -172,11 +196,15 @@ body {
     align-items: center;
     justify-content: center;
 }
-.filtros button:hover {
+
+.filtros button:hover,
+.btn-filtrar:hover,
+.btn-icon:hover {
     background: linear-gradient(135deg, var(--verde), #00a357);
     color: #fff;
     transform: scale(1.1);
 }
+
 .btn-limpiar {
     background: rgba(255,255,255,0.08);
     color: var(--celeste);
@@ -186,7 +214,7 @@ body {
     transform: rotate(90deg);
 }
 
-/* 🧾 LISTA DE RESERVAS */
+/* LISTA DE RESERVAS */
 .listaReservas {
     display: flex;
     flex-direction: column;
@@ -240,7 +268,7 @@ body {
 .activa { background: rgba(0,185,94,0.2); color: var(--verde-claro); }
 .inactiva { background: rgba(255,0,0,0.2); color: #ff8080; }
 
-/* ACCIONES DE CADA TARJETA */
+/* ACCIONES */
 .acciones-card {
     display: flex;
     gap: 10px;
@@ -256,10 +284,12 @@ body {
     cursor: pointer;
     transition: 0.3s;
 }
+
 button.edit:hover {
     background: rgba(0,185,94,0.3);
     color: var(--verde-claro);
 }
+
 button.delete:hover {
     background: rgba(255,0,0,0.3);
     color: #ff8080;
@@ -284,109 +314,13 @@ button.delete:hover {
     transition: 0.3s;
     z-index: 500;
 }
+
 .btn-nueva:hover {
     transform: scale(1.1) rotate(10deg);
     box-shadow: 0 0 25px rgba(0,255,160,0.6);
 }
 
-/* MENSAJE SIN RESERVAS */
-.sinReservas {
-    text-align: center;
-    color: var(--celeste);
-    margin-top: 40px;
-    font-size: 16px;
-    font-style: italic;
-}
-/* 🔧 FILTROS DE RESERVA USUARIO */
-.filtros-reserva {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background: rgba(0, 0, 0, 0.75);
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 40px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-
-.filtros-reserva .grupo-filtros {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: space-between;
-}
-
-.filtros-reserva input,
-.filtros-reserva select {
-    background: #f5f5f5;
-    color: #000;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    min-width: 150px;
-    max-width: 220px;
-    flex: 1 1 150px;
-}
-
-.filtros-reserva .grupo-botones {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.btn-filtrar,
-.btn-limpiar {
-    background: linear-gradient(135deg, var(--verde), #00a357);
-    color: #fff;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.btn-filtrar:hover {
-    background: linear-gradient(135deg, var(--celeste), #70c8ff);
-    color: #000;
-}
-
-.btn-limpiar {
-    background: rgba(255,255,255,0.08);
-    color: var(--celeste);
-}
-
-.btn-limpiar:hover {
-    color: var(--verde);
-    transform: rotate(90deg);
-}
-.btn-icon {
-    background: rgba(255,255,255,0.08);
-    border: none;
-    color: var(--celeste);
-    font-size: 20px;
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 6px;
-}
-
-.btn-icon:hover {
-    background: rgba(0,185,94,0.3);
-    color: var(--verde-claro);
-    transform: scale(1.1);
-}
-
+/* 🗓️ MENSAJE SIN RESERVAS */
 .mensaje-vacio {
     display: flex;
     flex-direction: column;
@@ -408,4 +342,23 @@ button.delete:hover {
     font-size: 40px;
     margin-bottom: 10px;
     color: var(--verde-claro);
+}
+.grupo-filtros {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.campos-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    flex: 1;
+}
+
+.botones-filtros {
+    display: flex;
+    gap: 10px;
 }
