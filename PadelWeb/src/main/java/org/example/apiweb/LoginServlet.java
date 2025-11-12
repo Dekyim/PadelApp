@@ -57,9 +57,16 @@ public class LoginServlet extends HttpServlet {
         if (!usuario.esAdministrador()) {
             JugadorDAO jugadorDAO = new JugadorDAO();
             boolean estaBaneado = jugadorDAO.jugadorBaneado(cedula);
+            boolean estaDeBaja = jugadorDAO.jugadorDadoDeBaja(cedula);
 
             if (estaBaneado) {
                 req.setAttribute("errorLogin", "Su cuenta ha sido baneada. No puede ingresar.");
+                req.getRequestDispatcher("login.jsp").forward(req, resp);
+                return;
+            }
+
+            if (estaDeBaja) {
+                req.setAttribute("errorLogin", "Su cuenta está dada de baja. No puede ingresar.");
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
                 return;
             }

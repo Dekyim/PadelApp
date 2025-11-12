@@ -21,7 +21,7 @@ public class JugadorDAO {
         }
 
         String consultaUsuario = "INSERT INTO Usuario (cedula, nombre, apellido, correo, telefono, contraseniaCuenta) VALUES (?, ?, ?, ?, ?, ?)";
-        String consultaJugador = "INSERT INTO Jugador (cedula, fechaNacimiento, categoria, genero, incumplePago, estaBaneado) VALUES (?, ?, ?, ?, ?, ?)";
+        String consultaJugador = "INSERT INTO Jugador (cedula, fechaNacimiento, categoria, genero, incumplePago, estaBaneado, estaDeBaja) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String consultaFoto = "INSERT INTO FotoPerfilUsuario (cedulaUsuario) VALUES (?)";
 
         try (
@@ -45,6 +45,7 @@ public class JugadorDAO {
             psJugador.setString(4, nuevoJugador.getGenero());
             psJugador.setInt(5, nuevoJugador.isIncumplePago());
             psJugador.setBoolean(6, nuevoJugador.isEstaBaneado());
+            psJugador.setBoolean(7, nuevoJugador.isEstaDeBaja());
             psJugador.executeUpdate();
 
             psFoto.setString(1, nuevoJugador.getCedula());
@@ -62,7 +63,7 @@ public class JugadorDAO {
             System.out.println("La contraseña debe tener mínimo 8 caracteres y al menos una mayúscula.");
             return;
         }
-        String consultaJugador = "UPDATE Jugador SET fechaNacimiento = ?, categoria = ?, genero = ?, incumplePago = ?, estaBaneado = ? WHERE cedula = ?";
+        String consultaJugador = "UPDATE Jugador SET fechaNacimiento = ?, categoria = ?, genero = ?, incumplePago = ?, estaBaneado = ?, estaDeBaja = ? WHERE cedula = ?";
         String consultaUsuario = "UPDATE Usuario SET nombre = ?, apellido = ?, correo = ?, telefono = ?, contraseniaCuenta = ? WHERE cedula = ?";
         try (
                 PreparedStatement psJugador = DatabaseConnection.getInstancia().getConnection().prepareStatement(consultaJugador);
@@ -73,7 +74,8 @@ public class JugadorDAO {
             psJugador.setString(3, jugador.getGenero());
             psJugador.setInt(4, jugador.isIncumplePago());
             psJugador.setBoolean(5, jugador.isEstaBaneado());
-            psJugador.setString(6, jugador.getCedula());
+            psJugador.setBoolean(6, jugador.isEstaDeBaja());
+            psJugador.setString(7, jugador.getCedula());
             psJugador.executeUpdate();
 
             psUsuario.setString(1, jugador.getNombre());
@@ -112,7 +114,7 @@ public class JugadorDAO {
 
     public Vector<Jugador> listarJugadores() {
         Vector<Jugador> jugadores = new Vector<>();
-        String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula";
+        String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado, j.estaDeBaja FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula";
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) { String cedula = rs.getString("cedula");
                 String nombre = rs.getString("nombre");
@@ -124,8 +126,9 @@ public class JugadorDAO {
                 String categoria = rs.getString("categoria");
                 String genero = rs.getString("genero");
                 Boolean estaBaneado = rs.getBoolean("estaBaneado");
+                Boolean estaDeBaja = rs.getBoolean("estaDeBaja");
                 int incumplePago = rs.getInt("incumplePago");
-                Jugador jugador = new Jugador(cedula, nombre, apellido, correo, telefono, contraseniaCuenta, fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
+                Jugador jugador = new Jugador(cedula, nombre, apellido, correo, telefono, contraseniaCuenta, fechaNacimiento, categoria, genero, incumplePago, estaBaneado, estaDeBaja);
                 jugadores.add(jugador);
             }
         } catch (SQLException e) {
@@ -176,7 +179,7 @@ public class JugadorDAO {
 
     public Vector<Jugador> listarJugadoresBaneados() {
         Vector<Jugador> jugadores = new Vector<>();
-        String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula WHERE j.estaBaneado = TRUE";
+        String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado, j.estaDeBaja FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula WHERE j.estaBaneado = TRUE";
         try  {
             PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
@@ -191,8 +194,9 @@ public class JugadorDAO {
                 String categoria = rs.getString("categoria");
                 String genero = rs.getString("genero");
                 Boolean estaBaneado = rs.getBoolean("estaBaneado");
+                Boolean estaDeBaja = rs.getBoolean("estaDeBaja");
                 int incumplePago = rs.getInt("incumplePago");
-                Jugador jugador = new Jugador(cedula, nombre, apellido, correo, telefono, contraseniaCuenta, fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
+                Jugador jugador = new Jugador(cedula, nombre, apellido, correo, telefono, contraseniaCuenta, fechaNacimiento, categoria, genero, incumplePago, estaBaneado, estaDeBaja);
                 jugadores.add(jugador);
             }
         } catch (SQLException e) {
@@ -233,7 +237,7 @@ public class JugadorDAO {
     }
     public Jugador obtenerJugadorPorCedula(String cedula) {
         String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, " +
-                "j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado " +
+                "j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado, j.estaDeBaja " +
                 "FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula WHERE u.cedula = ?";
 
         try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
@@ -250,9 +254,10 @@ public class JugadorDAO {
                     String genero = rs.getString("genero");
                     int incumplePago = rs.getInt("incumplePago");
                     boolean estaBaneado = rs.getBoolean("estaBaneado");
+                    boolean estaDeBaja = rs.getBoolean("estaDeBaja");
 
                     return new Jugador(cedula, nombre, apellido, correo, telefono, contraseniaCuenta,
-                            fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
+                            fechaNacimiento, categoria, genero, incumplePago, estaBaneado, estaDeBaja);
                 } else {
                     return null; // No se encontró el jugador
                 }
@@ -264,7 +269,7 @@ public class JugadorDAO {
     public Vector<Jugador> buscarJugadores(String termino) {
         Vector<Jugador> jugadores = new Vector<>();
         String consulta = "SELECT u.cedula, u.nombre, u.apellido, u.correo, u.telefono, u.contraseniaCuenta, " +
-                "j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado " +
+                "j.fechaNacimiento, j.categoria, j.genero, j.incumplePago, j.estaBaneado, j.estaDeBaja " +
                 "FROM Usuario u JOIN Jugador j ON u.cedula = j.cedula " +
                 "WHERE u.nombre LIKE ? OR u.apellido LIKE ? OR u.cedula LIKE ?";
 
@@ -287,9 +292,10 @@ public class JugadorDAO {
                     String genero = rs.getString("genero");
                     int incumplePago = rs.getInt("incumplePago");
                     boolean estaBaneado = rs.getBoolean("estaBaneado");
+                    boolean estaDeBaja = rs.getBoolean("estaDeBaja");
 
                     Jugador jugador = new Jugador(cedula, nombre, apellido, correo, telefono,
-                            contraseniaCuenta, fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
+                            contraseniaCuenta, fechaNacimiento, categoria, genero, incumplePago, estaBaneado, estaDeBaja);
                     jugadores.add(jugador);
                 }
             }
@@ -330,5 +336,39 @@ public class JugadorDAO {
         return 0; // si no hay resultados
     }
 
-}
+    public void darDeBajaJugador(String cedula) {
+        String consulta = "UPDATE Jugador SET estaDeBaja = TRUE WHERE cedula = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedula);
+            ps.executeUpdate();
+            System.out.println("Jugador dado de baja: " + cedula);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al dar de baja al jugador", e);
+        }
+    }
 
+    public void reactivarJugador(String cedula) {
+        String consulta = "UPDATE Jugador SET estaDeBaja = FALSE WHERE cedula = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedula);
+            ps.executeUpdate();
+            System.out.println("Jugador reactivado: " + cedula);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al reactivar al jugador", e);
+        }
+    }
+
+    public boolean jugadorDadoDeBaja(String cedula) {
+        String consulta = "SELECT estaDeBaja FROM Jugador WHERE cedula = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstancia().getConnection().prepareStatement(consulta)) {
+            ps.setString(1, cedula);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() && rs.getBoolean("estaDeBaja");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al verificar si el jugador está dado de baja", e);
+        }
+    }
+
+
+}

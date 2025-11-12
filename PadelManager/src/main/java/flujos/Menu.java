@@ -796,8 +796,11 @@ public class Menu {
             System.out.print("¿Está baneado?: ");
             boolean estaBaneado = Boolean.parseBoolean(scanner.nextLine());
 
+            System.out.print("¿Está de baja?: ");
+            boolean estaDeBaja = Boolean.parseBoolean(scanner.nextLine());
+
             Jugador nuevoJugador = new Jugador(cedula, nombre, apellido, correo, telefono, contrasenia,
-                    fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
+                    fechaNacimiento, categoria, genero, incumplePago, estaBaneado, estaDeBaja);
 
             jugadorDAO.altaJugador(nuevoJugador);
         } catch (Exception e) {
@@ -843,8 +846,11 @@ public class Menu {
             System.out.print("¿Está baneado? (true/false): ");
             boolean estaBaneado = Boolean.parseBoolean(scanner.nextLine());
 
+            System.out.print("¿Está de baja?: ");
+            boolean estaDeBaja = Boolean.parseBoolean(scanner.nextLine());
+
             Jugador jugador = new Jugador(cedula, nombre, apellido, correo, telefono, contrasenia,
-                    fechaNacimiento, categoria, genero, incumplePago, estaBaneado);
+                    fechaNacimiento, categoria, genero, incumplePago, estaBaneado, estaDeBaja);
 
             jugadorDAO.actualizarJugador(jugador);
             System.out.println("Jugador actualizado correctamente.");

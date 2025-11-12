@@ -7,14 +7,16 @@ public class Jugador extends Usuario {
     private String genero;
     private int incumplePago;
     private boolean estaBaneado;
+    private boolean estaDeBaja;
 
-    public Jugador(String cedula, String nombre, String apellido, String correo, String telefono, String contraseniaCuenta, Date fechaNacimiento, String categoria, String genero, int incumplePago, boolean estaBaneado) {
+    public Jugador(String cedula, String nombre, String apellido, String correo, String telefono, String contraseniaCuenta, Date fechaNacimiento, String categoria, String genero, int incumplePago, boolean estaBaneado, boolean estaDeBaja) {
         super(cedula, nombre, apellido, correo, telefono, contraseniaCuenta);
         this.fechaNacimiento = fechaNacimiento;
         this.categoria = categoria;
         this.genero = genero;
         this.incumplePago = incumplePago;
         this.estaBaneado = estaBaneado;
+        this.estaDeBaja = estaDeBaja;
     }
 
     public Date getFechaNacimiento() {
@@ -55,5 +57,13 @@ public class Jugador extends Usuario {
 
     public void setEstaBaneado(boolean estaBaneado) {
         this.estaBaneado = estaBaneado;
+    }
+
+    public boolean isEstaDeBaja() {
+        return estaDeBaja;
+    }
+
+    public void setEstaDeBaja(boolean estaDeBaja) {
+        this.estaDeBaja= estaDeBaja;
     }
 }

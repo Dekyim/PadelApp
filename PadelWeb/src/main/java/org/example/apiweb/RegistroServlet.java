@@ -75,11 +75,12 @@ public class RegistroServlet extends HttpServlet {
 
             int incumplePago = 0;
             boolean estaBaneado = false;
+            boolean estaDeBaja = false;
 
             Jugador nuevoJugador = new Jugador(
                     cedula, nombre, apellido, correo, telefono,
                     contraseniaHasheada, fechaNacimiento, categoria, genero,
-                    incumplePago, estaBaneado
+                    incumplePago, estaBaneado, estaDeBaja
             );
 
             jugadorDAO.altaJugador(nuevoJugador);

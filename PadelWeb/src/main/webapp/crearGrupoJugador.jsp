@@ -53,6 +53,18 @@
             </c:forEach>
         </div>
 
+        <label>Categorías permitidas:</label>
+        <div class="checkboxes">
+            <c:forEach var="cat" items="${categoriasDisponibles}" varStatus="status">
+                <c:set var="seleccionado" value="${grupoEditado != null && fn:contains(grupoEditado.categoria, cat)}" />
+                <div>
+                    <input type="checkbox" id="cat${status.index}" name="categorias" value="${cat}" ${seleccionado ? "checked" : ""} />
+                    <label for="cat${status.index}">${cat}</label>
+                </div>
+            </c:forEach>
+        </div>
+
+
         <label for="cupos">Cantidad de cupos:</label>
         <select name="cupos" required>
             <c:forEach var="i" begin="${grupoEditado != null ? cantidadActual : 1}" end="3">

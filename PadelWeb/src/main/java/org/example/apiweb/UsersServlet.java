@@ -15,7 +15,7 @@ import models.*;
 @WebServlet(name = "userServlet", value = "/users")
 public class UsersServlet extends HttpServlet {
 
-    private static final int USUARIOS_POR_PAGINA = 9;
+    private static final int USUARIOS_POR_PAGINA = 10;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -100,17 +100,28 @@ public class UsersServlet extends HttpServlet {
         String cedula = request.getParameter("cedula");
         JugadorDAO dao = new JugadorDAO();
 
-        if ("eliminar".equals(accion) && cedula != null && !cedula.isEmpty()) {
+        if ("darDeBaja".equals(accion) && cedula != null && !cedula.isEmpty()) {
             try {
-                dao.eliminarJugador(cedula);
-                System.out.println("Jugador con cédula " + cedula + " eliminado correctamente.");
+                dao.darDeBajaJugador(cedula);
+                System.out.println("Jugador con cédula " + cedula + " ha sido dado de baja.");
             } catch (Exception e) {
-                e.printStackTrace();
-                throw new ServletException("Error al eliminar jugador", e);
+                throw new ServletException("Error al dar de baja al jugador", e);
             }
             response.sendRedirect("users");
             return;
         }
+
+        if ("reactivar".equals(accion) && cedula != null && !cedula.isEmpty()) {
+            try {
+                dao.reactivarJugador(cedula);
+                System.out.println("Jugador con cédula " + cedula + " ha sido reactivado.");
+            } catch (Exception e) {
+                throw new ServletException("Error al reactivar al jugador", e);
+            }
+            response.sendRedirect("users");
+            return;
+        }
+
 
         if ("editar".equals(accion) && cedula != null && !cedula.isEmpty()) {
             Jugador jugador = dao.obtenerJugadorPorCedula(cedula);
