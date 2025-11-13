@@ -36,7 +36,8 @@ public class VerPerfilServletJugador extends HttpServlet {
 
         Jugador jugador = jugadorDAO.obtenerJugadorPorCedula(cedulaFinal);
         if (jugador == null) {
-            response.sendRedirect(usuario.esAdministrador() ? "inicioAdmin" : "inicioUsers");
+            response.sendRedirect(usuario.esAdministrador() ? "users" : "inicioUsers");
+
             return;
         }
 
@@ -66,7 +67,8 @@ public class VerPerfilServletJugador extends HttpServlet {
 
         Jugador jugador = jugadorDAO.obtenerJugadorPorCedula(cedula);
         if (jugador == null) {
-            response.sendRedirect(usuario.esAdministrador() ? "inicioAdmin" : "inicioUsers");
+            response.sendRedirect(usuario.esAdministrador() ? "users" : "inicioUsers");
+
             return;
         }
 

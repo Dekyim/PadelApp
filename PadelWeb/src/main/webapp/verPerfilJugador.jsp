@@ -6,8 +6,9 @@
     Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
     String urlVolver = "inicioUsers";
     if (usuario != null && usuario.esAdministrador()) {
-        urlVolver = "inicioAdmin";
+        urlVolver = "users";
     }
+
 
     String fotoPerfil = (String) request.getAttribute("fotoPerfil");
     if (fotoPerfil == null || fotoPerfil.isEmpty()) {

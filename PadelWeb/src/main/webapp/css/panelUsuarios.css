@@ -387,3 +387,15 @@ button[title="Ver reservas"]:hover {
     background-color: #009e50;
 }
 
+.detalles.inactivo {
+    color: #ff4d4d;
+    text-decoration: line-through;
+    text-decoration-color: #ff0000;
+}
+
+.detalles.inactivo h3,
+.detalles.inactivo p,
+.detalles.inactivo .badge {
+    color: #ff4d4d !important;
+    text-decoration: line-through;
+}

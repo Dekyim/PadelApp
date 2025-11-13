@@ -90,6 +90,20 @@
         <p>Gestiona disponibilidad, mantenimiento y horarios.</p>
         <a href="<%= request.getContextPath() %>/cancha" class="btn btn-outline-primary mt-2">Ir al panel</a>
     </div>
+
+    <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
+        <i class="fi fi-rr-basketball fs-1 mb-3"></i>
+        <h3>Grupos</h3>
+        <p>Gestiona los grupos, elimina, modifica, etc.</p>
+        <a href="<%= request.getContextPath() %>/grupo" class="btn btn-outline-primary mt-2">Ir al panel</a>
+    </div>
+
+    <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
+        <i class="fi fi-rr-basketball fs-1 mb-3"></i>
+        <h3>Perfil Administrador</h3>
+        <p>Visualiza y modifica tus datos de perfil.</p>
+        <a href="<%= request.getContextPath() %>/verPerfilAdmin" class="btn btn-outline-primary mt-2">Ir al panel</a>
+    </div>
 </section>
 
 <section class="container my-5">

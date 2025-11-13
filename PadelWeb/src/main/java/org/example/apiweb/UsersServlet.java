@@ -143,6 +143,15 @@ public class UsersServlet extends HttpServlet {
             }
         }
 
+        if ("eliminar".equals(accion) && cedula != null && !cedula.isEmpty()) {
+            try {
+                dao.eliminarJugador(cedula);
+                System.out.println("Jugador con cédula " + cedula + " eliminado correctamente.");
+            } catch (Exception e) {
+                e.printStackTrace(); throw new ServletException("Error al eliminar jugador", e);
+            } response.sendRedirect("users"); return;
+        }
+
 
 
         if ("banear".equals(accion) && cedula != null && !cedula.isEmpty()) {

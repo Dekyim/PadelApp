@@ -57,8 +57,8 @@
         <div class="card-usuario">
             <div class="usuario-info">
                 <img src="<%= urlFoto %>" alt="Foto de <%= j.getNombre() %>" class="foto-usuario">
-                <div class="detalles">
-                    <h3 class="<%= (j.isEstaBaneado() || j.isEstaDeBaja()) ? "nombre-alerta" : "" %>">
+                <div class="detalles <%= (j.isEstaBaneado() || j.isEstaDeBaja()) ? "inactivo" : "" %>">
+                <h3 class="<%= (j.isEstaBaneado() || j.isEstaDeBaja()) ? "nombre-alerta" : "" %>">
                         <%= j.getNombre() + " " + j.getApellido() %>
                     </h3>
                     <p><i class="fi fi-rr-id-badge"></i> <%= j.getCedula() %></p>
@@ -130,7 +130,7 @@
                     <input type="hidden" name="accion" value="darDeBaja">
                     <button type="submit" title="Dar de baja" class="btn btn-link text-danger p-0"
                             onclick="return confirm('¿Dar de baja a <%= j.getNombre() %>?')">
-                        <i class="fi fi-rr-user-delete"></i>
+                        <i class="fi fi-rr-user-add"></i>
                     </button>
                     <% } %>
                 </form>
@@ -152,28 +152,6 @@
         <% } %>
     </section>
 </div>
-
-<nav aria-label="Paginación de usuarios" class="mt-4">
-    <ul class="pagination justify-content-center">
-        <% if (paginaActual > 1) { %>
-        <li class="page-item"><a class="page-link" href="?page=<%= paginaActual - 1 %>">Anterior</a></li>
-        <% } else { %>
-        <li class="page-item disabled"><span class="page-link">Anterior</span></li>
-        <% } %>
-
-        <% for (int i = 1; i <= totalPaginas; i++) { %>
-        <li class="page-item <%= (i == paginaActual) ? "active" : "" %>">
-            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
-        </li>
-        <% } %>
-
-        <% if (paginaActual < totalPaginas) { %>
-        <li class="page-item"><a class="page-link" href="?page=<%= paginaActual + 1 %>">Siguiente</a></li>
-        <% } else { %>
-        <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
-        <% } %>
-    </ul>
-</nav>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

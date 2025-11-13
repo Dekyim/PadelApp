@@ -15,39 +15,7 @@
 
 <%@include file="/WEB-INF/components/headerUsuario.jsp"%>
 
-<main class="hero text-center py-5 bg-light">
-    <div class="hero-content container">
-        <h2 class="tituloPrincipal mb-3">
-            ¡Bienvenido <%= request.getAttribute("nombreUsuario") != null
-                ? request.getAttribute("nombreUsuario")
-                : "jugador" %>!
-        </h2>
-        <p class="lead mb-4">
-            Consulta tus reservas, estadísticas personales y canchas disponibles.
-        </p>
-    </div>
-</main>
-
-<section class="container my-4">
-    <div class="row justify-content-center">
-        <div>
-            <div class="card shadow-sm border-0 text-center p-4" style="border-radius: 1rem;">
-                <div class="d-flex justify-content-center align-items-center mb-3">
-                    <i class="fi fi-rr-calendar-check fs-2 text-primary me-2"></i>
-                    <h4 class="mb-0">Tus estadísticas</h4>
-                </div>
-                <p class="fs-5 mb-1">Reservas activas:</p>
-                <h3 class="fw-bold text-success">
-                    <%= request.getAttribute("reservasActivas") != null
-                            ? request.getAttribute("reservasActivas")
-                            : 0 %>
-                </h3>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="links container my-5 d-flex justify-content-center gap-4 flex-wrap">
+<section class="links container d-flex justify-content-center align-items-center flex-wrap gap-4">
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-user fs-1 mb-3"></i>
         <h3>Usuarios</h3>
@@ -61,6 +29,35 @@
         <p>Consulta la disponibilidad de canchas y realiza reservas.</p>
         <a href="<%= request.getContextPath() %>/canchaUsuario" class="btn btn-outline-primary mt-2">Ir al panel</a>
     </div>
+
+    <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
+        <i class="fi fi-rr-basketball fs-1 mb-3 text-success"></i>
+        <h3>Grupos</h3>
+        <p>Busca y únete a un grupo con otros jugadores.</p>
+        <a href="<%= request.getContextPath() %>/grupojugador" class="btn btn-outline-primary mt-2">Ir al panel</a>
+    </div>
+
+    <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
+        <i class="fi fi-rr-basketball fs-1 mb-3 text-success"></i>
+        <h3>Reservas</h3>
+        <p>Visualiza, cancela y modifica tus reservas.</p>
+        <a href="<%= request.getContextPath() %>/reservasUsuario" class="btn btn-outline-primary mt-2">Ir al panel</a>
+    </div>
+</section>
+
+<section class="estadisticas-section">
+    <div class="card card-estadisticas text-center">
+        <div class="d-flex justify-content-center align-items-center mb-3">
+            <i class="fi fi-rr-calendar-check fs-2 me-2"></i>
+            <h4 class="mb-0">Tus estadisticas</h4>
+        </div>
+        <p class="fs-5 mb-1">Reservas activas:</p>
+        <h3 class="fw-bold">
+            <%= request.getAttribute("reservasActivas") != null
+                    ? request.getAttribute("reservasActivas")
+                    : 0 %>
+        </h3>
+    </div>
 </section>
 
 <%@include file="/WEB-INF/components/footer.jsp"%>
@@ -71,4 +68,3 @@
 
 </body>
 </html>
-

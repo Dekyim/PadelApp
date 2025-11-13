@@ -108,10 +108,15 @@
             </select>
         </div>
 
+        <% if (esAdministrador) { %>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="estaPagada" <%= reserva.isEstaPagada() ? "checked" : "" %>>
-            <label class="form-check-label">Pagada</label>
+            <input class="form-check-input" type="checkbox" name="estaPagada" id="estaPagada" <%= reserva.isEstaPagada() ? "checked" : "" %>>
+            <label class="form-check-label" for="estaPagada">Pagada</label>
         </div>
+        <% } %>
+
+
+
 
         <div class="form-check">
             <input class="form-check-input" type="checkbox" name="estaActiva" <%= reserva.isEstaActiva() ? "checked" : "" %>>
