@@ -138,7 +138,7 @@
             <p><b>Categorías permitidas:</b></p>
             <div class="mb-2">
                 <c:forEach var="cat" items="${fn:split(grupo.categoria, ',')}">
-                    <span class="badge bg-primary me-1">${cat}</span>
+                    <span class="badge badge-categoria me-1">${cat}</span>
                 </c:forEach>
             </div>
             <p><b>Descripción:</b> ${grupo.descripcion}</p>

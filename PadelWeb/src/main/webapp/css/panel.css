@@ -355,7 +355,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #89d4ff;
+    color: #00b95e;
     text-decoration: none;
     font-weight: 500;
     padding: 10px 15px;
@@ -599,7 +599,7 @@ td {
 
 .acciones button[title="Ver"]:hover {
     background: rgba(137, 212, 255, 0.15);
-    color: #89d4ff;
+    color: #00b95e;
 }
 
 /* RESPONSIVO */
@@ -978,4 +978,3 @@ td {
     transform: translateY(-3px);
     background: rgba(0, 0, 0, 0.85);
 }
-

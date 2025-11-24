@@ -73,19 +73,29 @@ body {
 }
 
 .btn-principal {
-    background: #00b95e;
+    background: #00b95e;       /* Verde principal */
     color: #fff;
     padding: 12px 28px;
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
     transition: 0.3s ease;
+    border: none;
 }
 
 .btn-principal:hover {
-    background: #00a357;
+    background: #009e52;       /* Verde más oscuro para hover */
     transform: translateY(-2px);
+    color: #fff;
 }
+
+.btn-principal:focus,
+.btn-principal:active {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 185, 94, 0.3);  /* Glow verde suave */
+}
+
+
 
 /* LINKS COMO TARJETAS */
 .links {
@@ -130,17 +140,21 @@ body {
 }
 
 .btn-link {
-    background: #00b95e;
-    color: white;
+    background: #00b95e !important;
+    color: white !important;
     padding: 10px 20px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: 500;
     transition: 0.3s ease;
+    border: none;
 }
 
 .btn-link:hover {
-    background: #00a357;
+    background: #009e52 !important;
+    color: #fff !important;
+    box-shadow: 0 0 8px rgba(0, 185, 94, 0.3);
+    transform: translateY(-2px);
 }
 
 /* FOOTER */
@@ -276,7 +290,7 @@ section h4 {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #89d4ff;
+    color: #00b95e;
     text-decoration: none;
     font-weight: 500;
     padding: 10px 15px;
@@ -291,7 +305,7 @@ section h4 {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* ✅ CENTRAR CONTENIDO ENTRE EL SIDEBAR Y EL BORDE DERECHO */
+/* CENTRAR CONTENIDO ENTRE EL SIDEBAR Y EL BORDE DERECHO */
 main, .hero, .panel, .container, .content, section .footer {
     margin-left: 220px; /* deja espacio al sidebar */
     max-width: calc(100vw - 220px);
@@ -309,7 +323,7 @@ main, .hero, .panel, .container, .content, section .footer {
     max-width: 800px;
 }
 
-/* ✅ LINKS EN FILA (display:flex row) */
+/* LINKS EN FILA (display:flex row) */
 .links {
     margin-left: 220px; /* mismo desplazamiento que el resto del contenido */
     max-width: calc(100vw - 220px);
@@ -379,7 +393,7 @@ main, .hero, .panel, .container, .content, section .footer {
 
 .accordion-button:not(.collapsed) {
     background-color: #e9f2ff;
-    color: #0d6efd;
+    color: #4ce103;
     box-shadow: none;
 }
 
@@ -469,7 +483,7 @@ main, .hero, .panel, .container, .content, section .footer {
 }
 
 .card-estadisticas i {
-    color: #007bff;
+    color: #1bc83d;
 }
 
 .card-estadisticas h4 {
@@ -485,4 +499,14 @@ main, .hero, .panel, .container, .content, section .footer {
 
 .card-estadisticas p {
     color: #333;
+}
+
+button:hover,
+.btn:hover,
+.button:hover,
+a[role="button"]:hover {
+    background-color: #009e52 !important;
+    color: #fff !important;
+    box-shadow: 0 0 8px rgba(0, 185, 94, 0.3);
+    transform: translateY(-2px);
 }

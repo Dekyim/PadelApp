@@ -1,7 +1,7 @@
 :root {
     --verde: #00b95e;
     --verde-claro: #00ff9d;
-    --celeste: #89d4ff;
+    --celeste: #0da500;
     --fondo: #eceffc;
     --oscuro: rgba(0, 0, 0, 0.92);
 }
@@ -59,7 +59,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--celeste);
+    color: #00b95e;
     text-decoration: none;
     font-weight: 500;
     padding: 10px 15px;
@@ -183,7 +183,7 @@ body {
 .btn-limpiar,
 .btn-filtrar,
 .btn-icon {
-    background: linear-gradient(135deg, var(--celeste), #70c8ff);
+    background: linear-gradient(135deg, var(--verde), #0da500);
     border: none;
     color: #000;
     font-size: 18px;
@@ -200,14 +200,14 @@ body {
 .filtros button:hover,
 .btn-filtrar:hover,
 .btn-icon:hover {
-    background: linear-gradient(135deg, var(--verde), #00a357);
+    background: linear-gradient(135deg, var(--verde), #0da500);
     color: #fff;
     transform: scale(1.1);
 }
 
 .btn-limpiar {
     background: rgba(255,255,255,0.08);
-    color: var(--celeste);
+    color: var(--verde);
 }
 .btn-limpiar:hover {
     color: var(--verde);
@@ -249,7 +249,7 @@ body {
     border-radius: 10px;
     min-width: 130px;
 }
-.fecha span { color: var(--celeste); font-size: 14px; }
+.fecha span { color: var(--verde); font-size: 14px; }
 .fecha p { color: #fff; font-weight: 700; margin: 5px 0 0; }
 
 .detalles h3 { color: var(--verde); font-size: 18px; margin: 0; }
@@ -295,7 +295,6 @@ button.delete:hover {
     color: #ff8080;
 }
 
-/* 💚 BOTÓN NUEVA RESERVA FLOTANTE */
 .btn-nueva {
     position: fixed;
     bottom: 35px;
@@ -327,11 +326,11 @@ button.delete:hover {
     align-items: center;
     justify-content: center;
     background: rgba(0,0,0,0.6);
-    border: 1px dashed var(--celeste);
+    border: 1px dashed var(--verde);
     border-radius: 14px;
     padding: 40px 20px;
     margin-top: 30px;
-    color: var(--celeste);
+    color: var(--verde);
     font-size: 18px;
     font-style: italic;
     box-shadow: 0 4px 15px rgba(0,185,94,0.2);

@@ -74,35 +74,35 @@
         <i class="fi fi-rr-chart-histogram fs-1 mb-3"></i>
         <h3>Reservas</h3>
         <p>Ver las reservas, estado de reserva, horario seleccionado.</p>
-        <a href="<%= request.getContextPath() %>/reserva" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/reserva" class="btn-principal">Ir al panel</a>
     </div>
 
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-users fs-1 mb-3"></i>
         <h3>Usuarios</h3>
         <p>Administra usuarios registrados y roles del sistema.</p>
-        <a href="<%= request.getContextPath() %>/users" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/users" class="btn-principal">Ir al panel</a>
     </div>
 
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-basketball fs-1 mb-3"></i>
         <h3>Canchas</h3>
         <p>Gestiona disponibilidad, mantenimiento y horarios.</p>
-        <a href="<%= request.getContextPath() %>/cancha" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/cancha" class="btn-principal">Ir al panel</a>
     </div>
 
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
-        <i class="fi fi-rr-basketball fs-1 mb-3"></i>
+        <i class="fi fi-rr-users fs-1 mb-3"></i>
         <h3>Grupos</h3>
         <p>Gestiona los grupos, elimina, modifica, etc.</p>
-        <a href="<%= request.getContextPath() %>/grupo" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/grupo" class="btn-principal">Ir al panel</a>
     </div>
 
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
-        <i class="fi fi-rr-basketball fs-1 mb-3"></i>
+        <i class="fi fi-rr-user fs-1 mb-3"></i>
         <h3>Perfil Administrador</h3>
         <p>Visualiza y modifica tus datos de perfil.</p>
-        <a href="<%= request.getContextPath() %>/verPerfilAdmin" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/verPerfilAdmin" class="btn-principal">Ir al panel</a>
     </div>
 </section>
 

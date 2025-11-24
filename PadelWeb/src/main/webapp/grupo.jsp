@@ -38,7 +38,8 @@
                         <div class="mb-2">
                             <c:forEach var="cat" items="${categoriasArray}">
                                 <c:set var="categoria" value="${fn:toUpperCase(fn:substring(cat, 0, 1))}${fn:substring(cat, 1, fn:length(cat))}" />
-                                <span class="badge bg-primary me-1">${categoria}</span>
+                                <span class="badge badge-categoria me-1">${categoria}</span>
+
                             </c:forEach>
                         </div>
 

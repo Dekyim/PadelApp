@@ -57,7 +57,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #89d4ff;
+    color: #00b95e;
     text-decoration: none;
     font-weight: 500;
     padding: 10px 15px;
@@ -329,4 +329,22 @@ body {
     font-size: 1.2rem;
     color: #842029;
     cursor: pointer;
+}
+
+.badge-categoria {
+    background-color: #007501; /* verde oscuro */
+    color: var(--verde-claro); /* texto verde claro */
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgb(0, 169, 92);
+    transition: all 0.3s ease;
+}
+
+/* Hover: verde más claro */
+.badge-categoria:hover {
+    background-color: var(--verde);     /* verde más claro */
+    color: #ffffff;                        /* texto oscuro para contraste */
+    box-shadow: 0 4px 12px rgb(0, 169, 92);
 }

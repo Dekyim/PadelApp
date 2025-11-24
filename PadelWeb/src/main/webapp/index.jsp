@@ -40,7 +40,7 @@
             Gestiona usuarios, canchas y más desde un solo lugar.<br>
             Rápido, moderno y fácil de usar.
         </p>
-        <a href="login" class="btn btn-primary btn-lg">Comenzar</a>
+        <a href="login" class="btn-principal">Comenzar</a>
     </div>
 </main>
 

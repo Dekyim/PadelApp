@@ -16,39 +16,46 @@
 <%@include file="/WEB-INF/components/headerUsuario.jsp"%>
 
 <section class="links container d-flex justify-content-center align-items-center flex-wrap gap-4">
+
+    <!-- USUARIOS -->
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
-        <i class="fi fi-rr-user fs-1 mb-3"></i>
+        <i class="fi fi-rr-user fs-1 mb-3" style="color:#00b95e;"></i>
         <h3>Usuarios</h3>
         <p>Administra tu cuenta o actualiza tus datos personales.</p>
-        <a href="<%= request.getContextPath() %>/verPerfilJugador" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/verPerfilJugador" class="btn-principal">Ir al panel</a>
     </div>
 
+    <!-- CANCHAS -->
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
-        <i class="fi fi-rr-basketball fs-1 mb-3 text-success"></i>
+        <i class="fi fi-rr-tennis fs-1 mb-3" style="color:#00b95e;"></i>
         <h3>Canchas</h3>
         <p>Consulta la disponibilidad de canchas y realiza reservas.</p>
-        <a href="<%= request.getContextPath() %>/canchaUsuario" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/canchaUsuario" class="btn-principal">Ir al panel</a>
     </div>
 
+    <!-- GRUPOS -->
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
-        <i class="fi fi-rr-basketball fs-1 mb-3 text-success"></i>
+        <i class="fi fi-rr-users fs-1 mb-3" style="color:#00b95e;"></i>
         <h3>Grupos</h3>
         <p>Busca y únete a un grupo con otros jugadores.</p>
-        <a href="<%= request.getContextPath() %>/grupojugador" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/grupojugador" class="btn-principal">Ir al panel</a>
     </div>
 
+    <!-- RESERVAS -->
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
-        <i class="fi fi-rr-basketball fs-1 mb-3 text-success"></i>
+        <i class="fi fi-rr-calendar fs-1 mb-3" style="color:#00b95e;"></i>
         <h3>Reservas</h3>
         <p>Visualiza, cancela y modifica tus reservas.</p>
-        <a href="<%= request.getContextPath() %>/reservasUsuario" class="btn btn-outline-primary mt-2">Ir al panel</a>
+        <a href="<%= request.getContextPath() %>/reservasUsuario" class="btn-principal">Ir al panel</a>
     </div>
+
 </section>
+
 
 <section class="estadisticas-section">
     <div class="card card-estadisticas text-center">
         <div class="d-flex justify-content-center align-items-center mb-3">
-            <i class="fi fi-rr-calendar-check fs-2 me-2"></i>
+            <i class="fi fi-rr-calendar-check fs-2 me-2" style="color: #28a745;"></i>
             <h4 class="mb-0">Tus estadisticas</h4>
         </div>
         <p class="fs-5 mb-1">Reservas activas:</p>

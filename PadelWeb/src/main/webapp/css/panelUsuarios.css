@@ -1,7 +1,7 @@
 :root {
     --verde: #00b95e;
     --verde-claro: #00ff9d;
-    --celeste: #89d4ff;
+    --celeste: #04b630;
     --fondo: #eceffc;
     --oscuro: rgba(0, 0, 0, 0.92);
 }
@@ -72,7 +72,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--celeste);
+    color: #00b95e;
     text-decoration: none;
     font-weight: 500;
     padding: 10px 15px;
@@ -113,7 +113,7 @@ body {
 }
 .busquedaAgregar i {
     font-size: 20px;
-    color: var(--celeste);
+    color: var(--verde);
     opacity: 0.9;
     margin-left: 5px;
     transition: transform 0.3s ease, color 0.3s ease;
@@ -137,7 +137,7 @@ body {
     box-shadow: 0 0 8px rgba(137, 212, 255, 0.4);
 }
 .busquedaAgregar button {
-    background-color: var(--celeste);
+    background-color: var(--verde);
     color: #0b0b0b;
     border: none;
     border-radius: 8px;
@@ -217,7 +217,7 @@ body {
     height: 110px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--celeste);
+    border: 3px solid var(--verde);
     box-shadow: 0 0 8px rgba(137, 212, 255, 0.4);
     transition: transform 0.2s ease;
 }
@@ -361,7 +361,7 @@ button[title="Ver reservas"]:hover {
 .btn-baja {
     background-color: white;
     color: #dc3545; / rojo Bootstrap
-    border: 1px solid #dc3545;
+border: 1px solid #dc3545;
     padding: 6px 10px;
     border-radius: 6px;
     font-weight: bold;
@@ -398,4 +398,37 @@ button[title="Ver reservas"]:hover {
 .detalles.inactivo .badge {
     color: #ff4d4d !important;
     text-decoration: line-through;
+}
+
+/* Contenedor de la barra de búsqueda */
+.busquedaAgregar {
+    background-color: #121212; /* negro oscuro */
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Input de búsqueda */
+.busquedaAgregar input#buscar {
+    background-color: #2d2d2d; /* gris muy oscuro */
+    color: #009e50; /* verde brillante */
+    border: 1px solid #009e50;
+}
+
+.busquedaAgregar input#buscar::placeholder {
+    color: #009e50; /* verde más tenue para el placeholder */
+}
+
+/* Botón Buscar */
+.busquedaAgregar button.btn-primary {
+    background-color: #009e50; /* negro */
+    color: #000000; /* texto verde */
+    border: 1px solid #009e50;
+    transition: all 0.3s ease;
+}
+
+/* Hover del botón */
+.busquedaAgregar button.btn-primary:hover {
+    background-color: #009e50; /* verde de fondo */
+    color: #000000; /* texto negro para contraste */
+    border-color: #009e50;
 }

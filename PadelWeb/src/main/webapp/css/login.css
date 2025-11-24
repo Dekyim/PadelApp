@@ -1,11 +1,7 @@
-/* ===========================================================
-   🎨 DISEÑO MODERNO - PADLEMANAGER UI 2025
-   =========================================================== */
-
 :root {
     --verde: #00b95e;
     --verde-oscuro: #009e50;
-    --celeste: #89d4ff;
+    --celeste: #00983b;
     --fondo: #e6ebff;
     --negro-trans: rgba(10, 10, 10, 0.85);
     --gris-suave: #cfd6e3;
@@ -75,7 +71,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #89d4ff;
+    color: #00b95e;
     text-decoration: none;
     font-weight: 500;
     padding: 10px 15px;
