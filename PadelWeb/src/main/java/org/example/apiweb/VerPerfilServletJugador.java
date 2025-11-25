@@ -72,7 +72,6 @@ public class VerPerfilServletJugador extends HttpServlet {
             return;
         }
 
-        // Obtener datos del formulario
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
         String correo = request.getParameter("correo");
@@ -81,7 +80,6 @@ public class VerPerfilServletJugador extends HttpServlet {
         String categoria = request.getParameter("categoria");
         String genero = request.getParameter("genero");
 
-        // Actualizar datos en memoria
         jugador.setNombre(nombre);
         jugador.setApellido(apellido);
         jugador.setCorreo(correo);
@@ -93,10 +91,8 @@ public class VerPerfilServletJugador extends HttpServlet {
             jugador.setFechaNacimiento(Date.valueOf(fechaNacimiento));
         }
 
-        // Guardar cambios en la BD
         jugadorDAO.actualizarJugador(jugador);
 
-        // Si es jugador normal, también actualizar los datos en sesión
         if (!usuario.esAdministrador()) {
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
@@ -105,10 +101,8 @@ public class VerPerfilServletJugador extends HttpServlet {
             session.setAttribute("authUser", usuario);
         }
 
-        // Obtener foto actual
         String urlFoto = fotoDAO.obtenerFotoPorCedula(cedula);
 
-        // Mostrar mensaje de éxito
         request.setAttribute("jugador", jugador);
         request.setAttribute("fotoPerfil", urlFoto);
         request.setAttribute("mensaje", "Datos actualizados correctamente.");

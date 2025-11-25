@@ -164,7 +164,6 @@
     </div>
 </section>
 
-<!-- Opiniones -->
 <section class="container my-5">
     <h3 class="text-center mb-4">Opiniones de la comunidad</h3>
     <div class="row justify-content-center">
@@ -197,7 +196,6 @@
 
 <%@include file="/WEB-INF/components/footer.jsp"%>
 
-<!-- Bootstrap JS bundle (sin integrity para evitar bloqueo) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>

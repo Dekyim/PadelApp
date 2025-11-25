@@ -14,7 +14,6 @@ body {
     min-height: 100vh;
 }
 
-/* SIDEBAR */
 .sidebar {
     position: fixed;
     top: 0;
@@ -73,14 +72,12 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* PANEL PRINCIPAL */
 .panel {
     margin-left: 220px;
     padding: 50px;
     max-width: calc(100vw - 220px);
 }
 
-/* TITULO */
 .tituloGestion {
     font-size: 32px;
     font-weight: 700;
@@ -91,7 +88,6 @@ body {
     margin-bottom: 25px;
 }
 
-/* ALERTAS */
 .alert {
     padding: 12px 20px;
     border-radius: 10px;
@@ -110,7 +106,6 @@ body {
     color: #ff8080;
 }
 
-/* FILTROS */
 .filtros,
 .filtros-reserva {
     display: flex;
@@ -169,7 +164,6 @@ body {
     color: #fff;
 }
 
-/* BOTONES FILTRO */
 .iconos,
 .filtros-reserva .grupo-botones {
     display: flex;
@@ -214,7 +208,6 @@ body {
     transform: rotate(90deg);
 }
 
-/* LISTA DE RESERVAS */
 .listaReservas {
     display: flex;
     flex-direction: column;
@@ -236,7 +229,6 @@ body {
     box-shadow: 0 8px 25px rgba(0,185,94,0.25);
 }
 
-/* INFO DE RESERVA */
 .reserva-info {
     display: flex;
     align-items: center;
@@ -264,11 +256,10 @@ body {
     margin-top: 4px;
 }
 .pagada { background: rgba(0,185,94,0.2); color: var(--verde-claro); }
-.nopagada { background: rgba(255,255,255,0.08); color: var(--celeste); }
+.nopagada { background: rgba(255,255,255,0.08); color: var(--verde); }
 .activa { background: rgba(0,185,94,0.2); color: var(--verde-claro); }
 .inactiva { background: rgba(255,0,0,0.2); color: #ff8080; }
 
-/* ACCIONES */
 .acciones-card {
     display: flex;
     gap: 10px;
@@ -319,7 +310,6 @@ button.delete:hover {
     box-shadow: 0 0 25px rgba(0,255,160,0.6);
 }
 
-/* 🗓️ MENSAJE SIN RESERVAS */
 .mensaje-vacio {
     display: flex;
     flex-direction: column;

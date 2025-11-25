@@ -1,4 +1,4 @@
-/* === FONDO Y TIPOGRAFÍA === */
+
 body {
     margin: 0;
     background: linear-gradient(135deg, #e6ebff, #f2f5ff);
@@ -7,7 +7,7 @@ body {
     min-height: 100vh;
 }
 
-/* === SIDEBAR MODERNO === */
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -69,7 +69,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* === CONTENEDOR CENTRAL === */
 .contenedor-crear-grupo {
     margin-left: 220px;
     max-width: calc(100vw - 220px);
@@ -79,7 +78,7 @@ body {
     padding: 80px 30px;
 }
 
-/* === TÍTULO CENTRADO === */
+
 .titulo-crear {
     font-size: 36px;
     font-weight: 700;
@@ -90,7 +89,7 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-/* === FORMULARIO === */
+
 .login-form {
     width: 100%;
     max-width: 600px;

@@ -46,7 +46,6 @@ public class CrearGrupoJugadorServlet extends HttpServlet {
                     ParticipantesGrupoDAO participantesDAO = new ParticipantesGrupoDAO();
                     int cantidadActual = participantesDAO.obtenerCedulasPorGrupo(idGrupo).size();
 
-                    // Formatear hora para input type="time"
                     String horaDesdeStr = grupo.getHoraDesde().toString().substring(0, 5);
                     String horaHastaStr = grupo.getHoraHasta().toString().substring(0, 5);
 

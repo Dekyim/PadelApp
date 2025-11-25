@@ -36,7 +36,6 @@
 <div class="container mt-5">
     <h2>Editar Reserva</h2>
 
-    <!-- Mensajes -->
     <% if (mensajeError != null) { %>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <%= mensajeError %>
@@ -53,14 +52,12 @@
         <input type="hidden" name="id" value="<%= reserva.getId() %>">
 
         <% if (esAdministrador) { %>
-        <!-- Admin: puede editar la cédula -->
         <div class="mb-3">
             <label>Cédula Usuario</label>
             <input type="text" name="cedulaUsuario" class="form-control"
                    value="<%= reserva.getCedulaUsuario() %>" required>
         </div>
         <% } else { %>
-        <!-- Jugador: cédula fija y oculta en campo hidden -->
         <input type="hidden" name="cedulaUsuario" value="<%= reserva.getCedulaUsuario() %>">
         <div class="mb-3">
             <label>Cédula Usuario</label>

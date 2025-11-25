@@ -68,7 +68,6 @@
                         <%= j.getFechaNacimiento() != null ? sdf.format(j.getFechaNacimiento()) : "Sin fecha" %>
                     </p>
 
-                    <!-- Badges Bootstrap -->
                     <div class="badges">
                         <span class="badge bg-warning text-dark">
                             <i class="fi fi-rr-trophy"></i> <%= j.getCategoria() != null ? j.getCategoria() : "Sin categoría" %>
@@ -78,7 +77,6 @@
                         </span>
                     </div>
 
-                    <!-- Estado -->
                     <span class="badge <%= j.isEstaBaneado() ? "bg-danger" : (j.isEstaDeBaja() ? "bg-danger" : "bg-success") %>">
                         <%= j.isEstaBaneado() ? "Baneado" : (j.isEstaDeBaja() ? "De baja" : "Activo") %>
                     </span>

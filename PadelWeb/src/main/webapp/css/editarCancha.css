@@ -1,4 +1,4 @@
-/* ===== Fondo general ===== */
+
 body {
     margin: 0;
     padding: 0;
@@ -10,7 +10,6 @@ body {
     min-height: 100vh;
 }
 
-/* ===== Formulario principal ===== */
 .login-form {
     background: rgba(0, 0, 0, 0.85);
     color: white;
@@ -28,7 +27,6 @@ body {
     font-size: 24px;
 }
 
-/* ===== Imagen de cancha ===== */
 .imagen-cancha {
     margin-bottom: 20px;
 }
@@ -49,7 +47,6 @@ body {
     transform: scale(1.02);
 }
 
-/* ===== Campos de entrada ===== */
 .form-input-material {
     margin-bottom: 20px;
 }
@@ -73,7 +70,6 @@ body {
     outline: none;
 }
 
-/* ===== Checkboxes simples ===== */
 .form-check {
     margin-bottom: 12px;
 }
@@ -83,7 +79,6 @@ body {
     color: #dcdcdc;
 }
 
-/* ===== Checkbox estilizado (moderno y animado) ===== */
 input[type="checkbox"] {
     appearance: none;
     width: 20px;
@@ -117,7 +112,6 @@ input[type="checkbox"]:checked::after {
     font-weight: bold;
 }
 
-/* ===== Horarios ===== */
 .horarios-box {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -145,7 +139,6 @@ input[type="checkbox"]:checked::after {
     color: #00b95e;
 }
 
-/* ===== Botones ===== */
 .acciones {
     display: flex;
     justify-content: space-between;
@@ -182,7 +175,6 @@ input[type="checkbox"]:checked::after {
     color: black;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 600px) {
     .login-form {
         padding: 30px 20px;
@@ -198,7 +190,6 @@ input[type="checkbox"]:checked::after {
     }
 }
 
-/* ===== Sidebar moderno ===== */
 .sidebar {
     position: fixed;
     top: 0;
@@ -215,7 +206,6 @@ input[type="checkbox"]:checked::after {
     z-index: 200;
 }
 
-/* LOGO */
 .sidebar .logo {
     font-size: 22px;
     font-weight: 600;
@@ -235,7 +225,6 @@ input[type="checkbox"]:checked::after {
     text-shadow: 0 0 6px rgba(0,185,94,0.5);
 }
 
-/* MENÚ */
 .sidebar .menu {
     display: flex;
     flex-direction: column;
@@ -262,7 +251,6 @@ input[type="checkbox"]:checked::after {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* ===== Centrado de contenido ===== */
 main, .hero, .panel, .container, .content, section, .footer {
     margin-left: 220px;
     max-width: calc(100vw - 220px);
@@ -274,7 +262,6 @@ main, .hero, .panel, .container, .content, section, .footer {
     padding: 40px;
 }
 
-/* HERO */
 .hero-content {
     margin: 0 auto;
     text-align: center;
@@ -282,7 +269,6 @@ main, .hero, .panel, .container, .content, section, .footer {
     max-width: 800px;
 }
 
-/* LINKS */
 .links {
     margin-left: 220px;
     max-width: calc(100vw - 220px);

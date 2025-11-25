@@ -93,7 +93,6 @@ public class EditarCanchaServlet extends HttpServlet {
             dao.actualizarCancha(canchaActualizada);
             dao.actualizarHorariosCancha(idCancha, horarios);
 
-            // Manejar imagen si se subió
             Part imagenPart = request.getPart("fotoCancha");
             if (imagenPart != null && imagenPart.getSize() > 0 && imagenPart.getContentType().startsWith("image/")) {
                 File tempFile = File.createTempFile("cancha_", ".img");

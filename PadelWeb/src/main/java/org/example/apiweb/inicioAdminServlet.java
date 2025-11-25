@@ -33,7 +33,6 @@ public class inicioAdminServlet extends HttpServlet {
 
         try {
 
-            // 📊 Totales desde los DAOs
             int totalCanchas = canchaDAO.totalCanchas();
             int totalCanchasTechadas = canchaDAO.totalCanchasTechadas();
             int totalCanchasDisponibles = canchaDAO.totalCanchasDisponibles();

@@ -73,7 +73,6 @@
             <h3 class="card-title mb-1"><i class="bi bi-person-circle"></i> <%= usuario.getNombre() %> <%= usuario.getApellido() %></h3>
             <p class="text-muted mb-3"><i class="bi bi-envelope"></i> <%= usuario.getCorreo() %></p>
 
-            <!-- Formulario de edición -->
             <form action="verPerfilAdmin" method="post" class="text-start">
                 <div class="mb-3">
                     <label class="form-label"><i class="bi bi-credit-card"></i> Cédula</label>

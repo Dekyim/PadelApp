@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = req.getSession(true);
         session.setAttribute("authUser", usuario);
-        session.setMaxInactiveInterval(30 * 60); // 30 minutos
+        session.setMaxInactiveInterval(30 * 60);
 
         String csrfToken = UUID.randomUUID().toString();
         session.setAttribute("csrfToken", csrfToken);

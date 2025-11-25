@@ -130,7 +130,6 @@ public class CrearGrupoServlet extends HttpServlet {
                     return;
                 }
 
-                // Conservar valores originales si no se modificaron
                 if (grupo.getHoraDesde() == null) grupo.setHoraDesde(grupoExistente.getHoraDesde());
                 if (grupo.getHoraHasta() == null) grupo.setHoraHasta(grupoExistente.getHoraHasta());
                 if (grupo.getCategoria() == null || grupo.getCategoria().isEmpty()) {

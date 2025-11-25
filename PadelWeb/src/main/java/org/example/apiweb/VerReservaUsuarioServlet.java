@@ -53,7 +53,6 @@ public class VerReservaUsuarioServlet extends HttpServlet {
                 if (horarioStr != null && !horarioStr.isEmpty()) {
                     java.sql.Time horario = java.sql.Time.valueOf(horarioStr + ":00");
 
-                    // Validar que el horario existe en la BD
                     List<Time> horariosValidos = reservaDAO.obtenerHorariosInicioUnicos();
                     if (horariosValidos.contains(horario)) {
                         reservas.removeIf(r -> !r.getHorarioInicio().equals(horario));
@@ -114,7 +113,7 @@ public class VerReservaUsuarioServlet extends HttpServlet {
                 request.getRequestDispatcher("/verReservaUsuario.jsp").forward(request, response);
 
             } catch (Exception e) {
-                e.printStackTrace(); // muestra el error completo en consola
+                e.printStackTrace();
                 throw new ServletException("Error al obtener reservas del usuario", e);
             }
         } else {

@@ -1,4 +1,4 @@
-/* Panel general */
+
 .panel {
     padding: 40px 30px;
     margin-left: 220px;
@@ -8,7 +8,6 @@
     box-sizing: border-box;
 }
 
-/* Título */
 .tituloGestion {
     text-align: center;
     font-size: 2.2rem;
@@ -21,14 +20,12 @@
     letter-spacing: 0.5px;
 }
 
-/* Contenedor de lista */
 .listaUser {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Grid de canchas */
 .listaUser ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -38,7 +35,6 @@
     list-style: none;
 }
 
-/* Tarjeta individual con fondo oscuro */
 .tarjeta-usuario {
     background-color: rgba(0, 0, 0, 0.75);
     border-radius: 14px;
@@ -55,7 +51,6 @@
     background-color: rgba(0, 0, 0, 0.85);
 }
 
-/* Imagen de cancha */
 .foto-usuario {
     width: 100%;
     height: 200px;
@@ -65,7 +60,6 @@
     box-shadow: 0 0 10px rgba(137, 212, 255, 0.2);
 }
 
-/* Número de cancha */
 .nombre-usuario {
     display: block;
     font-size: 1.4rem;
@@ -74,7 +68,6 @@
     color: #f0f0f0;
 }
 
-/* Botones de acción */
 .acciones {
     display: flex;
     justify-content: center;
@@ -95,7 +88,6 @@
     transform: scale(1.2);
 }
 
-/* Botón agregar cancha */
 .btn-agregar {
     position: fixed;
     bottom: 30px;
@@ -120,7 +112,6 @@
 }
 
 
-/* Cancha desactivada */
 .tarjeta-usuario.no-disponible {
     opacity: 0.5;
     pointer-events: none;
@@ -128,7 +119,6 @@
     text-decoration: line-through;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
     .foto-usuario {
         height: 160px;
@@ -143,7 +133,6 @@
     }
 }
 
-/* SIDEBAR MODERNO */
 .sidebar {
     position: fixed;
     top: 0;
@@ -160,7 +149,6 @@
     z-index: 200;
 }
 
-/* LOGO */
 .sidebar .logo {
     font-size: 22px;
     font-weight: 600;
@@ -180,7 +168,6 @@
     text-shadow: 0 0 6px rgba(0,185,94,0.5);
 }
 
-/* MENÚ DE ENLACES */
 .sidebar .menu {
     display: flex;
     flex-direction: column;
@@ -207,7 +194,6 @@
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* ✅ CENTRAR CONTENIDO ENTRE EL SIDEBAR Y EL BORDE DERECHO */
 .panel,
 main,
 .container,

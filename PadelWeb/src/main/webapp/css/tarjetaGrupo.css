@@ -1,4 +1,4 @@
-/* === FONDO Y TIPOGRAFÍA === */
+
 body {
     margin: 0;
     background: linear-gradient(135deg, #e6ebff, #f2f5ff);
@@ -7,8 +7,6 @@ body {
     min-height: 100vh;
 }
 
-/* === SIDEBAR FIJO === */
-/* SIDEBAR MODERNO */
 .sidebar {
     position: fixed;
     top: 0;
@@ -25,7 +23,7 @@ body {
     z-index: 200;
 }
 
-/* LOGO */
+
 .sidebar .logo {
     font-size: 22px;
     font-weight: 600;
@@ -45,7 +43,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.5);
 }
 
-/* MENÚ DE ENLACES */
 .sidebar .menu {
     display: flex;
     flex-direction: column;
@@ -72,7 +69,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* === TÍTULO PRINCIPAL PARA JUGADOR === */
 .titulo-jugador {
     font-size: 36px;
     font-weight: 700;
@@ -83,7 +79,6 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-/* === CUPOS RESTANTES === */
 .cupos {
     display: flex;
     gap: 10px;
@@ -111,7 +106,6 @@ body {
     transform: scale(1.1);
 }
 
-/* === BOTÓN SALIR DEL GRUPO === */
 .btn-salir {
     font-size: 14px;
     padding: 6px 12px;
@@ -126,7 +120,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* === BOTÓN CREAR GRUPO FLOTANTE PARA JUGADOR === */
 .btn-agregar-jugador {
     background-color: #00c36b;
     color: white;
@@ -158,7 +151,6 @@ body {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* === CONTENEDOR PRINCIPAL === */
 .contenedor-grupos {
     margin-left: 220px;
     max-width: calc(100vw - 220px);
@@ -169,7 +161,6 @@ body {
     gap: 40px;
 }
 
-/* === TARJETA DE GRUPO === */
 .tarjeta-grupo {
     background: rgba(0, 0, 0, 0.85);
     color: white;
@@ -183,7 +174,6 @@ body {
     gap: 20px;
 }
 
-/* === INFO DEL GRUPO === */
 .info-grupo p {
     margin: 0 0 8px;
     font-size: 16px;
@@ -195,7 +185,6 @@ body {
     border-radius: 12px;
 }
 
-/* === PARTICIPANTES EN FILA === */
 .participantes {
     display: flex;
     justify-content: center;
@@ -228,7 +217,6 @@ body {
     word-break: break-word;
 }
 
-/* === ACCIONES DEL GRUPO === */
 .acciones-grupo {
     display: flex;
     justify-content: center;
@@ -250,7 +238,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* === BOTÓN FLOTANTE ABAJO A LA DERECHA === */
 .btn-agregar {
     background-color: #00c36b;
     color: white;
@@ -282,7 +269,6 @@ body {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* === MENSAJE VACÍO === */
 .text-center {
     font-size: 18px;
     color: #555;
@@ -332,8 +318,8 @@ body {
 }
 
 .badge-categoria {
-    background-color: #007501; /* verde oscuro */
-    color: var(--verde-claro); /* texto verde claro */
+    background-color: #007501;
+    color: var(--verde-claro);
     font-weight: 600;
     padding: 6px 12px;
     border-radius: 12px;
@@ -342,9 +328,8 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Hover: verde más claro */
 .badge-categoria:hover {
-    background-color: var(--verde);     /* verde más claro */
-    color: #ffffff;                        /* texto oscuro para contraste */
+    background-color: var(--verde);
+    color: #ffffff;
     box-shadow: 0 4px 12px rgb(0, 169, 92);
 }

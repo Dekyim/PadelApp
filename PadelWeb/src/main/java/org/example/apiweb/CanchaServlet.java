@@ -22,7 +22,6 @@ public class CanchaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
-            // Verificamos si ya hay mensajes seteados desde doPost
             String mensajeExito = (String) request.getAttribute("mensajeExito");
             String mensajeError = (String) request.getAttribute("mensajeError");
 
@@ -38,7 +37,6 @@ public class CanchaServlet extends HttpServlet {
             }
             request.setAttribute("fotosPorId", fotosPorId);
 
-            // Volvemos a setear los mensajes si existen
             if (mensajeExito != null) request.setAttribute("mensajeExito", mensajeExito);
             if (mensajeError != null) request.setAttribute("mensajeError", mensajeError);
 

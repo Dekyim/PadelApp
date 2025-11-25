@@ -22,7 +22,6 @@
 
 <%@ include file="/WEB-INF/components/headerAdmin.jsp" %>
 
-<!-- ✅ CONTENIDO PRINCIPAL -->
 <main class="panel">
 
     <% if (mensajeExito != null) { %>
@@ -31,7 +30,6 @@
     <div class="alert error"><%= mensajeError %></div>
     <% } %>
 
-    <!-- 🔍 FILTROS -->
     <form method="get" action="reserva" class="filtros">
         <input type="text" name="cedulaUsuario" placeholder="Buscar por nombre o cédula..." value="${param.cedulaUsuario}">
         <input type="date" name="fecha" value="${param.fecha}">
@@ -54,7 +52,6 @@
 
     <a href="crearreserva" class="btn-nueva"><i class="fi fi-rr-plus"></i></a>
 
-    <!-- 🧾 LISTA DE RESERVAS -->
     <section class="listaReservas">
         <% if (listaReservas != null && !listaReservas.isEmpty()) {
             for (Reserva reserva : listaReservas) {

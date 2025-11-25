@@ -8,7 +8,7 @@ public class CloudinaryConfig {
 
     static {
         cloudinary = new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "doqev0ese", // reemplazalo si tu cloud name es distinto
+                "cloud_name", "doqev0ese",
                 "api_key", "992389942268255",
                 "api_secret", "g5I-mfE8ul4J-dHiKQuH_lEYjQQ"
         ));

@@ -8,9 +8,7 @@
     --borde-suave: rgba(255, 255, 255, 0.15);
 }
 
-/* ------------------------------
-   BASE GENERAL
------------------------------- */
+
 body {
     margin: 0;
     min-height: 100vh;
@@ -22,7 +20,6 @@ body {
     color: #fff;
 }
 
-/* SIDEBAR MODERNO */
 .sidebar {
     position: fixed;
     top: 0;
@@ -39,7 +36,6 @@ body {
     z-index: 200;
 }
 
-/* LOGO */
 .sidebar .logo {
     font-size: 22px;
     font-weight: 600;
@@ -59,7 +55,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.5);
 }
 
-/* MENÚ DE ENLACES */
 .sidebar .menu {
     display: flex;
     flex-direction: column;
@@ -86,7 +81,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* ===== Centrado del contenido ===== */
 main, .panel, section, .container, .content, .footer {
     margin-left: 220px;
     max-width: calc(100vw - 220px);
@@ -97,9 +91,6 @@ main, .panel, section, .container, .content, .footer {
 }
 
 
-/* ------------------------------
-   CONTENIDO CENTRAL
------------------------------- */
 main,
 .container,
 section,
@@ -114,9 +105,6 @@ section,
     padding: 40px;
 }
 
-/* ------------------------------
-   FORMULARIO PRINCIPAL
------------------------------- */
 .login-form {
     background: rgba(15, 15, 15, 0.7);
     backdrop-filter: blur(12px);
@@ -149,9 +137,6 @@ section,
     text-shadow: 0 0 8px rgba(0,185,94,0.4);
 }
 
-/* ------------------------------
-   FOTO / IMAGEN (mantiene tamaño original)
------------------------------- */
 img {
     border-radius: 50%;
     width: 150px;
@@ -168,9 +153,6 @@ img:hover {
     box-shadow: 0 0 18px rgba(0, 185, 94, 0.6);
 }
 
-/* ------------------------------
-   INPUTS Y SELECTS
------------------------------- */
 .form-input-material {
     width: 94.5%;
     margin: 18px 0;
@@ -214,9 +196,6 @@ img:hover {
     color: #fff;
 }
 
-/* ------------------------------
-   BOTONES
------------------------------- */
 .btn {
     width: 100%;
     background: linear-gradient(135deg, var(--verde), var(--verde-oscuro));
@@ -242,9 +221,6 @@ img:hover {
             0 0 10px rgba(255,255,255,0.15);
 }
 
-/* ------------------------------
-   MENSAJES DE ALERTA
------------------------------- */
 .mensaje-error,
 .mensaje-exito {
     padding: 10px;
@@ -267,9 +243,6 @@ img:hover {
     border: 1px solid rgba(0, 185, 94, 0.4);
 }
 
-/* ------------------------------
-   RESPONSIVE
------------------------------- */
 @media (max-width: 768px) {
     .sidebar {
         position: relative;
@@ -299,7 +272,7 @@ img:hover {
 }
 
 a {
-    color: #d7ecff;
+    color: #00b95e;
     text-decoration: none;
     font-size: 13px;
 }

@@ -93,7 +93,6 @@ public class ReservaServlet extends HttpServlet {
                             : reservaDAO.listarTodasLasReservas();
                 }
 
-                // Filtro de pago
                 if (estadoPago != null && !estadoPago.isEmpty()) {
                     reservas.removeIf(r ->
                             ("pagadas".equalsIgnoreCase(estadoPago) && !r.isEstaPagada()) ||
@@ -107,7 +106,6 @@ public class ReservaServlet extends HttpServlet {
                         : reservaDAO.listarTodasLasReservas();
             }
 
-            // 馃З Paginaci贸n
             int reservasPorPagina = 12;
             int paginaActual = 1;
 
@@ -127,7 +125,6 @@ public class ReservaServlet extends HttpServlet {
 
             List<Reserva> reservasPagina = reservas.subList(inicio, fin);
 
-            // Cargar nombres de usuarios y n煤mero de cancha
             for (Reserva reserva : reservasPagina) {
                 String cedulaUsuario = reserva.getCedulaUsuario();
                 if (!nombresUsuarios.containsKey(cedulaUsuario)) {

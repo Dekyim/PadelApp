@@ -26,17 +26,14 @@ public class CanchaUsuarioServlet extends HttpServlet {
             HttpSession session = request.getSession(false);
             Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
 
-            // Verificamos si hay usuario logueado
             if (usuario == null) {
                 response.sendRedirect(request.getContextPath() + "/login.jsp");
                 return;
             }
 
-            // Cargar canchas
             Vector<Cancha> canchas = new CanchaDAO().listarCancha();
             request.setAttribute("listaCanchas", canchas);
 
-            // Cargar imágenes de cada cancha
             FotoCanchaDAO fotoDAO = new FotoCanchaDAO();
             Map<Integer, String> fotosPorId = new HashMap<>();
             for (Cancha cancha : canchas) {
@@ -45,12 +42,10 @@ public class CanchaUsuarioServlet extends HttpServlet {
             }
             request.setAttribute("fotosPorId", fotosPorId);
 
-            // Datos del usuario
             request.setAttribute("usuario", usuario);
             request.setAttribute("cedulaUsuario", usuario.getCedula());
             request.setAttribute("esAdmin", usuario.esAdministrador());
 
-            // Redirigir al JSP
             request.getRequestDispatcher("/canchaUsuario.jsp").forward(request, response);
 
         } catch (Exception e) {

@@ -1,4 +1,4 @@
-/* ====== BASE GENERAL ====== */
+
 body {
     background: #eceffc;
     margin: 0;
@@ -11,7 +11,7 @@ body {
     padding: 0 20px;
 }
 
-/* ====== BLOQUE DE FOTO DE PERFIL ====== */
+
 .foto-perfil-form {
     text-align: center;
     background: white;
@@ -44,7 +44,6 @@ body {
     width: auto;
 }
 
-/* ====== FORMULARIO DE DATOS ====== */
 .login-form {
     background: rgba(0, 0, 0, 0.85);
     color: white;
@@ -90,7 +89,6 @@ body {
     outline: none;
 }
 
-/* ====== SELECT OSCURO ====== */
 .select-dark {
     background: rgba(255, 255, 255, 0.06);
     color: #fff;
@@ -113,7 +111,6 @@ body {
     color: #fff;
 }
 
-/* ====== BOTONES ====== */
 .btn {
     padding: 10px 20px;
     border-radius: 4px;
@@ -155,7 +152,6 @@ body {
     text-decoration: underline;
 }
 
-/* ====== RESPONSIVO ====== */
 @media (max-width: 600px) {
     .container {
         padding: 0 10px;
@@ -182,7 +178,6 @@ body {
     justify-content: center;
 }
 
-/* ====== SIDEBAR MODERNO ====== */
 .sidebar {
     position: fixed;
     top: 0;
@@ -199,7 +194,6 @@ body {
     z-index: 200;
 }
 
-/* ====== LOGO ====== */
 .sidebar .logo {
     font-size: 22px;
     font-weight: 600;
@@ -219,7 +213,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.5);
 }
 
-/* ====== MENÚ DE ENLACES ====== */
 .sidebar .menu {
     display: flex;
     flex-direction: column;

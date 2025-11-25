@@ -17,7 +17,6 @@
 
 <section class="links container d-flex justify-content-center align-items-center flex-wrap gap-4">
 
-    <!-- USUARIOS -->
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-user fs-1 mb-3" style="color:#00b95e;"></i>
         <h3>Usuarios</h3>
@@ -25,7 +24,6 @@
         <a href="<%= request.getContextPath() %>/verPerfilJugador" class="btn-principal">Ir al panel</a>
     </div>
 
-    <!-- CANCHAS -->
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-tennis fs-1 mb-3" style="color:#00b95e;"></i>
         <h3>Canchas</h3>
@@ -33,7 +31,6 @@
         <a href="<%= request.getContextPath() %>/canchaUsuario" class="btn-principal">Ir al panel</a>
     </div>
 
-    <!-- GRUPOS -->
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-users fs-1 mb-3" style="color:#00b95e;"></i>
         <h3>Grupos</h3>
@@ -41,7 +38,6 @@
         <a href="<%= request.getContextPath() %>/grupojugador" class="btn-principal">Ir al panel</a>
     </div>
 
-    <!-- RESERVAS -->
     <div class="link-card card p-4 text-center shadow-sm" style="width: 18rem;">
         <i class="fi fi-rr-calendar fs-1 mb-3" style="color:#00b95e;"></i>
         <h3>Reservas</h3>

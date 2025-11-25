@@ -54,7 +54,6 @@
 
     <input type="hidden" name="numero" value="<%= cancha.getNumero() %>">
 
-    <!-- Imagen actual y panel de selección -->
     <div class="imagen-cancha text-center mb-4">
         <img src="<%= urlFoto %>" alt="Foto de la cancha" class="foto-cancha" id="previewImagen" style="cursor:pointer;">
 

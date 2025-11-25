@@ -6,7 +6,7 @@ import jakarta.servlet.http.*;
 import models.Usuario;
 import java.io.IOException;
 
-// Este filtro se aplica a todo menos login, registro y hello-servlet
+
 @WebFilter("/*")
 public class AuthFilter implements Filter {
 

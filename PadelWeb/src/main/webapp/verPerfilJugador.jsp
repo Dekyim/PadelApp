@@ -56,7 +56,6 @@
     <div class="alert alert-success text-center"><%= mensaje %></div>
     <% } %>
 
-    <!-- Formulario para subir nueva foto -->
     <form action="subirFotoPerfil" method="post" enctype="multipart/form-data" class="foto-perfil-form">
         <input type="hidden" name="cedula" value="<%= jugador.getCedula() %>">
         <h1 class="perfil-titulo"><i class="bi bi-person-circle"></i> Foto de perfil</h1>
@@ -75,7 +74,6 @@
     </form>
 
 
-    <!-- Formulario para editar datos del jugador -->
     <form class="login-form" action="verPerfilJugador" method="post">
         <h2 class="perfil-titulo"><i class="bi bi-pencil-square"></i> Datos del jugador</h2>
 

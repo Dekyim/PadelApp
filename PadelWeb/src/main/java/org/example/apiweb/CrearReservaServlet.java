@@ -54,7 +54,6 @@ public class CrearReservaServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         Usuario usuario = (session != null) ? (Usuario) session.getAttribute("authUser") : null;
 
-        // Solo si NO es administrador, se asigna la cédula
         if (usuario != null && !usuario.esAdministrador()) {
             request.setAttribute("cedulaUsuarioSeleccionada", usuario.getCedula());
         }

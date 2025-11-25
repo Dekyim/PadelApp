@@ -7,7 +7,6 @@
     --gris-suave: #dcdcdc;
 }
 
-/* ===== Estructura general ===== */
 body {
     margin: 0;
     padding: 0;
@@ -20,7 +19,6 @@ body {
     min-height: 100vh;
 }
 
-/* ===== Sidebar ===== */
 .sidebar {
     position: fixed;
     top: 0;
@@ -81,7 +79,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* ===== Centrado del contenido ===== */
 main, .panel, section, .container, .content, .footer {
     margin-left: 220px;
     max-width: calc(100vw - 220px);
@@ -91,7 +88,6 @@ main, .panel, section, .container, .content, .footer {
     text-align: center;
 }
 
-/* ===== FORMULARIO PRINCIPAL ===== */
 .login-form {
     background: rgba(0, 0, 0, 0.85);
     padding: 45px 40px;
@@ -117,7 +113,6 @@ main, .panel, section, .container, .content, .footer {
     color: var(--verde);
 }
 
-/* ===== Estructura de campos ===== */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -130,7 +125,6 @@ main, .panel, section, .container, .content, .footer {
     }
 }
 
-/* ===== Etiquetas ===== */
 .form-input-material label {
     display: block;
     margin-bottom: 6px;
@@ -139,7 +133,6 @@ main, .panel, section, .container, .content, .footer {
     font-weight: 500;
 }
 
-/* ===== Inputs y selects ===== */
 .form-input-material input,
 .form-input-material select {
     width: 100%;
@@ -170,7 +163,6 @@ main, .panel, section, .container, .content, .footer {
     color: #fff;
 }
 
-/* ===== Botón principal ===== */
 .btn {
     width: 100%;
     background: linear-gradient(135deg, var(--verde), var(--verde-oscuro));
@@ -192,19 +184,16 @@ main, .panel, section, .container, .content, .footer {
     box-shadow: 0 6px 18px rgba(0,185,94,0.4);
 }
 
-/* ===== Mensajes de error ===== */
 p[style*="color:red"] {
     color: #ff6b6b !important;
     font-weight: 600;
     text-align: center;
 }
 
-/* ===== Animaciones suaves ===== */
 input, select, button {
     transition: all 0.3s ease;
 }
 
-/* ===== Scrollbar personalizada ===== */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -216,7 +205,6 @@ input, select, button {
     background: var(--verde-oscuro);
 }
 
-/* ===== Detalles visuales extra ===== */
 input[readonly] {
     opacity: 0.8;
     cursor: not-allowed;
@@ -226,12 +214,11 @@ select:disabled {
     opacity: 0.5;
 }
 
-/* ===== Sombra neon al pasar el mouse por el formulario ===== */
 .login-form:focus-within {
     box-shadow: 0 0 25px rgba(0, 185, 94, 0.35);
 }
 
-/* ===== Ajuste responsivo ===== */
+
 @media (max-width: 500px) {
     .login-form {
         padding: 30px 20px;
@@ -245,21 +232,20 @@ select:disabled {
 }
 
 
-/* ===== 📍 CENTRADO DEL CONTENIDO ENTRE SIDEBAR Y PÁGINA ===== */
+
 main, .panel, section, .container, .content {
-    margin-left: 220px; /* espacio que ocupa el sidebar */
-    width: calc(100vw - 220px); /* resto de la página */
+    margin-left: 220px;
+    width: calc(100vw - 220px);
     min-height: 100vh;
 
     display: flex;
-    justify-content: center; /* centra horizontalmente */
-    align-items: center;     /* centra verticalmente */
+    justify-content: center;
+    align-items: center;
     text-align: center;
     padding: 40px;
     box-sizing: border-box;
 }
 
-/* 🧩 Ajuste extra para el formulario */
 .login-form {
     margin: 0 auto;
     width: 100%;

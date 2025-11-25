@@ -63,11 +63,9 @@ public class SubirFotoPerfilServlet extends HttpServlet {
             request.setAttribute("mensajeFoto", "Foto actualizada correctamente.");
 
             if (esSuPropioPerfil) {
-                // El administrador está editando su propia foto
                 request.setAttribute("usuario", usuario);
                 request.getRequestDispatcher("/verPerfilAdministrador.jsp").forward(request, response);
             } else {
-                // El administrador está editando la foto de otro jugador, o es un jugador normal
                 request.setAttribute("cedula", cedula);
                 response.sendRedirect("verPerfilJugador?cedula=" + cedula);
             }

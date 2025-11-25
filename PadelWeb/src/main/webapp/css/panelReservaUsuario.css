@@ -1,4 +1,4 @@
-/* PANEL GENERAL */
+
 .panel {
     margin-left: 220px;
     max-width: calc(100vw - 220px);
@@ -10,7 +10,6 @@
     text-align: left;
 }
 
-/* TÍTULO */
 .tituloGestion {
     font-size: 2rem;
     font-weight: bold;
@@ -21,7 +20,6 @@
     display: inline-block;
 }
 
-/* INFO DEL USUARIO */
 .info-usuario {
     background: rgba(0, 0, 0, 0.7);
     padding: 15px 20px;
@@ -38,7 +36,6 @@
     margin: 0;
 }
 
-/* FORMULARIO DE FILTROS */
 .filtros-reservas {
     background: rgba(0, 0, 0, 0.75);
     padding: 25px;
@@ -50,7 +47,7 @@
 }
 
 .filtros-reservas label {
-    color: #89d4ff;
+    color: #00b95e;
     font-weight: 500;
 }
 
@@ -89,16 +86,15 @@
 }
 
 .filtros-reservas .btn-outline-secondary {
-    color: #89d4ff;
-    border-color: #89d4ff;
+    color: #00b95e;
+    border-color: #00b95e;
 }
 
 .filtros-reservas .btn-outline-secondary:hover {
-    background-color: #89d4ff;
+    background-color: #00b95e;
     color: #000;
 }
 
-/* TABLA DE RESERVAS */
 .tabla-reservas {
     background: rgba(0, 0, 0, 0.75);
     border-radius: 14px;
@@ -123,7 +119,6 @@
     vertical-align: middle;
 }
 
-/* BADGES */
 .badge.bg-success {
     background-color: #00b95e !important;
 }
@@ -136,7 +131,6 @@
     background-color: #6c757d !important;
 }
 
-/* BOTONES DE ACCIÓN */
 .btn-sm {
     margin: 3px;
     border-radius: 8px;
@@ -152,7 +146,6 @@
     transform: scale(1.05);
 }
 
-/* TOTAL PAGADO */
 .alert-success {
     background-color: rgba(0, 185, 94, 0.2);
     color: #00b95e;
@@ -161,7 +154,6 @@
     box-shadow: 0 0 10px rgba(0, 185, 94, 0.3);
 }
 
-/* BOTÓN VOLVER */
 .btn-secondary {
     background-color: #333;
     border: none;
@@ -173,7 +165,6 @@
     background-color: #555;
 }
 
-/* SIDEBAR COMPATIBLE */
 .sidebar {
     position: fixed;
     top: 0;
@@ -235,7 +226,6 @@
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* CENTRAR CONTENIDO */
 .panel,
 main,
 .container,
@@ -248,7 +238,6 @@ section {
     text-align: center;
 }
 
-/* Tabla directamente sobre fondo claro, sin contenedor */
 .tabla-redondeada {
     border-radius: 14px;
     overflow: hidden;
@@ -276,6 +265,6 @@ section {
 }
 
 .precio-claro {
-    color: #bfc8d6; /* gris claro, legible sobre fondo oscuro */
+    color: #bfc8d6;
     font-weight: 500;
 }

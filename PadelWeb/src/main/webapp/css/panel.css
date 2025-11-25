@@ -6,7 +6,7 @@ body {
     min-height: 100vh;
 }
 
-/* HEADER FIJO ARRIBA DEL TODO */
+
 .header {
     position: fixed;
     top: 0;
@@ -28,7 +28,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Enlaces del header */
+
 .enlaces a {
     color: #89d4ff;
     text-decoration: none;
@@ -42,7 +42,7 @@ body {
     text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
 }
 
-/* H1 clickeable dentro del header */
+
 .header h1 > a {
     all: unset;
     color: #fff;
@@ -55,14 +55,14 @@ body {
     text-shadow: 0 0 6px rgba(0, 185, 94, 0.5);
 }
 
-/* CONTENIDO GENERAL */
+
 .panel {
     max-width: 1100px;
     margin: 120px auto 50px;
     padding: 0 30px;
 }
 
-/* 🌟 BARRA DE BÚSQUEDA MODERNA */
+
 .busquedaAgregar {
     display: flex;
     justify-content: center;
@@ -76,7 +76,6 @@ body {
     backdrop-filter: blur(6px);
 }
 
-/* Contenedor interno del formulario */
 .busquedaAgregar form {
     display: flex;
     align-items: center;
@@ -84,10 +83,10 @@ body {
     gap: 10px;
 }
 
-/* Ícono de lupa */
+
 .busquedaAgregar i {
     font-size: 20px;
-    color: #89d4ff;
+    color: #00b95e;
     opacity: 0.9;
     margin-left: 5px;
     transition: transform 0.3s ease, color 0.3s ease;
@@ -98,7 +97,6 @@ body {
     color: #00b95e;
 }
 
-/* Campo de búsqueda */
 .busquedaAgregar input {
     flex: 1;
     border: none;
@@ -116,9 +114,8 @@ body {
     box-shadow: 0 0 8px rgba(137, 212, 255, 0.4);
 }
 
-/* Botón de búsqueda */
 .busquedaAgregar button {
-    background-color: #89d4ff; /* color celeste principal */
+    background-color: #00b95e;
     color: #0b0b0b;
     border: none;
     border-radius: 8px;
@@ -131,13 +128,12 @@ body {
 }
 
 .busquedaAgregar button:hover {
-    background-color: #00b95e; /* verde hover */
+    background-color: #00b95e;
     color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 185, 94, 0.4);
 }
 
-/* BOTÓN FLOTANTE ABAJO A LA DERECHA */
 .btn-agregar {
     background-color: #00c36b;
     color: white;
@@ -170,7 +166,6 @@ body {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* LISTA DE USUARIOS EN TARJETAS */
 .listaUser ul {
     list-style: none;
     padding: 0;
@@ -196,7 +191,6 @@ body {
     background: rgba(0, 0, 0, 0.85);
 }
 
-/* Contenedor de botones dentro de cada tarjeta */
 .listaUser li div {
     display: flex;
     align-items: center;
@@ -204,7 +198,6 @@ body {
     gap: 10px;
 }
 
-/* Botones */
 .listaUser button {
     background: transparent;
     border: none;
@@ -224,7 +217,6 @@ body {
     transform: scale(1.15);
 }
 
-/* Colores según acción */
 .listaUser button[title="Eliminar"]:hover {
     background: rgba(255, 0, 0, 0.15);
     color: #ff4d4d;
@@ -237,10 +229,9 @@ body {
 
 .listaUser button[title="Ver"]:hover {
     background: rgba(137, 212, 255, 0.15);
-    color: #89d4ff;
+    color: #00b95e;
 }
 
-/* TÍTULO */
 .titulo {
     text-align: center;
     margin-bottom: 30px;
@@ -258,7 +249,6 @@ body {
     font-family: "Poppins", sans-serif;
 }
 
-/* PAGINACIÓN */
 .pagination {
     margin-top: 40px;
     gap: 8px;
@@ -306,7 +296,6 @@ body {
     box-shadow: 0 0 6px rgba(0, 185, 94, 0.4);
 }
 
-/* SIDEBAR MODERNO */
 .sidebar {
     position: fixed;
     top: 0;
@@ -323,7 +312,6 @@ body {
     z-index: 200;
 }
 
-/* LOGO */
 .sidebar .logo {
     font-size: 22px;
     font-weight: 600;
@@ -343,7 +331,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.5);
 }
 
-/* MENÚ DE ENLACES */
 .sidebar .menu {
     display: flex;
     flex-direction: column;
@@ -370,7 +357,6 @@ body {
     text-shadow: 0 0 6px rgba(0,185,94,0.4);
 }
 
-/* ✅ CENTRAR CONTENIDO ENTRE EL SIDEBAR Y EL BORDE DERECHO */
 .panel,
 main,
 .container,
@@ -383,7 +369,6 @@ section {
     text-align: center;
 }
 
-/* Centra barra de búsqueda y título */
 .busquedaAgregar,
 .titulo {
     width: 100%;
@@ -391,7 +376,6 @@ section {
     margin: 0 auto 35px;
 }
 
-/* Centra lista de usuarios */
 .listaUser {
     width: 100%;
     max-width: 1100px;
@@ -409,7 +393,6 @@ section {
     list-style: none;
 }
 
-/* Centra la paginación */
 .pagination {
     justify-content: center;
     margin-left: 220px;
@@ -459,7 +442,7 @@ td {
 .btn-sm:hover {
     transform: scale(1.05);
 }
-/* FOTO DE PERFIL EN LISTA DE USUARIOS */
+
 .listaUser li img {
     width: 50px;
     height: 50px;
@@ -474,7 +457,6 @@ td {
     transform: scale(1.05);
 }
 
-/* CONTENEDOR DE INFO DE USUARIO (FOTO + NOMBRE) */
 .listaUser li .info-jugador {
     display: flex;
     align-items: center;
@@ -492,14 +474,12 @@ td {
     text-overflow: ellipsis;
 }
 
-/* BOTONES DE ACCIÓN */
 .listaUser li .acciones {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* RESPONSIVO PARA PANTALLAS PEQUEÑAS */
 @media (max-width: 500px) {
     .listaUser li {
         flex-direction: column;
@@ -517,7 +497,6 @@ td {
     }
 }
 
-/* TARJETA DE USUARIO REESTRUCTURADA */
 .tarjeta-usuario {
     background: rgba(0, 0, 0, 0.75);
     border-radius: 14px;
@@ -536,7 +515,6 @@ td {
     background: rgba(0, 0, 0, 0.85);
 }
 
-/* FOTO DE PERFIL GRANDE Y CENTRADA */
 .foto-usuario {
     width: 90px;
     height: 90px;
@@ -551,7 +529,6 @@ td {
     transform: scale(1.05);
 }
 
-/* INFO DEL USUARIO */
 .info-usuario span {
     font-size: 16px;
     font-weight: 500;
@@ -559,7 +536,6 @@ td {
     word-break: break-word;
 }
 
-/* BOTONES DE ACCIÓN */
 .acciones {
     display: flex;
     justify-content: center;
@@ -586,7 +562,6 @@ td {
     transform: scale(1.15);
 }
 
-/* COLORES SEGÚN ACCIÓN */
 .acciones button[title="Eliminar"]:hover {
     background: rgba(255, 0, 0, 0.15);
     color: #ff4d4d;
@@ -602,7 +577,6 @@ td {
     color: #00b95e;
 }
 
-/* RESPONSIVO */
 @media (max-width: 500px) {
     .tarjeta-usuario {
         padding: 16px;
@@ -633,7 +607,6 @@ td {
         font-size: 15px;
     }
 }
-/* TARJETA DE USUARIO REESTRUCTURADA */
 .tarjeta-usuario {
     background: rgba(0, 0, 0, 0.75);
     border-radius: 14px;
@@ -652,7 +625,7 @@ td {
     background: rgba(0, 0, 0, 0.85);
 }
 
-/* FOTO DE PERFIL GRANDE Y CENTRADA */
+
 .foto-usuario {
     width: 90px;
     height: 90px;
@@ -667,7 +640,6 @@ td {
     transform: scale(1.05);
 }
 
-/* INFO DEL USUARIO */
 .info-usuario span {
     font-size: 16px;
     font-weight: 500;
@@ -675,7 +647,6 @@ td {
     word-break: break-word;
 }
 
-/* BOTONES DE ACCIÓN */
 .acciones {
     display: flex;
     justify-content: center;
@@ -702,7 +673,6 @@ td {
     transform: scale(1.15);
 }
 
-/* COLORES SEGÚN ACCIÓN */
 .acciones button[title="Eliminar"]:hover {
     background: rgba(255, 0, 0, 0.15);
     color: #ff4d4d;
@@ -715,10 +685,9 @@ td {
 
 .acciones button[title="Ver"]:hover {
     background: rgba(137, 212, 255, 0.15);
-    color: #89d4ff;
+    color: #00b95e;
 }
 
-/* RESPONSIVO */
 @media (max-width: 500px) {
     .tarjeta-usuario {
         padding: 16px;
@@ -814,7 +783,7 @@ td {
 
 .acciones button[title="Ver"]:hover {
     background: rgba(137, 212, 255, 0.15);
-    color: #89d4ff;
+    color: #00b95e;
 }
 
 .no-disponible {
@@ -848,7 +817,6 @@ td {
     background: rgba(0, 0, 0, 0.85);
 }
 
-/* Contenedor de botones dentro de cada tarjeta */
 .listaCancha li div {
     display: flex;
     align-items: center;
@@ -856,7 +824,6 @@ td {
     gap: 10px;
 }
 
-/* Botones */
 .listaCancha button {
     background: transparent;
     border: none;
@@ -876,7 +843,6 @@ td {
     transform: scale(1.15);
 }
 
-/* Colores según acción */
 .listaCancha button[title="Eliminar"]:hover {
     background: rgba(255, 0, 0, 0.15);
     color: #ff4d4d;
@@ -889,7 +855,7 @@ td {
 
 .listaCancha button[title="Ver"]:hover {
     background: rgba(137, 212, 255, 0.15);
-    color: #89d4ff;
+    color: #00b95e;
 }
 .listaCancha {
     width: 100%;
@@ -899,7 +865,6 @@ td {
 }
 
 
-/* FOTO DE PERFIL EN LISTA DE USUARIOS */
 .listaCancha li img {
     width: 50px;
     height: 100%;
@@ -913,7 +878,6 @@ td {
     transform: scale(1.05);
 }
 
-/* CONTENEDOR DE INFO DE USUARIO (FOTO + NOMBRE) */
 .listaCancha li .info-jugador {
     display: flex;
     align-items: center;
@@ -931,14 +895,12 @@ td {
     text-overflow: ellipsis;
 }
 
-/* BOTONES DE ACCIÓN */
 .listaCancha li .acciones {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* RESPONSIVO PARA PANTALLAS PEQUEÑAS */
 @media (max-width: 500px) {
     .listaCancha li {
         flex-direction: column;

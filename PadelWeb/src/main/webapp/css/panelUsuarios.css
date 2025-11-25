@@ -155,7 +155,6 @@ body {
     box-shadow: 0 6px 15px rgba(0, 185, 94, 0.4);
 }
 
-/* ➕ BOTÓN FLOTANTE */
 .btn-agregar {
     position: fixed;
     bottom: 35px;
@@ -179,7 +178,6 @@ body {
     box-shadow: 0 0 25px rgba(0,255,160,0.6);
 }
 
-/* 👤 TARJETAS DE USUARIO */
 .listaUsuarios {
     display: flex;
     flex-direction: column;
@@ -400,35 +398,32 @@ border: 1px solid #dc3545;
     text-decoration: line-through;
 }
 
-/* Contenedor de la barra de búsqueda */
 .busquedaAgregar {
-    background-color: #121212; /* negro oscuro */
+    background-color: #121212;
     padding: 10px;
     border-radius: 8px;
 }
 
-/* Input de búsqueda */
 .busquedaAgregar input#buscar {
-    background-color: #2d2d2d; /* gris muy oscuro */
-    color: #009e50; /* verde brillante */
+    background-color: #2d2d2d;
+    color: #009e50;
     border: 1px solid #009e50;
 }
 
 .busquedaAgregar input#buscar::placeholder {
-    color: #009e50; /* verde más tenue para el placeholder */
+    color: #009e50;
 }
 
-/* Botón Buscar */
+
 .busquedaAgregar button.btn-primary {
-    background-color: #009e50; /* negro */
-    color: #000000; /* texto verde */
+    background-color: #009e50;
+    color: #000000;
     border: 1px solid #009e50;
     transition: all 0.3s ease;
 }
 
-/* Hover del botón */
 .busquedaAgregar button.btn-primary:hover {
-    background-color: #009e50; /* verde de fondo */
-    color: #000000; /* texto negro para contraste */
+    background-color: #009e50;
+    color: #000000;
     border-color: #009e50;
 }

@@ -35,7 +35,6 @@
         <% } %>
     </div>
 
-    <!-- Filtros -->
     <form method="get" action="reservasUsuario" class="filtros filtros-reserva">
         <div class="grupo-filtros">
             <input type="date" name="fecha" value="${param.fecha}" placeholder="Fecha">
@@ -86,7 +85,6 @@
         </div>
     </form>
 
-    <!-- 🔄 CAMBIO NUEVO: Lista de reservas con estilo admin -->
     <section class="listaReservas">
         <% if (listaReservas != null && !listaReservas.isEmpty()) {
             for (Reserva reserva : listaReservas) { %>

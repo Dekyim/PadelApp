@@ -36,7 +36,6 @@ public class VerReservaCanchaServlet extends HttpServlet {
                 int numeroCancha = Integer.parseInt(numeroStr);
                 List<Reserva> reservas = reservaDAO.listarReservasPorCancha(numeroCancha);
 
-                // Filtros combinados
                 if (fechaStr != null && !fechaStr.isEmpty()) {
                     java.sql.Date fecha = java.sql.Date.valueOf(fechaStr);
                     reservas.removeIf(r -> !r.getFecha().equals(fecha));
@@ -62,7 +61,6 @@ public class VerReservaCanchaServlet extends HttpServlet {
                     reservas.removeIf(r -> r.isEstaActiva() != activa);
                 }
 
-                // Precios y total
                 Map<Integer, Double> preciosPorReserva = new HashMap<>();
                 double totalGanado = 0;
                 for (Reserva r : reservas) {
