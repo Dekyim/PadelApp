@@ -58,7 +58,7 @@
             <div class="usuario-info">
                 <img src="<%= urlFoto %>" alt="Foto de <%= j.getNombre() %>" class="foto-usuario">
                 <div class="detalles <%= (j.isEstaBaneado() || j.isEstaDeBaja()) ? "inactivo" : "" %>">
-                <h3 class="<%= (j.isEstaBaneado() || j.isEstaDeBaja()) ? "nombre-alerta" : "" %>">
+                    <h3 class="<%= (j.isEstaBaneado() || j.isEstaDeBaja()) ? "nombre-alerta" : "" %>">
                         <%= j.getNombre() + " " + j.getApellido() %>
                     </h3>
                     <p><i class="fi fi-rr-id-badge"></i> <%= j.getCedula() %></p>
@@ -87,15 +87,15 @@
                 <form action="users" method="post" style="display:inline;">
                     <input type="hidden" name="accion" value="editar">
                     <input type="hidden" name="cedula" value="<%= j.getCedula() %>">
-                    <button type="submit" title="Editar" class="btn btn-link text-primary p-0"><i class="fi fi-rr-edit"></i></button>
+                    <button type="submit" title="Editar" class="btn btn-link p-0 btn-link-custom"><i class="fi fi-rr-edit icono-verde"></i></button>
                 </form>
 
                 <form action="users" method="post" style="display:inline;">
                     <input type="hidden" name="accion" value="eliminar">
                     <input type="hidden" name="cedula" value="<%= j.getCedula() %>">
-                    <button type="submit" title="Eliminar" class="btn btn-link text-danger p-0"
+                    <button type="submit" title="Eliminar" class="btn btn-link p-0 btn-link-custom"
                             onclick="return confirm('¿Eliminar a <%= j.getNombre() %>?')">
-                        <i class="fi fi-rr-trash"></i>
+                        <i class="fi fi-rr-trash icono-rojo"></i>
                     </button>
                 </form>
 
@@ -103,15 +103,15 @@
                     <input type="hidden" name="cedula" value="<%= j.getCedula() %>">
                     <% if (j.isEstaBaneado()) { %>
                     <input type="hidden" name="accion" value="desbanear">
-                    <button type="submit" title="Desbanear" class="btn btn-link text-success p-0"
+                    <button type="submit" title="Desbanear" class="btn btn-link p-0 btn-link-custom"
                             onclick="return confirm('¿Desbanear a <%= j.getNombre() %>?')">
-                        <i class="fi fi-rr-unlock"></i>
+                        <i class="fi fi-rr-unlock icono-rojo"></i>
                     </button>
                     <% } else { %>
                     <input type="hidden" name="accion" value="banear">
-                    <button type="submit" title="Banear" class="btn btn-link text-danger p-0"
+                    <button type="submit" title="Banear" class="btn btn-link p-0 btn-link-custom"
                             onclick="return confirm('¿Banear a <%= j.getNombre() %>?')">
-                        <i class="fi fi-rr-lock"></i>
+                        <i class="fi fi-rr-lock icono-rojo"></i>
                     </button>
                     <% } %>
                 </form>
@@ -122,20 +122,20 @@
                     <input type="hidden" name="accion" value="reactivar">
                     <button type="submit" title="Reactivar" class="btn btn-link text-success p-0"
                             onclick="return confirm('¿Reactivar a <%= j.getNombre() %>?')">
-                        <i class="fi fi-rr-user-add"></i>
+                        <i class="fi fi-rr-user-add icono-verde"></i>
                     </button>
                     <% } else { %>
                     <input type="hidden" name="accion" value="darDeBaja">
-                    <button type="submit" title="Dar de baja" class="btn btn-link text-danger p-0"
+                    <button type="submit" title="Dar de baja" class="btn btn-link p-0 btn-link-custom"
                             onclick="return confirm('¿Dar de baja a <%= j.getNombre() %>?')">
-                        <i class="fi fi-rr-user-add"></i>
+                        <i class="fi fi-rr-user-add icono-rojo"></i>
                     </button>
                     <% } %>
                 </form>
 
-                <button type="button" title="Ver reservas"
+                <button type="button" class="edit" title="Ver reservas"
                         onclick="window.location.href='${pageContext.request.contextPath}/verReservaUsuario?cedula=<%= j.getCedula() %>'">
-                    <i class="fi fi-rr-document"></i>
+                    <i class="fi fi-rr-document icono-verde"></i>
                 </button>
             </div>
         </div>

@@ -46,6 +46,7 @@ body {
     padding: 40px 20px;
     z-index: 200;
 }
+
 .sidebar .logo {
     font-size: 22px;
     font-weight: 600;
@@ -53,15 +54,18 @@ body {
     letter-spacing: 1px;
     margin-bottom: 40px;
 }
+
 .sidebar .logo a {
     all: unset;
     color: #fff;
     cursor: pointer;
 }
+
 .sidebar .logo a:hover {
     color: var(--verde);
     text-shadow: 0 0 6px rgba(0,185,94,0.5);
 }
+
 .sidebar .menu {
     display: flex;
     flex-direction: column;
@@ -105,12 +109,14 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(6px);
 }
+
 .busquedaAgregar form {
     display: flex;
     align-items: center;
     flex: 1;
     gap: 10px;
 }
+
 .busquedaAgregar i {
     font-size: 20px;
     color: var(--verde);
@@ -118,10 +124,12 @@ body {
     margin-left: 5px;
     transition: transform 0.3s ease, color 0.3s ease;
 }
+
 .busquedaAgregar i:hover {
     transform: rotate(10deg);
     color: var(--verde);
 }
+
 .busquedaAgregar input {
     flex: 1;
     border: none;
@@ -133,9 +141,11 @@ body {
     padding: 10px 14px;
     box-shadow: inset 0 0 8px rgba(137, 212, 255, 0.15);
 }
+
 .busquedaAgregar input:focus {
     box-shadow: 0 0 8px rgba(137, 212, 255, 0.4);
 }
+
 .busquedaAgregar button {
     background-color: var(--verde);
     color: #0b0b0b;
@@ -148,6 +158,7 @@ body {
     box-shadow: 0 4px 10px rgba(137, 212, 255, 0.2);
     transition: all 0.3s ease;
 }
+
 .busquedaAgregar button:hover {
     background-color: var(--verde);
     color: #fff;
@@ -280,29 +291,15 @@ body {
     cursor: pointer;
     transition: 0.3s;
 }
-button.edit:hover {
-    background: rgba(0, 185, 94, 0.25);
-    color: var(--verde-claro);
-}
 
-button.delete:hover {
-    background: rgba(255, 0, 0, 0.25);
-    color: #ff8080;
+button.edit:hover {
+    color: var(--verde-claro);
+    background: none;
 }
 
 button.lock:hover {
     background: rgba(255, 255, 0, 0.2);
     color: #ffea00;
-}
-
-button.unlock:hover {
-    background: rgba(0, 185, 94, 0.2);
-    color: var(--verde-claro);
-}
-
-button[title="Ver reservas"]:hover {
-    background: rgba(137, 212, 255, 0.2);
-    color: var(--celeste);
 }
 
 .pagination {
@@ -358,8 +355,8 @@ button[title="Ver reservas"]:hover {
 }
 .btn-baja {
     background-color: white;
-    color: #dc3545; / rojo Bootstrap
-border: 1px solid #dc3545;
+    color: #dc3545;
+    border: 1px solid #dc3545;
     padding: 6px 10px;
     border-radius: 6px;
     font-weight: bold;
@@ -414,7 +411,6 @@ border: 1px solid #dc3545;
     color: #009e50;
 }
 
-
 .busquedaAgregar button.btn-primary {
     background-color: #009e50;
     color: #000000;
@@ -426,4 +422,23 @@ border: 1px solid #dc3545;
     background-color: #009e50;
     color: #000000;
     border-color: #009e50;
+}
+
+.btn-link-custom {
+    color: #ffffff !important;
+    text-decoration: none !important
+}
+
+.icono-verde:hover {
+    color: var(--verde-claro);
+    box-shadow: none !important;
+}
+
+.icono-rojo:hover {
+    color: red;
+}
+
+.acciones-card i {
+    color: #fff;
+    text-decoration: none !important
 }
